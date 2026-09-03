@@ -1,0 +1,57 @@
+/* There is no native tabs element, so the ARIA pattern is implemented in
+   full: roving tabindex, arrow keys, Home and End. */
+
+.hub-tabs { display: flex; flex-direction: column; gap: var(--hub-space-5); }
+
+/* The hairline under the whole list is the line the indicator sits on, so
+   the selected tab is visibly joined to the panel below it. Lines mean
+   connection — that is the whole reason this is an underline and not a pill. */
+.hub-tablist {
+  display: flex;
+  gap: var(--hub-space-5);
+  border-bottom: 1px solid var(--hub-color-line);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.hub-tab {
+  position: relative;
+  flex: none;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0 0 var(--hub-space-3);
+  font: var(--hub-text-label);
+  letter-spacing: var(--hub-tracking-label);
+  color: var(--hub-tab-ink);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--hub-duration-fast) var(--hub-ease);
+}
+
+.hub-tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;              /* sits on the list's hairline, not above it */
+  height: 2px;
+  background: var(--hub-tab-indicator);
+  transform: scaleX(0);
+  transition: transform var(--hub-duration-fast) var(--hub-ease);
+}
+
+.hub-tab:hover:not(:disabled) { color: var(--hub-tab-ink-selected); }
+
+.hub-tab[aria-selected="true"] {
+  color: var(--hub-tab-ink-selected);
+}
+.hub-tab[aria-selected="true"]::after { transform: scaleX(1); }
+
+.hub-tab:disabled { opacity: .45; cursor: not-allowed; }
+
+/* The global focus ring sits tight against the label; nudge it clear of the
+   indicator so both stay readable. */
+.hub-tab:focus-visible { outline-offset: 4px; }
+
+.hub-tabpanel:focus-visible { outline-offset: 6px; }

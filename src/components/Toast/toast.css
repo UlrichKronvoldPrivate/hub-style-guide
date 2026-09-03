@@ -1,0 +1,85 @@
+/* Region ─────────────────────────────────────────────────────
+   Default position is bottom-centre, not the usual bottom-right.
+   Our apps put a React Flow canvas on the page, and React Flow's
+   Controls sit bottom-left with the MiniMap bottom-right — a
+   bottom-right toast would land on top of the minimap. */
+
+.hub-toast-region {
+  position: fixed;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: var(--hub-space-3);
+  pointer-events: none;          /* the empty region never eats clicks */
+}
+.hub-toast-region > * { pointer-events: auto; }
+
+.hub-toast-region[data-position="bottom-center"] {
+  bottom: var(--hub-space-6); left: 50%; transform: translateX(-50%); align-items: center;
+}
+.hub-toast-region[data-position="bottom-right"] {
+  bottom: var(--hub-space-6); right: var(--hub-space-6); align-items: flex-end;
+}
+.hub-toast-region[data-position="top-center"] {
+  top: var(--hub-space-6); left: 50%; transform: translateX(-50%); align-items: center;
+}
+.hub-toast-region[data-position="top-right"] {
+  top: var(--hub-space-6); right: var(--hub-space-6); align-items: flex-end;
+}
+
+/* Toast ──────────────────────────────────────────────────── */
+
+.hub-toast {
+  width: var(--hub-toast-width);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--hub-space-4);
+  background: var(--hub-toast-bg);
+  border: 1px solid var(--hub-color-line);
+  border-left: 2px solid var(--hub-color-line-strong);
+  border-radius: var(--hub-toast-radius);
+  box-shadow: var(--hub-toast-shadow);
+  padding: var(--hub-space-4);
+}
+
+/* The tone rides on the same left edge Plate uses, so state looks the same
+   wherever it appears. The message itself always names the outcome, which is
+   what carries the meaning when colour is unavailable. */
+.hub-toast[data-tone="success"] { border-left-color: var(--hub-color-success); }
+.hub-toast[data-tone="warning"] { border-left-color: var(--hub-color-warning); }
+.hub-toast[data-tone="danger"]  { border-left-color: var(--hub-color-danger); }
+
+.hub-toast__message {
+  font: var(--hub-text-body-sm);
+  color: var(--hub-color-ink);
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.hub-toast__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--hub-space-2);
+  flex: none;
+}
+
+/* Appearing answers an action, so it earns motion. Leaving does not. */
+@media (prefers-reduced-motion: no-preference) {
+  .hub-toast-region[data-position^="bottom"] .hub-toast {
+    animation: hub-toast-up var(--hub-duration-base) var(--hub-ease);
+  }
+  .hub-toast-region[data-position^="top"] .hub-toast {
+    animation: hub-toast-down var(--hub-duration-base) var(--hub-ease);
+  }
+}
+
+@keyframes hub-toast-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes hub-toast-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: none; }
+}

@@ -171,6 +171,15 @@
   --hub-dialog-scrim:         var(--hub-color-scrim);
   --hub-dialog-width:         min(480px, calc(100vw - var(--hub-space-6)));
 
+  --hub-tab-ink:              var(--hub-color-ink-muted);
+  --hub-tab-ink-selected:     var(--hub-color-ink);
+  --hub-tab-indicator:        var(--hub-color-action);
+
+  --hub-toast-bg:             var(--hub-color-surface);
+  --hub-toast-radius:         var(--hub-radius-plate);
+  --hub-toast-shadow:         var(--hub-shadow-overlay);
+  --hub-toast-width:          min(420px, calc(100vw - var(--hub-space-6)));
+
   color-scheme: light dark;
 }
 

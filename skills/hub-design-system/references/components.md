@@ -208,6 +208,76 @@ Pills are for status only, never for buttons or filters that toggle.
 State reads in form as well as colour — a dot, a shape, or the word itself, so
 it survives a greyscale print and colour-blind vision.
 
+## Tabs
+
+There is no native tabs element, so the ARIA pattern gets implemented in full:
+`role="tablist"` / `tab` / `tabpanel`, `aria-selected`, `aria-controls`, roving
+tabindex, and arrow keys plus Home and End. Use **automatic activation** —
+moving focus selects — because panels here are local and cheap to render.
+
+The indicator is an underline sitting *on* the tablist hairline, not a pill:
+
+```css
+.hub-tablist { display: flex; gap: var(--hub-space-5);
+               border-bottom: 1px solid var(--hub-color-line); }
+.hub-tab { padding: 0 0 var(--hub-space-3); border: 0; background: transparent;
+           font: var(--hub-text-label); color: var(--hub-tab-ink); }
+.hub-tab::after {
+  content: ""; position: absolute; left: 0; right: 0;
+  bottom: -1px;                    /* on the hairline, not above it */
+  height: 2px; background: var(--hub-tab-indicator);
+  transform: scaleX(0);
+}
+.hub-tab[aria-selected="true"] { color: var(--hub-tab-ink-selected); }
+.hub-tab[aria-selected="true"]::after { transform: scaleX(1); }
+```
+
+That shape is not a style preference. Lines mean connection, so the selected
+tab is drawn joined to the panel it controls. A pill would say "button", which
+is the wrong thing to say.
+
+Tab labels name the content, not the act of viewing it: "Runs", not "View runs".
+Arrow keys skip disabled tabs rather than landing on them.
+
+## Toast
+
+A toast confirms an outcome in the same words as the action that caused it —
+"Publish" produces "Published". Never "Success!", never an apology.
+
+**Neutral and success time out after five seconds. Warning and danger stay
+until dismissed.** Timing out the only account of what went wrong is how a
+problem gets missed.
+
+`role="status"` for neutral and success, `role="alert"` for warning and danger:
+a confirmation waits its turn, a problem interrupts. The region renders even
+when empty so a screen reader is already watching it when the first toast lands.
+
+```css
+.hub-toast {
+  width: var(--hub-toast-width);
+  background: var(--hub-toast-bg);
+  border: 1px solid var(--hub-color-line);
+  border-left: 2px solid var(--hub-color-line-strong);
+  border-radius: var(--hub-toast-radius);
+  box-shadow: var(--hub-toast-shadow);
+  padding: var(--hub-space-4);
+}
+.hub-toast[data-tone="success"] { border-left-color: var(--hub-color-success); }
+.hub-toast[data-tone="warning"] { border-left-color: var(--hub-color-warning); }
+.hub-toast[data-tone="danger"]  { border-left-color: var(--hub-color-danger); }
+```
+
+The tone rides the same left edge Plate uses, so state looks identical wherever
+it appears. The message itself always names the outcome, which is what carries
+the meaning when colour is unavailable.
+
+**Position defaults to bottom-centre, not bottom-right.** React Flow puts its
+Controls bottom-left and its MiniMap bottom-right, so the usual corner is
+already taken in most of our apps.
+
+At most one action per toast, and only where there is genuinely something to
+undo or go to.
+
 ## Table
 
 ```css
