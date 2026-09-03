@@ -1,0 +1,271 @@
+/* ============================================================
+   hub design tokens — "Porcelain & Voltage"
+   Three tiers, the way Material 3 layers reference / system /
+   component tokens:
+
+     1. primitives   raw values, named for the material
+     2. semantic     roles a component is allowed to name
+     3. component    per-component hooks, built from semantics
+
+   A component NEVER names a primitive. That indirection is what
+   makes a theme swap possible.
+   ============================================================ */
+
+:root {
+  /* ── 1. PRIMITIVES ──────────────────────────────────────── */
+
+  /* glazes — flat ceramic fields. 90 = daylight, 20 = winter night */
+  --hub-glacier-90: #C6DEE4;  --hub-glacier-20: #24454E;
+  --hub-lichen-90:  #D6E1C8;  --hub-lichen-20:  #2E4030;
+  --hub-dusk-90:    #D9D5EC;  --hub-dusk-20:    #34304C;
+  --hub-rhubarb-90: #F3D4DC;  --hub-rhubarb-20: #4A2E38;
+  --hub-rye-90:     #EFE4C6;  --hub-rye-20:     #443C24;
+  --hub-clay-90:    #E2DCD4;  --hub-clay-20:    #3B3630;
+
+  /* daylight neutrals — cool, faintly green. never cream */
+  --hub-porcelain:        #F7F8F5;
+  --hub-plate:            #FCFDFA;
+  --hub-ash:              #E4E7DF;
+  --hub-hairline:         #D6DACF;
+  --hub-hairline-strong:  #C2C8BB;
+
+  /* ink — spruce is a green-black, not a tinted grey */
+  --hub-spruce:     #132420;
+  --hub-spruce-60:  #55605A;
+  --hub-spruce-45:  #7E8880;
+
+  /* winter-night neutrals */
+  --hub-night:            #0F1917;
+  --hub-night-plate:      #16221E;
+  --hub-night-field:      #1E2C27;
+  --hub-night-line:       #2A3A34;
+  --hub-night-line-strong:#3A4C45;
+  --hub-frost:     #E9EEE8;
+  --hub-frost-70:  #A2B0A8;
+  --hub-frost-50:  #74827B;
+
+  /* voltage — rationed. see the five percent rule */
+  --hub-cobalt-50: #2B3FC4;  --hub-cobalt-70: #8494FF;
+  --hub-cobalt-95: #E5E7FA;  --hub-cobalt-20: #232D54;
+  --hub-flare-50:  #E8358C;  --hub-flare-70:  #FF77B9;
+  --hub-flare-95:  #FBE0EE;  --hub-flare-20:  #3A1E30;
+
+  /* status — separate from voltage, always */
+  --hub-moss-40: #23684A;  --hub-moss-70: #6FCB9F;
+  --hub-moss-95: #DFF0E7;  --hub-moss-20: #17362A;
+  --hub-amber-40:#8A5D07;  --hub-amber-70:#E9B44C;
+  --hub-amber-95:#F6EBD3;  --hub-amber-20:#3B2D0D;
+  --hub-rust-40: #B33A2B;  --hub-rust-70: #FF8F7A;
+  --hub-rust-95: #F8E2DE;  --hub-rust-20: #3E1C17;
+
+  /* ── 2. SEMANTIC ────────────────────────────────────────── */
+
+  --hub-color-ground:        var(--hub-porcelain);
+  --hub-color-surface:       var(--hub-plate);
+  --hub-color-surface-sunken:var(--hub-ash);
+  --hub-color-line:          var(--hub-hairline);
+  --hub-color-line-strong:   var(--hub-hairline-strong);
+
+  --hub-color-ink:           var(--hub-spruce);
+  --hub-color-ink-muted:     var(--hub-spruce-60);
+  --hub-color-ink-subtle:    var(--hub-spruce-45);
+  --hub-color-ink-on-glaze:  var(--hub-spruce);
+  --hub-color-ink-on-action: #FFFFFF;
+
+  --hub-color-action:        var(--hub-cobalt-50);
+  --hub-color-action-soft:   var(--hub-cobalt-95);
+  --hub-color-focus:         var(--hub-cobalt-50);
+  --hub-color-voltage:       var(--hub-flare-50);
+  --hub-color-voltage-soft:  var(--hub-flare-95);
+
+  --hub-color-success:       var(--hub-moss-40);
+  --hub-color-success-soft:  var(--hub-moss-95);
+  --hub-color-warning:       var(--hub-amber-40);
+  --hub-color-warning-soft:  var(--hub-amber-95);
+  --hub-color-danger:        var(--hub-rust-40);
+  --hub-color-danger-soft:   var(--hub-rust-95);
+
+  --hub-color-glaze-1: var(--hub-glacier-90);
+  --hub-color-glaze-2: var(--hub-lichen-90);
+  --hub-color-glaze-3: var(--hub-dusk-90);
+  --hub-color-glaze-4: var(--hub-rhubarb-90);
+  --hub-color-glaze-5: var(--hub-rye-90);
+  --hub-color-glaze-6: var(--hub-clay-90);
+
+  --hub-color-dot: rgba(19, 36, 32, .10);
+
+  /* ── TYPE ───────────────────────────────────────────────── */
+  --hub-font-sans: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --hub-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --hub-text-display-1: 800 3.8125rem/1.03 var(--hub-font-sans);
+  --hub-text-display-2: 700 2.4375rem/1.10 var(--hub-font-sans);
+  --hub-text-title:     700 1.5625rem/1.20 var(--hub-font-sans);
+  --hub-text-subtitle:  600 1.25rem/1.30   var(--hub-font-sans);
+  --hub-text-body:      400 1rem/1.55      var(--hub-font-sans);
+  --hub-text-body-sm:   400 .875rem/1.50   var(--hub-font-sans);
+  --hub-text-label:     600 .875rem/1      var(--hub-font-sans);
+  --hub-text-caption:   400 .75rem/1.45    var(--hub-font-sans);
+  --hub-text-code:      400 .8125rem/1.50  var(--hub-font-mono);
+
+  --hub-tracking-display-1: -.035em;
+  --hub-tracking-display-2: -.028em;
+  --hub-tracking-title:     -.020em;
+  --hub-tracking-subtitle:  -.012em;
+  --hub-tracking-label:     -.005em;
+  --hub-measure: 66ch;
+
+  /* ── SPACE, SHAPE, MOTION ───────────────────────────────── */
+  --hub-space-1: 4px;   --hub-space-2: 8px;   --hub-space-3: 12px;
+  --hub-space-4: 16px;  --hub-space-5: 24px;  --hub-space-6: 32px;
+  --hub-space-7: 48px;  --hub-space-8: 64px;  --hub-space-9: 96px;
+  --hub-grid: 24px;              /* dot grid pitch = 3 modules */
+
+  --hub-radius-control: 4px;     /* machined */
+  --hub-radius-plate:   12px;    /* pick-up-able */
+  --hub-radius-pill:    999px;   /* status only */
+
+  --hub-shadow-plate: 0 1px 0 var(--hub-color-line),
+                      0 10px 26px -18px rgba(19, 36, 32, .55);
+  --hub-shadow-overlay: 0 1px 0 var(--hub-color-line),
+                        0 24px 48px -24px rgba(19, 36, 32, .45);
+
+  --hub-ease: cubic-bezier(.2, .7, .3, 1);
+  --hub-duration-fast: 160ms;
+  --hub-duration-base: 240ms;
+
+  /* ── 3. COMPONENT ───────────────────────────────────────── */
+  --hub-button-primary-bg:    var(--hub-color-action);
+  --hub-button-primary-ink:   var(--hub-color-ink-on-action);
+  --hub-button-ghost-border:  var(--hub-color-line-strong);
+  --hub-button-ghost-ink:     var(--hub-color-ink);
+  --hub-button-radius:        var(--hub-radius-control);
+  --hub-button-pad:           10px 18px;
+
+  --hub-input-bg:             var(--hub-color-surface);
+  --hub-input-border:         var(--hub-color-line-strong);
+  --hub-input-border-focus:   var(--hub-color-focus);
+  --hub-input-ink-placeholder:var(--hub-color-ink-subtle);
+
+  --hub-plate-bg:             var(--hub-color-surface);
+  --hub-plate-border:         var(--hub-color-line);
+  --hub-plate-shadow:         var(--hub-shadow-plate);
+  --hub-plate-radius:         var(--hub-radius-plate);
+
+  --hub-chip-radius:          var(--hub-radius-pill);
+
+  color-scheme: light dark;
+}
+
+/* ── WINTER NIGHT ─────────────────────────────────────────────
+   Only semantic tokens are redefined. Never restyle a component
+   inside a theme block — restate the token it reads.
+   ─────────────────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --hub-color-ground:        var(--hub-night);
+    --hub-color-surface:       var(--hub-night-plate);
+    --hub-color-surface-sunken:var(--hub-night-field);
+    --hub-color-line:          var(--hub-night-line);
+    --hub-color-line-strong:   var(--hub-night-line-strong);
+
+    --hub-color-ink:           var(--hub-frost);
+    --hub-color-ink-muted:     var(--hub-frost-70);
+    --hub-color-ink-subtle:    var(--hub-frost-50);
+    --hub-color-ink-on-glaze:  var(--hub-frost);
+    --hub-color-ink-on-action: var(--hub-night);
+
+    --hub-color-action:        var(--hub-cobalt-70);
+    --hub-color-action-soft:   var(--hub-cobalt-20);
+    --hub-color-focus:         var(--hub-cobalt-70);
+    --hub-color-voltage:       var(--hub-flare-70);
+    --hub-color-voltage-soft:  var(--hub-flare-20);
+
+    --hub-color-success:       var(--hub-moss-70);
+    --hub-color-success-soft:  var(--hub-moss-20);
+    --hub-color-warning:       var(--hub-amber-70);
+    --hub-color-warning-soft:  var(--hub-amber-20);
+    --hub-color-danger:        var(--hub-rust-70);
+    --hub-color-danger-soft:   var(--hub-rust-20);
+
+    --hub-color-glaze-1: var(--hub-glacier-20);
+    --hub-color-glaze-2: var(--hub-lichen-20);
+    --hub-color-glaze-3: var(--hub-dusk-20);
+    --hub-color-glaze-4: var(--hub-rhubarb-20);
+    --hub-color-glaze-5: var(--hub-rye-20);
+    --hub-color-glaze-6: var(--hub-clay-20);
+
+    --hub-color-dot: rgba(233, 238, 232, .10);
+    --hub-shadow-plate:   0 1px 0 var(--hub-color-line),
+                          0 10px 26px -16px rgba(0, 0, 0, .8);
+    --hub-shadow-overlay: 0 1px 0 var(--hub-color-line),
+                          0 24px 48px -22px rgba(0, 0, 0, .9);
+  }
+}
+
+/* Explicit choice wins over the OS, in both directions.
+   `.dark` is an alias so React Flow's colorMode="dark" works. */
+:root[data-theme="dark"], .dark {
+  --hub-color-ground:        var(--hub-night);
+  --hub-color-surface:       var(--hub-night-plate);
+  --hub-color-surface-sunken:var(--hub-night-field);
+  --hub-color-line:          var(--hub-night-line);
+  --hub-color-line-strong:   var(--hub-night-line-strong);
+
+  --hub-color-ink:           var(--hub-frost);
+  --hub-color-ink-muted:     var(--hub-frost-70);
+  --hub-color-ink-subtle:    var(--hub-frost-50);
+  --hub-color-ink-on-glaze:  var(--hub-frost);
+  --hub-color-ink-on-action: var(--hub-night);
+
+  --hub-color-action:        var(--hub-cobalt-70);
+  --hub-color-action-soft:   var(--hub-cobalt-20);
+  --hub-color-focus:         var(--hub-cobalt-70);
+  --hub-color-voltage:       var(--hub-flare-70);
+  --hub-color-voltage-soft:  var(--hub-flare-20);
+
+  --hub-color-success:       var(--hub-moss-70);
+  --hub-color-success-soft:  var(--hub-moss-20);
+  --hub-color-warning:       var(--hub-amber-70);
+  --hub-color-warning-soft:  var(--hub-amber-20);
+  --hub-color-danger:        var(--hub-rust-70);
+  --hub-color-danger-soft:   var(--hub-rust-20);
+
+  --hub-color-glaze-1: var(--hub-glacier-20);
+  --hub-color-glaze-2: var(--hub-lichen-20);
+  --hub-color-glaze-3: var(--hub-dusk-20);
+  --hub-color-glaze-4: var(--hub-rhubarb-20);
+  --hub-color-glaze-5: var(--hub-rye-20);
+  --hub-color-glaze-6: var(--hub-clay-20);
+
+  --hub-color-dot: rgba(233, 238, 232, .10);
+  --hub-shadow-plate:   0 1px 0 var(--hub-color-line),
+                        0 10px 26px -16px rgba(0, 0, 0, .8);
+  --hub-shadow-overlay: 0 1px 0 var(--hub-color-line),
+                        0 24px 48px -22px rgba(0, 0, 0, .9);
+}
+
+/* ── BASE ─────────────────────────────────────────────────── */
+body {
+  margin: 0;
+  font: var(--hub-text-body);
+  color: var(--hub-color-ink);
+  background-color: var(--hub-color-ground);
+  background-image: radial-gradient(circle at 1px 1px, var(--hub-color-dot) 1px, transparent 0);
+  background-size: var(--hub-grid) var(--hub-grid);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--hub-color-focus);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
