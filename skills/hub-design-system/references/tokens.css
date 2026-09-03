@@ -137,6 +137,18 @@
   --hub-duration-fast: 160ms;
   --hub-duration-base: 240ms;
 
+  /* ── LAYOUT ─────────────────────────────────────────────────
+     Breakpoints are NOT here on purpose: a media query cannot read a
+     custom property. They live as documented constants in layout.md —
+     720px (compact) and 1100px (wide) — and must be written literally.
+     ───────────────────────────────────────────────────────── */
+  --hub-width-prose: 66ch;      /* running text, never wider */
+  --hub-width-page:  1080px;    /* reading and form pages */
+  --hub-width-wide:  1400px;    /* tables and dashboards */
+  --hub-width-nav:   240px;     /* app sidebar */
+  --hub-width-panel: 320px;     /* inspector beside a canvas */
+  --hub-height-bar:  60px;      /* top bar, and every sticky offset */
+
   /* ── 3. COMPONENT ───────────────────────────────────────── */
   --hub-button-primary-bg:    var(--hub-color-action);
   --hub-button-primary-ink:   var(--hub-color-ink-on-action);

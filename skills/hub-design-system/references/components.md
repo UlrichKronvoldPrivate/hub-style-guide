@@ -332,11 +332,5 @@ Never an apology, never vague.
 
 ## Page shell
 
-```
-header   60px, sticky, hairline underneath, ground background
-main     max-width 1080px, padding-inline var(--hub-space-5)
-section  padding-top var(--hub-space-9), opens with a hairline + heading row
-```
-
-The section heading row pairs the heading with something true on the right —
-a token namespace, a count, a timestamp. Not a decorative label.
+Moved. Shells, page archetypes, scroll ownership, density and placement all
+live in `layout.md`, with working skeletons rather than a sketch.

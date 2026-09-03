@@ -13,6 +13,7 @@ const preview: Preview = {
           'Introduction',
           'Foundations',
           ['Colour', 'Typography', 'Space and shape', 'Writing'],
+          'Layout',
           'Components',
           [
             'Button', 'Field', 'Select', 'Checkbox',

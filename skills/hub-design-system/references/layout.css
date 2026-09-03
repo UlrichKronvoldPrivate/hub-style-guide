@@ -1,0 +1,210 @@
+/* ============================================================
+   hub layout — the shell and the three page archetypes.
+   Source of truth; layout.md explains the reasoning.
+
+   Breakpoints are written literally because a media query cannot
+   read a custom property. Two of them, named for what the layout
+   does: 720px (compact) and 1100px (no room for a side panel).
+   ============================================================ */
+
+/* ── Shell ─────────────────────────────────────────────────── */
+
+.hub-shell {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-columns: var(--hub-width-nav) minmax(0, 1fr);
+  grid-template-rows: var(--hub-height-bar) 1fr;
+  grid-template-areas:
+    "nav bar"
+    "nav main";
+}
+
+.hub-shell__bar {
+  grid-area: bar;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--hub-color-ground);
+  border-bottom: 1px solid var(--hub-color-line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--hub-space-5);
+  padding-inline: var(--hub-space-5);
+}
+
+.hub-shell__nav {
+  grid-area: nav;
+  border-right: 1px solid var(--hub-color-line);
+  padding: var(--hub-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--hub-space-1);
+}
+
+.hub-shell__main { grid-area: main; min-width: 0; }
+
+/* Sidebar nav, not top nav: these apps have more destinations than a top bar
+   holds, and a vertical list survives a name getting longer. */
+.hub-nav-item {
+  font: var(--hub-text-body-sm);
+  color: var(--hub-color-ink-muted);
+  text-decoration: none;
+  padding: 7px var(--hub-space-3);
+  border-radius: var(--hub-radius-control);
+}
+.hub-nav-item:hover { color: var(--hub-color-ink); background: var(--hub-color-surface-sunken); }
+.hub-nav-item[aria-current="page"] {
+  color: var(--hub-color-ink);
+  background: var(--hub-color-surface-sunken);
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .hub-shell {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "bar" "main";
+  }
+  .hub-shell__nav {
+    position: fixed;
+    inset: var(--hub-height-bar) auto 0 0;
+    width: var(--hub-width-nav);
+    z-index: 40;
+    background: var(--hub-color-surface);
+    transform: translateX(-100%);
+    transition: transform var(--hub-duration-base) var(--hub-ease);
+  }
+  .hub-shell__nav[data-open="true"] { transform: none; }
+}
+
+/* ── Shared page furniture ─────────────────────────────────── */
+
+.hub-page__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--hub-space-4);
+  flex-wrap: wrap;
+}
+
+.hub-page__title {
+  font: var(--hub-text-display-2);
+  letter-spacing: var(--hub-tracking-display-2);
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* Filters sit directly above the thing they filter; further away and they
+   read as global. */
+.hub-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hub-space-3);
+  align-items: flex-end;
+}
+
+.hub-section { padding-top: var(--hub-space-9); }
+
+.hub-section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--hub-space-5);
+  border-top: 1px solid var(--hub-color-line);
+  padding-top: var(--hub-space-4);
+  margin-bottom: var(--hub-space-6);
+}
+
+/* ── 1. Canvas page ────────────────────────────────────────── */
+
+.hub-page--canvas {
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: var(--hub-height-bar) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) var(--hub-width-panel);
+  grid-template-areas:
+    "bar bar"
+    "canvas panel";
+  overflow: hidden;            /* the page itself never scrolls */
+  /* the overlay panel below 1100px positions against this, not the viewport */
+  position: relative;
+}
+
+.hub-page--canvas .hub-page__bar {
+  grid-area: bar;
+  border-bottom: 1px solid var(--hub-color-line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--hub-space-5);
+  padding-inline: var(--hub-space-5);
+}
+
+.hub-page__canvas { grid-area: canvas; min-width: 0; position: relative; }
+
+/* The inspector goes right because graphs flow left to right, so a left
+   panel covers the upstream nodes you are tracing back from. */
+.hub-page__panel {
+  grid-area: panel;
+  border-left: 1px solid var(--hub-color-line);
+  overflow-y: auto;            /* the only scroll container on this page */
+  padding: var(--hub-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--hub-space-4);
+}
+
+@media (max-width: 1100px) {
+  .hub-page--canvas {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "bar" "canvas";
+  }
+  .hub-page__panel {
+    position: absolute;
+    inset: var(--hub-height-bar) 0 0 auto;
+    width: var(--hub-width-panel);
+    max-width: 100%;
+    background: var(--hub-color-surface);
+    box-shadow: var(--hub-shadow-overlay);
+    z-index: 20;
+  }
+}
+
+/* ── 2. Table page ─────────────────────────────────────────── */
+
+.hub-page--table {
+  max-width: var(--hub-width-wide);
+  margin-inline: auto;
+  padding: var(--hub-space-6) var(--hub-space-5) var(--hub-space-9);
+  display: flex;
+  flex-direction: column;
+  gap: var(--hub-space-5);
+}
+
+/* The table header sticks; the page header does not. Two sticky bands
+   stacked on each other eat a laptop screen. */
+.hub-page--table .hub-table th {
+  position: sticky;
+  top: var(--hub-height-bar);
+  background: var(--hub-color-ground);
+  z-index: 1;
+}
+
+/* ── 3. Reading page ───────────────────────────────────────── */
+
+.hub-page--reading {
+  max-width: var(--hub-width-page);
+  margin-inline: auto;
+  padding: var(--hub-space-6) var(--hub-space-5) var(--hub-space-9);
+}
+
+.hub-page--reading p,
+.hub-page--reading li { max-width: var(--hub-width-prose); }
+
+/* ── Density ───────────────────────────────────────────────── */
+
+/* Compact is for tables, canvases, inspectors and toolbars. There is no
+   third density and no per-user switch. */
+[data-density="compact"] { font: var(--hub-text-body-sm); }
+[data-density="compact"] .hub-table td,
+[data-density="compact"] .hub-table th { padding: var(--hub-space-3) var(--hub-space-4); }

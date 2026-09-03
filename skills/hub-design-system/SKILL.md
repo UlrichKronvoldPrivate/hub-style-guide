@@ -112,6 +112,40 @@ under every block. Glazes do not lift at all — a painted surface casts nothing
 field, a hairline border, or a lifted plate. Using all three on the same screen
 for the same kind of object is a mistake.
 
+## Layout
+
+Start from one of **three page archetypes** rather than composing from scratch.
+Full skeletons, with working CSS, are in `references/layout.md`.
+
+- **Canvas** — a graph filling the viewport with a 320px inspector on the
+  right. The page itself never scrolls; the inspector owns the only scrollbar.
+  The panel goes right because graphs flow left to right, so a left panel
+  covers the upstream nodes you are tracing back from.
+- **Table** — dense and scanned. `--hub-width-wide`, a page header with the
+  primary action on the right, filters directly above the rows, and a sticky
+  `thead` (the page header does not also stick).
+- **Reading** — docs, settings, forms. `--hub-width-page` container with text
+  held at `--hub-width-prose`, sections opening on a hairline and a heading row.
+
+**Breakpoints are constants, not tokens** — a media query cannot read a custom
+property. There are two, named for what the layout does: **720px** (one column,
+nav becomes a drawer) and **1100px** (a side panel becomes an overlay). Above
+1440px content stops growing. Break where the content stops fitting, never at a
+device name.
+
+**One scroll container per page.** Decide which element owns the scroll before
+writing any CSS. Two nested scrollbars is a bug, not a layout. Sticky is spent
+on exactly two things: the app bar and a table's `thead`.
+
+**Two densities, chosen by what the screen is for.** Comfortable (`body`,
+`--hub-space-4` padding) for reading, forms and dialogs. Compact (`body-sm`,
+`--hub-space-3`) for tables, canvases, inspectors and toolbars. There is no
+third density. A screen that feels cramped at compact is holding too many
+columns.
+
+Layout widths are tokens: `--hub-width-prose | -page | -wide | -nav | -panel`
+and `--hub-height-bar`, which every sticky offset is measured from.
+
 ## Motion
 
 Motion answers an action: expanding, confirming, connecting. 160–240ms on
@@ -139,13 +173,15 @@ These read as generated. If a review turns one up, it is a defect.
 ## Reference files
 
 - `references/tokens.css` — the token file itself. Copy or import; source of truth.
-- `references/components.md` — recipes for button, input, plate, chip, table, empty and error states.
+- `references/layout.md` — page archetypes with working skeletons, the shell, scroll and placement rules.
+- `references/components.md` — recipes for button, field, select, checkbox, tabs, plate, dialog, toast, chip, table, empty and error states.
 - `references/react-flow.md` — canvas rules and the full `--xy-*` variable map.
 - `references/writing.md` — how UI copy is written in this system.
 
 ## Checklist before calling UI work done
 
 - Every colour comes from a token; no literal hex in component CSS.
+- The page is one of the three archetypes, with exactly one scroll container.
 - Both themes checked — light, night, and the un-stamped system default.
 - Coloured (cobalt + flare) area is under a twentieth of the screen.
 - Keyboard focus is visible on every interactive element.
