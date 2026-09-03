@@ -64,6 +64,109 @@ Labels sit above their input, always visible. No placeholder-as-label. Helper
 text is present from the start where a format is required, not revealed on
 error.
 
+## Select
+
+Stay native. The browser's own picker beats any custom listbox on touch, in a
+screen reader and with a keyboard — so `appearance: none` restyles the shell and
+nothing replaces the element.
+
+```css
+.hub-select-shell { position: relative; display: flex; }
+.hub-select {
+  appearance: none;
+  width: 100%;
+  font: var(--hub-text-body-sm);
+  background: var(--hub-input-bg);
+  border: 1px solid var(--hub-input-border);
+  border-radius: var(--hub-radius-control);
+  padding: 9px var(--hub-space-6) 9px var(--hub-space-3);
+}
+/* chevron from a rotated corner: takes a token colour, needs no SVG */
+.hub-select-shell::after {
+  content: ""; position: absolute; right: 14px; top: 50%;
+  width: 6px; height: 6px;
+  border-right: 1.5px solid var(--hub-select-arrow);
+  border-bottom: 1.5px solid var(--hub-select-arrow);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+```
+
+A placeholder option names the choice ("Choose a region"), is `disabled`, and is
+never a substitute for the label above.
+
+## Checkbox
+
+The input **is** the box. `appearance: none` on the real element, not a hidden
+input behind a fake square, so focus and screen-reader behaviour stay native.
+
+```css
+.hub-checkbox__box {
+  appearance: none;
+  width: var(--hub-checkbox-size); height: var(--hub-checkbox-size);
+  display: grid; place-content: center;
+  background: var(--hub-checkbox-bg);
+  border: 1px solid var(--hub-checkbox-border);
+  border-radius: var(--hub-radius-control);
+}
+.hub-checkbox__box::before {
+  content: ""; width: 10px; height: 10px;
+  background: var(--hub-checkbox-ink);
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  transform: scale(0);
+}
+.hub-checkbox__box:checked, .hub-checkbox__box:indeterminate {
+  background: var(--hub-checkbox-bg-checked);
+  border-color: var(--hub-checkbox-bg-checked);
+}
+.hub-checkbox__box:checked::before { transform: scale(1); }
+/* a third state, not a weaker checked — so it is a bar, not a faded tick */
+.hub-checkbox__box:indeterminate::before {
+  clip-path: none; height: 2px; border-radius: 1px; transform: scale(1);
+}
+```
+
+A checkbox labels a **choice**, so its label takes `body-sm` at 400. The
+600-weight `label` step belongs on the `<legend>` above a group — a column of
+600-weight options reads as a stack of headings.
+
+`indeterminate` is a DOM property, not an attribute, so it needs a ref and an
+effect. Use it on a "select all" governing a partly-selected list.
+
+## Dialog
+
+Native `<dialog>` opened with `showModal()`. The focus trap, Esc, the top layer
+and an inert background all come from the platform — never rebuild them.
+
+```css
+.hub-dialog {
+  padding: 0;            /* padding goes on an inner wrapper, so a click on
+                            the dialog element itself is unambiguously the backdrop */
+  border: 1px solid var(--hub-color-line);
+  border-radius: var(--hub-dialog-radius);
+  background: var(--hub-dialog-bg);
+  box-shadow: var(--hub-dialog-shadow);
+  width: var(--hub-dialog-width);
+  max-height: calc(100vh - var(--hub-space-8));
+  overflow: auto;
+}
+.hub-dialog::backdrop { background: var(--hub-dialog-scrim); }
+```
+
+The scrim is spruce-tinted and **never blurred** — a dimmed room, not fog, for
+the same reason a glaze never carries a gradient.
+
+Rules:
+
+- The title names the decision *and* the thing: `Delete "Population by region"?`
+  Never "Are you sure?".
+- The body says what happens and what it costs, then stops.
+- Actions are primary-first, matching every other action row in the system.
+- A destructive dialog sets `dismissible={false}` so a stray backdrop click
+  cannot answer it. Esc always works.
+- Opening earns motion because it answers an action: 240ms, entrance only.
+- A dialog holds a short form at most. Anything longer belongs on its own page.
+
 ## Plate
 
 The one container. A plate is an object you could pick up.

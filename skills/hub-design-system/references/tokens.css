@@ -93,6 +93,9 @@
   --hub-color-glaze-6: var(--hub-clay-90);
 
   --hub-color-dot: rgba(19, 36, 32, .10);
+  /* Scrim is spruce-tinted, never neutral black, and never blurred —
+     a dimmed room, not fog. */
+  --hub-color-scrim: rgba(19, 36, 32, .32);
 
   /* ── TYPE ───────────────────────────────────────────────── */
   --hub-font-sans: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
@@ -154,6 +157,20 @@
 
   --hub-chip-radius:          var(--hub-radius-pill);
 
+  --hub-select-arrow:         var(--hub-color-ink-muted);
+
+  --hub-checkbox-size:        18px;
+  --hub-checkbox-bg:          var(--hub-color-surface);
+  --hub-checkbox-bg-checked:  var(--hub-color-action);
+  --hub-checkbox-border:      var(--hub-color-line-strong);
+  --hub-checkbox-ink:         var(--hub-color-ink-on-action);
+
+  --hub-dialog-bg:            var(--hub-color-surface);
+  --hub-dialog-radius:        var(--hub-radius-plate);
+  --hub-dialog-shadow:        var(--hub-shadow-overlay);
+  --hub-dialog-scrim:         var(--hub-color-scrim);
+  --hub-dialog-width:         min(480px, calc(100vw - var(--hub-space-6)));
+
   color-scheme: light dark;
 }
 
@@ -196,6 +213,7 @@
     --hub-color-glaze-6: var(--hub-clay-20);
 
     --hub-color-dot: rgba(233, 238, 232, .10);
+    --hub-color-scrim: rgba(4, 9, 8, .64);
     --hub-shadow-plate:   0 1px 0 var(--hub-color-line),
                           0 10px 26px -16px rgba(0, 0, 0, .8);
     --hub-shadow-overlay: 0 1px 0 var(--hub-color-line),
@@ -239,6 +257,7 @@
   --hub-color-glaze-6: var(--hub-clay-20);
 
   --hub-color-dot: rgba(233, 238, 232, .10);
+  --hub-color-scrim: rgba(4, 9, 8, .64);
   --hub-shadow-plate:   0 1px 0 var(--hub-color-line),
                         0 10px 26px -16px rgba(0, 0, 0, .8);
   --hub-shadow-overlay: 0 1px 0 var(--hub-color-line),

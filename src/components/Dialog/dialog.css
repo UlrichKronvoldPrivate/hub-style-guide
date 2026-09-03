@@ -1,0 +1,69 @@
+/* Native <dialog> opened with showModal(), so the focus trap, Esc, the
+   top layer and an inert background all come from the platform. */
+
+.hub-dialog {
+  /* padding lives on the inner wrapper, so a click landing on the dialog
+     element itself is unambiguously a backdrop click */
+  padding: 0;
+  border: 1px solid var(--hub-color-line);
+  border-radius: var(--hub-dialog-radius);
+  background: var(--hub-dialog-bg);
+  box-shadow: var(--hub-dialog-shadow);
+  color: var(--hub-color-ink);
+  width: var(--hub-dialog-width);
+  max-height: calc(100vh - var(--hub-space-8));
+  overflow: auto;
+}
+
+/* A dimmed room, not fog: the scrim is spruce-tinted and never blurred,
+   for the same reason a glaze never carries a gradient. */
+.hub-dialog::backdrop { background: var(--hub-dialog-scrim); }
+
+.hub-dialog__inner {
+  padding: var(--hub-space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--hub-space-4);
+}
+
+.hub-dialog__title {
+  font: var(--hub-text-title);
+  letter-spacing: var(--hub-tracking-title);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.hub-dialog__text {
+  font: var(--hub-text-body-sm);
+  color: var(--hub-color-ink-muted);
+  margin: 0;
+  max-width: 54ch;
+  display: flex;
+  flex-direction: column;
+  gap: var(--hub-space-3);
+}
+
+/* Primary first, matching every other action row in the system. */
+.hub-dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hub-space-3);
+  margin-top: var(--hub-space-2);
+}
+
+/* Opening is an action, so it earns motion. Closing is not animated —
+   the platform removes the element from the top layer immediately. */
+@media (prefers-reduced-motion: no-preference) {
+  .hub-dialog[open] { animation: hub-dialog-in var(--hub-duration-base) var(--hub-ease); }
+  .hub-dialog[open]::backdrop { animation: hub-scrim-in var(--hub-duration-base) var(--hub-ease); }
+}
+
+@keyframes hub-dialog-in {
+  from { opacity: 0; transform: translateY(8px) scale(.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes hub-scrim-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

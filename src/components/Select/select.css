@@ -1,0 +1,44 @@
+/* Native <select>, restyled. The browser's own picker is better than any
+   custom listbox on touch, in a screen reader, and with a keyboard —
+   so the element stays native and only its shell is ours. */
+
+.hub-select-shell { position: relative; display: flex; }
+
+.hub-select {
+  appearance: none;
+  width: 100%;
+  font: var(--hub-text-body-sm);
+  color: var(--hub-color-ink);
+  background: var(--hub-input-bg);
+  border: 1px solid var(--hub-input-border);
+  border-radius: var(--hub-radius-control);
+  padding: 9px var(--hub-space-6) 9px var(--hub-space-3);
+  cursor: pointer;
+  transition: border-color var(--hub-duration-fast) var(--hub-ease);
+}
+
+.hub-select:focus-visible { border-color: var(--hub-input-border-focus); }
+.hub-select:disabled { opacity: .45; cursor: not-allowed; }
+
+/* Chevron drawn from a rotated corner, so it takes a token colour and
+   needs no SVG or icon font. */
+.hub-select-shell::after {
+  content: "";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid var(--hub-select-arrow);
+  border-bottom: 1.5px solid var(--hub-select-arrow);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+.hub-select-shell:has(.hub-select:disabled)::after { opacity: .45; }
+
+.hub-field[data-invalid] .hub-select { border-color: var(--hub-color-danger); }
+
+/* The option list is painted by the OS. color-scheme on the root is what
+   makes it follow the theme, which tokens.css already sets. */
+.hub-select option { background: var(--hub-color-surface); color: var(--hub-color-ink); }

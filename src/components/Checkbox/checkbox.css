@@ -1,0 +1,96 @@
+/* The input IS the box — appearance:none rather than a hidden input plus a
+   fake square, so keyboard, focus and screen-reader behaviour stay native. */
+
+.hub-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--hub-space-3);
+}
+
+.hub-checkbox__box {
+  appearance: none;
+  flex: none;
+  width: var(--hub-checkbox-size);
+  height: var(--hub-checkbox-size);
+  /* optically centres the box on the label's first line */
+  margin: 2px 0 0;
+  display: grid;
+  place-content: center;
+  background: var(--hub-checkbox-bg);
+  border: 1px solid var(--hub-checkbox-border);
+  border-radius: var(--hub-radius-control);
+  cursor: pointer;
+  transition: background-color var(--hub-duration-fast) var(--hub-ease),
+              border-color var(--hub-duration-fast) var(--hub-ease);
+}
+
+.hub-checkbox__box::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: var(--hub-checkbox-ink);
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  transform: scale(0);
+  transition: transform var(--hub-duration-fast) var(--hub-ease);
+}
+
+.hub-checkbox__box:hover:not(:disabled) { border-color: var(--hub-color-ink-subtle); }
+
+.hub-checkbox__box:checked,
+.hub-checkbox__box:indeterminate {
+  background: var(--hub-checkbox-bg-checked);
+  border-color: var(--hub-checkbox-bg-checked);
+}
+
+.hub-checkbox__box:checked::before { transform: scale(1); }
+
+/* Indeterminate is a bar, not a faded tick — it is a third state, not a
+   weaker version of checked. */
+.hub-checkbox__box:indeterminate::before {
+  clip-path: none;
+  height: 2px;
+  border-radius: 1px;
+  transform: scale(1);
+}
+
+.hub-checkbox__box:disabled { opacity: .45; cursor: not-allowed; }
+.hub-checkbox__box:disabled + .hub-checkbox__text { opacity: .45; }
+
+.hub-checkbox__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+/* A checkbox labels a choice, not a field, so it takes body weight. The
+   600-weight label step belongs on the legend above a group. */
+.hub-checkbox__label {
+  font: var(--hub-text-body-sm);
+  color: var(--hub-color-ink);
+  cursor: pointer;
+}
+
+.hub-checkbox__help {
+  font: var(--hub-text-caption);
+  color: var(--hub-color-ink-muted);
+  margin: 0;
+}
+
+/* Group */
+.hub-checkbox-group {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--hub-space-3);
+}
+
+.hub-checkbox-group > legend {
+  font: var(--hub-text-label);
+  letter-spacing: var(--hub-tracking-label);
+  color: var(--hub-color-ink);
+  padding: 0;
+  margin-bottom: var(--hub-space-1);
+}

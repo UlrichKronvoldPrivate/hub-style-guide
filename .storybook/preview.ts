@@ -14,7 +14,7 @@ const preview: Preview = {
           'Foundations',
           ['Colour', 'Typography', 'Space and shape', 'Writing'],
           'Components',
-          ['Button', 'Field', 'Plate', 'Chip', 'Data table', 'Empty state'],
+          ['Button', 'Field', 'Select', 'Checkbox', 'Plate', 'Dialog', 'Chip', 'Data table', 'Empty state'],
           'Canvas',
         ],
       },
