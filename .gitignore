@@ -1,0 +1,17 @@
+# Secrets — never commit
+gh_pat.txt
+*.pat
+*.token
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Dependencies / build
+node_modules/
+dist/
+build/
