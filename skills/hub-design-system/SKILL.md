@@ -161,8 +161,10 @@ for the same kind of object is a mistake.
 
 ## Layout
 
-Start from one of **three page archetypes** rather than composing from scratch.
-Full skeletons, with working CSS, are in `references/layout.md`.
+Start from one of **four page archetypes** rather than composing from scratch.
+Full skeletons, with working CSS, are in `references/layout.md`. If a screen is
+genuinely none of them, say so and build from the rules — do not bend an
+archetype to fit.
 
 - **Canvas** — a graph filling the viewport with a 320px inspector on the
   right. The page itself never scrolls; the inspector owns the only scrollbar.
@@ -171,6 +173,10 @@ Full skeletons, with working CSS, are in `references/layout.md`.
 - **Table** — dense and scanned. `--hub-width-wide`, a page header with the
   primary action on the right, filters directly above the rows, and a sticky
   `thead` (the page header does not also stick).
+- **Dashboard** — summary first, then detail. The stat row is **one plate
+  divided by hairlines, not N cards** — identical lifted cards is the tell.
+  `.hub-page__split` below it is deliberately unequal, so the reader is not
+  asked to choose where to start.
 - **Reading** — docs, settings, forms. `--hub-width-page` container with text
   held at `--hub-width-prose`, sections opening on a hairline and a heading row.
 
@@ -201,6 +207,30 @@ sequence, a reveal. **Banned:** fade-and-slide-up on every section as it scrolls
 into view, and hover-lift on every card. Always honour
 `prefers-reduced-motion`; the token file already does globally.
 
+## Charts
+
+**Axis and value labels go in HTML, not in SVG `<text>`.** A `viewBox` scales
+everything inside it, text included: a chart drawn on a 336-unit viewBox and
+rendered 1047px wide multiplies every font-size by 3.12, so `font-size: 10px`
+arrives on screen at 31px and the type scale means nothing. Put the marks in
+the SVG and lay the labels over or under it in HTML, on a grid with one column
+per mark. Always check one rendered label at real size.
+
+**Marks are neutral by default.** A chart of fourteen bars in cobalt spends the
+whole voltage budget on decoration. Draw them in `--hub-color-surface-sunken`
+and give the accent to the one mark that carries the point — today, the
+selected series, the outlier. Everything else recedes.
+
+Semantic colour keeps its meaning in a chart: a failing series takes
+`--hub-color-danger`, never the accent.
+
+Every chart says where its numbers come from, in a caption, and explains a
+visible anomaly rather than leaving the reader to invent one.
+
+For anything past a simple bar or line — categorical palettes, sequential and
+diverging scales, dense dashboards — **use the `dataviz` skill**. This section
+is the floor, not a visualisation system.
+
 ## Tells to avoid
 
 These read as generated. If a review turns one up, it is a defect.
@@ -228,7 +258,9 @@ These read as generated. If a review turns one up, it is a defect.
 ## Checklist before calling UI work done
 
 - Every colour comes from a token; no literal hex in component CSS.
-- The page is one of the three archetypes, with exactly one scroll container.
+- The page is one of the four archetypes — or you have said why it is not —
+  with exactly one scroll container.
+- Any chart's labels are HTML, not SVG text. Check one rendered size.
 - Both themes checked — light, night, and the un-stamped system default.
 - Coloured (cobalt + flare) area is under a twentieth of the screen.
 - Keyboard focus is visible on every interactive element.

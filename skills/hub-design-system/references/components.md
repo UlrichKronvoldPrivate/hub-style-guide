@@ -188,6 +188,49 @@ The one container. A plate is an object you could pick up.
 Pick one separation per object type on a screen. A page where some cards are
 lifted and others are glazed, for the same kind of content, is a mistake.
 
+## Stat row
+
+The summary at the top of a dashboard. **One plate divided by hairlines, not N
+cards** — four identical lifted cards under four identical shadows is the tell
+this system names; one instrument with four readings is the answer.
+
+```css
+.hub-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  background: var(--hub-color-surface);
+  border: 1px solid var(--hub-color-line);
+  border-radius: var(--hub-radius-plate);
+  box-shadow: var(--hub-shadow-plate);
+  overflow: hidden;                 /* keeps the divisions inside the radius */
+}
+.hub-stat {
+  padding: var(--hub-space-5);
+  display: flex; flex-direction: column; gap: var(--hub-space-1);
+  border-left: 1px solid var(--hub-color-line);
+}
+.hub-stat:first-child { border-left: 0; }
+.hub-stat__label { font: var(--hub-text-body-sm); color: var(--hub-color-ink-muted); }
+.hub-stat__value {
+  font: var(--hub-text-display-2);
+  letter-spacing: var(--hub-tracking-display-2);
+  font-variant-numeric: tabular-nums;
+}
+.hub-stat__note { font: var(--hub-text-caption); color: var(--hub-color-ink-subtle); }
+
+/* At most one per row, and only when that figure asks for an action. */
+.hub-stat--attention .hub-stat__value { color: var(--hub-color-voltage); }
+
+@media (max-width: 720px) {
+  .hub-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hub-stat:nth-child(3) { border-left: 0; }
+  .hub-stat:nth-child(n + 3) { border-top: 1px solid var(--hub-color-line); }
+}
+```
+
+Every figure carries a note saying what it is measured against — "4 still
+running", "since midnight". A number with no frame is trivia.
+
 ## Chip and status
 
 Pills are for status only, never for buttons or filters that toggle.

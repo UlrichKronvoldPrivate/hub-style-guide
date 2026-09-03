@@ -21,11 +21,15 @@ Above 1440px content stops growing and the gutters take the rest. Nothing gets
 a third column just because the space exists. Break where the content stops
 fitting, never at a device name.
 
-## Three page archetypes
+## Four page archetypes
 
 Almost everything we build is one of these. Start from the right one rather
 than composing a page from scratch. Classes: `.hub-page--canvas`,
-`.hub-page--table`, `.hub-page--reading`.
+`.hub-page--table`, `.hub-page--dashboard`, `.hub-page--reading`.
+
+If a screen is genuinely none of them, say so out loud and build from the rules
+rather than bending an archetype to fit. Four is not a closed set — it is what
+we have needed so far.
 
 ### 1. Canvas page
 
@@ -95,7 +99,39 @@ Dense, scanned rather than read.
 `top: var(--hub-height-bar)`; **the page header does not also stick** — two
 sticky bands stacked on each other eat a laptop screen.
 
-### 3. Reading page
+### 3. Dashboard page
+
+Summary first, then detail. `.hub-page--dashboard` shares the table page's
+container; what differs is what goes in it.
+
+```
+┌─ bar ───────────────────────────────────────────┐
+│ Overview                    [New upload] [...]  │
+│ ┌───────┬───────┬───────┬───────┐               │
+│ │  34   │ 1.28M │  12   │   2   │  one plate,   │
+│ └───────┴───────┴───────┴───────┘  hairlines    │
+│ ┌─────────────────────────────────────────────┐ │
+│ │ chart                                       │ │
+│ └─────────────────────────────────────────────┘ │
+│ ┌───────────────────────┬───────────────────┐   │
+│ │ recent (1.6fr)        │ attention (1fr)   │   │
+└─┴───────────────────────┴───────────────────┴───┘
+```
+
+Rules that are specific to this archetype:
+
+- **The summary row is one plate divided by hairlines, not N cards.** Four
+  identical lifted cards is the tell; one instrument with four readings is the
+  answer. See the stat row recipe in `components.md`.
+- **`.hub-page__split` is deliberately unequal** (1.6fr / 1fr). Two equal
+  columns make the reader choose where to start, which is the choice the layout
+  should have made for them.
+- **One figure may take flare** — the single number that asks someone to do
+  something. If no figure does, none of them takes it.
+- Everything below the summary row is the same kind of object, so it gets one
+  separation, not a mix of glaze, hairline and lift.
+
+### 4. Reading page
 
 Docs, settings, a form, an empty project. One column, generous.
 
