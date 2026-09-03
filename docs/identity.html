@@ -1,0 +1,525 @@
+<title>Porcelain &amp; Voltage</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  /* primitives */
+  --porcelain:#F7F8F5; --plate:#FCFDFA; --ash:#E4E7DF; --hairline:#D6DACF;
+  --spruce:#132420;   --spruce-2:#55605A; --spruce-3:#7E8880;
+  --cobalt:#2B3FC4;   --cobalt-soft:#E5E7FA;
+  --flare:#E8358C;    --flare-soft:#FBE0EE;
+
+  /* semantic */
+  --ground:#F7F8F5; --surface:#FCFDFA; --field:#E4E7DF;
+  --line:#D6DACF; --line-strong:#C2C8BB;
+  --ink:#132420; --ink-2:#55605A; --ink-3:#7E8880;
+  --action:#2B3FC4; --action-ink:#FFFFFF; --action-soft:#E5E7FA;
+  --voltage:#E8358C; --voltage-soft:#FBE0EE;
+  --dot:rgba(19,36,32,.10);
+  --lift:0 1px 0 var(--line), 0 10px 26px -18px rgba(19,36,32,.55);
+
+  /* shape + space */
+  --r-ctl:4px; --r-plate:12px;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px; --s9:96px;
+
+  --sans:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0F1917; --surface:#16221E; --field:#1E2C27;
+    --line:#2A3A34; --line-strong:#3A4C45;
+    --ink:#E9EEE8; --ink-2:#A2B0A8; --ink-3:#74827B;
+    --action:#8494FF; --action-ink:#0F1917; --action-soft:#232D54;
+    --voltage:#FF77B9; --voltage-soft:#3A1E30;
+    --dot:rgba(233,238,232,.10);
+    --lift:0 1px 0 var(--line), 0 10px 26px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0F1917; --surface:#16221E; --field:#1E2C27;
+  --line:#2A3A34; --line-strong:#3A4C45;
+  --ink:#E9EEE8; --ink-2:#A2B0A8; --ink-3:#74827B;
+  --action:#8494FF; --action-ink:#0F1917; --action-soft:#232D54;
+  --voltage:#FF77B9; --voltage-soft:#3A1E30;
+  --dot:rgba(233,238,232,.10);
+  --lift:0 1px 0 var(--line), 0 10px 26px -16px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:var(--sans); color:var(--ink);
+  background-color:var(--ground);
+  background-image:radial-gradient(circle at 1px 1px,var(--dot) 1px,transparent 0);
+  background-size:24px 24px;
+  font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px; margin:0 auto; padding:0 var(--s5)}
+a{color:var(--action)}
+:focus-visible{outline:2px solid var(--action); outline-offset:3px; border-radius:2px}
+code,.mono{font-family:var(--mono); font-variant-numeric:tabular-nums}
+
+/* type scale */
+.d1{font-size:clamp(2.4rem,6.2vw,3.8rem); font-weight:800; letter-spacing:-.035em; line-height:1.03; margin:0; text-wrap:balance}
+.d2{font-size:clamp(1.75rem,3.4vw,2.45rem); font-weight:700; letter-spacing:-.028em; line-height:1.1; margin:0; text-wrap:balance}
+.d3{font-size:1.5625rem; font-weight:700; letter-spacing:-.02em; line-height:1.2; margin:0}
+.d4{font-size:1.25rem; font-weight:600; letter-spacing:-.012em; line-height:1.3; margin:0}
+.lede{font-size:1.25rem; line-height:1.5; color:var(--ink-2); max-width:56ch; margin:0}
+p{margin:0; max-width:66ch}
+.small{font-size:.875rem; line-height:1.5; color:var(--ink-2)}
+.tiny{font-size:.75rem; line-height:1.45; color:var(--ink-3)}
+
+/* header */
+header{position:sticky; top:0; z-index:20; background:var(--ground); border-bottom:1px solid var(--line)}
+.bar{display:flex; align-items:center; justify-content:space-between; gap:var(--s5); height:60px}
+.mark{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:-.03em; font-size:1.0625rem}
+.mark i{width:12px; height:12px; border-radius:3px; background:var(--action); display:block}
+nav{display:flex; gap:var(--s5); font-size:.875rem; font-weight:500}
+nav a{color:var(--ink-2); text-decoration:none}
+nav a:hover{color:var(--ink)}
+@media(max-width:700px){nav{display:none}}
+
+/* sections */
+section{padding-top:var(--s9)}
+.shead{display:flex; align-items:baseline; justify-content:space-between; gap:var(--s5); border-top:1px solid var(--line); padding-top:var(--s4); margin-bottom:var(--s6)}
+.shead .ns{color:var(--ink-3); white-space:nowrap; font-size:.75rem}
+.stack{display:flex; flex-direction:column; gap:var(--s5)}
+.stack-lg{display:flex; flex-direction:column; gap:var(--s7)}
+
+/* hero */
+.hero-copy{display:flex; flex-direction:column; gap:var(--s4); max-width:60ch}
+.graph{display:grid; grid-template-columns:236px 132px minmax(0,1fr); align-items:center; margin-top:var(--s8)}
+.tnodes{display:flex; flex-direction:column; gap:var(--s4)}
+.tnode{height:64px; background:var(--surface); border:1px solid var(--line); border-radius:var(--r-plate); padding:0 var(--s4); display:flex; align-items:center; justify-content:space-between; gap:var(--s3); box-shadow:var(--lift)}
+.tnode .k{font-family:var(--mono); font-size:.75rem; color:var(--ink-2)}
+.tnode .v{font-family:var(--mono); font-size:.8125rem; font-weight:500; display:flex; align-items:center; gap:7px; font-variant-numeric:tabular-nums}
+.chip{width:14px; height:14px; border-radius:3px; border:1px solid rgba(19,36,32,.20); display:inline-block; background:#2B3FC4}
+.wires{width:132px; height:224px; overflow:visible}
+.wires path{fill:none; stroke:var(--action); stroke-width:1.5; stroke-linecap:round}
+.demo{display:flex; flex-direction:column; gap:var(--s4); align-items:flex-start; padding-left:var(--s2)}
+.demo-plate{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-plate); padding:var(--s6); box-shadow:var(--lift); display:flex; flex-direction:column; gap:var(--s4); align-items:flex-start; width:100%}
+.btnrow{display:flex; gap:var(--s3); flex-wrap:wrap}
+.btn{font-family:var(--sans); font-size:.875rem; font-weight:600; letter-spacing:-.005em; padding:10px 18px; border-radius:var(--r-ctl); border:1px solid transparent; background:var(--accent,var(--action)); color:#FFFFFF; cursor:pointer}
+.btn.ghost{background:transparent; color:var(--ink); border-color:var(--line-strong)}
+.swap{display:flex; gap:var(--s2); align-items:center; flex-wrap:wrap}
+.swapbtn{font-family:var(--mono); font-size:.75rem; font-weight:500; padding:6px 9px; border-radius:var(--r-ctl); border:1px solid var(--line-strong); background:transparent; color:var(--ink-2); cursor:pointer}
+.swapbtn[aria-pressed="true"]{border-color:var(--accent,var(--action)); color:var(--ink); background:var(--accent-soft,var(--action-soft))}
+@media(max-width:780px){
+  .graph{grid-template-columns:1fr; gap:var(--s5)}
+  .wires{display:none}
+  .demo{padding-left:0}
+}
+
+/* palette */
+.glazes{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:var(--s3)}
+.glaze{border-radius:var(--r-plate); overflow:hidden; border:1px solid var(--line)}
+.glaze .lit{height:104px; padding:var(--s3); display:flex; flex-direction:column; justify-content:space-between; color:#132420}
+.glaze .nyt{padding:var(--s3); display:flex; align-items:center; justify-content:space-between; color:#E9EEE8}
+.glaze .nm{font-weight:600; font-size:.875rem}
+.glaze .hx{font-family:var(--mono); font-size:.6875rem; opacity:.75}
+.rowset{display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:var(--s3)}
+.srow{display:flex; align-items:center; gap:var(--s3); background:var(--surface); border:1px solid var(--line); border-radius:var(--r-plate); padding:var(--s3)}
+.srow .sw{width:40px; height:40px; border-radius:var(--r-ctl); border:1px solid var(--line); flex:none}
+.srow .meta{display:flex; flex-direction:column; min-width:0}
+.srow .nm{font-weight:600; font-size:.875rem}
+.note{background:var(--field); border-radius:var(--r-plate); padding:var(--s5); display:flex; flex-direction:column; gap:var(--s3)}
+.pipe{display:flex; flex-wrap:wrap; align-items:center; gap:var(--s2); font-family:var(--mono); font-size:.75rem}
+.pipe span{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-ctl); padding:6px 9px; white-space:nowrap}
+.pipe b{color:var(--ink-3); font-weight:400; font-family:var(--sans); font-size:.75rem}
+
+/* type specimen */
+.spec{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-plate); padding:var(--s6); overflow:hidden}
+.spec .big{font-size:clamp(2.6rem,9vw,5.4rem); font-weight:800; letter-spacing:-.045em; line-height:.95; margin:0; max-width:none}
+.spec .glyphs{font-size:clamp(1.05rem,2.6vw,1.6rem); font-weight:400; color:var(--ink-2); letter-spacing:-.01em; margin-top:var(--s4); max-width:none}
+table{width:100%; border-collapse:collapse; font-size:.875rem}
+.tblwrap{overflow-x:auto; border:1px solid var(--line); border-radius:var(--r-plate); background:var(--surface)}
+th{text-align:left; font-weight:600; font-size:.75rem; color:var(--ink-2); padding:12px var(--s4); border-bottom:1px solid var(--line); white-space:nowrap}
+td{padding:12px var(--s4); border-bottom:1px solid var(--line); vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+td.m{font-family:var(--mono); font-size:.8125rem; color:var(--ink-2); font-variant-numeric:tabular-nums; white-space:nowrap}
+
+/* space + shape */
+.duo{display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:var(--s5)}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-plate); padding:var(--s5); display:flex; flex-direction:column; gap:var(--s3)}
+.card p{max-width:none}
+.ramp{display:flex; align-items:flex-end; gap:6px; flex-wrap:wrap}
+.ramp i{background:var(--action-soft); border:1px solid var(--action); border-radius:2px; display:block}
+.shapes{display:flex; gap:var(--s4); align-items:flex-end; flex-wrap:wrap}
+.shapes figure{margin:0; display:flex; flex-direction:column; gap:8px; align-items:flex-start}
+.shapes .sq{width:64px; height:44px; background:var(--field); border:1px solid var(--line-strong); display:block}
+
+/* canvas */
+.flowdemo{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-plate);
+  background-image:radial-gradient(circle at 1px 1px,var(--dot) 1px,transparent 0); background-size:24px 24px;
+  padding:var(--s6); overflow-x:auto}
+.flowgrid{display:grid; grid-template-columns:210px 96px 210px; align-items:center; min-width:540px}
+.fnode{background:var(--surface); border:1px solid var(--line-strong); border-radius:var(--r-plate); box-shadow:var(--lift); position:relative}
+.fnode .fh{display:flex; align-items:center; gap:8px; padding:10px var(--s3); border-bottom:1px solid var(--line)}
+.fnode .fh b{font-size:.8125rem; font-weight:600}
+.fnode .fb{padding:10px var(--s3); font-family:var(--mono); font-size:.6875rem; color:var(--ink-2)}
+.fnode.sel{border-color:var(--action); box-shadow:0 0 0 2px var(--action-soft), var(--lift)}
+.kind{width:8px; height:8px; border-radius:2px; flex:none; display:block}
+.handle{position:absolute; width:9px; height:9px; border-radius:50%; background:var(--ink); border:1.5px solid var(--surface); top:50%; margin-top:-4.5px; display:block}
+.handle.l{left:-5px} .handle.r{right:-5px}
+.fwire{width:96px; height:120px; overflow:visible}
+.fwire path{fill:none; stroke:var(--action); stroke-width:1.5}
+.fstack{display:flex; flex-direction:column; gap:var(--s4)}
+
+/* rules */
+.rules{display:grid; grid-template-columns:repeat(auto-fit,minmax(238px,1fr)); gap:var(--s3)}
+.rule{border-radius:var(--r-plate); padding:var(--s5); display:flex; flex-direction:column; gap:8px}
+.rule h4{margin:0; font-size:1rem; font-weight:700; letter-spacing:-.012em; color:#132420}
+.rule p{margin:0; font-size:.875rem; line-height:1.5; color:rgba(19,36,32,.74); max-width:none}
+
+/* this / not this */
+.judge{display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:var(--s5)}
+.jcol{display:flex; flex-direction:column; gap:var(--s3)}
+.jhead{display:flex; align-items:center; gap:10px; font-weight:700; font-size:1rem}
+.jhead i{width:10px; height:10px; border-radius:50%; display:block}
+.jlist{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:var(--s2)}
+.jlist li{background:var(--surface); border:1px solid var(--line); border-left:2px solid var(--jc); border-radius:var(--r-ctl); padding:10px var(--s3); font-size:.875rem; line-height:1.45}
+
+footer{border-top:1px solid var(--line); margin-top:var(--s9); padding-top:var(--s6); padding-bottom:var(--s8)}
+.next{display:grid; grid-template-columns:repeat(auto-fit,minmax(235px,1fr)); gap:var(--s3); margin-top:var(--s5)}
+.next div{background:var(--field); border-radius:var(--r-plate); padding:var(--s4); display:flex; flex-direction:column; gap:6px}
+.next b{font-size:.875rem; font-weight:600}
+.next .small{color:var(--ink-2)}
+
+@media(prefers-reduced-motion:no-preference){
+  .wires path{stroke-dasharray:200; stroke-dashoffset:200; animation:draw .9s cubic-bezier(.2,.7,.3,1) forwards}
+  .wires path:nth-child(1){animation-delay:.15s}
+  .wires path:nth-child(2){animation-delay:.28s}
+  .wires path:nth-child(3){animation-delay:.41s}
+}
+@keyframes draw{to{stroke-dashoffset:0}}
+</style>
+
+<header>
+  <div class="wrap bar">
+    <div class="mark"><i></i>hub</div>
+    <nav>
+      <a href="#palette">Palette</a>
+      <a href="#type">Type</a>
+      <a href="#shape">Space</a>
+      <a href="#canvas">Canvas</a>
+      <a href="#rules">Rules</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section>
+    <div class="hero-copy">
+      <h1 class="d1">The house style for everything you ship.</h1>
+      <p class="lede">Tokens, components and canvas rules shared across every hub app, so they read as one studio's work rather than one model's default.</p>
+    </div>
+
+    <div class="graph">
+      <div class="tnodes">
+        <div class="tnode">
+          <span class="k">color/action</span>
+          <span class="v"><span class="chip" id="chip"></span><span id="hexout">#2B3FC4</span></span>
+        </div>
+        <div class="tnode">
+          <span class="k">radius/control</span>
+          <span class="v">4px</span>
+        </div>
+        <div class="tnode">
+          <span class="k">type/label</span>
+          <span class="v">14 / 600</span>
+        </div>
+      </div>
+
+      <svg class="wires" viewBox="0 0 132 224" fill="none" aria-hidden="true">
+        <path d="M0 32 C66 32 66 112 132 112"></path>
+        <path d="M0 112 L132 112"></path>
+        <path d="M0 192 C66 192 66 112 132 112"></path>
+      </svg>
+
+      <div class="demo">
+        <div class="demo-plate" id="plate">
+          <div class="btnrow">
+            <button class="btn" type="button">Save changes</button>
+            <button class="btn ghost" type="button">Discard</button>
+          </div>
+          <p class="tiny">Three tokens, one component. Change the token and every app changes with it.</p>
+        </div>
+        <div class="swap" role="group" aria-label="Value of the action colour token">
+          <span class="tiny">color/action</span>
+          <button class="swapbtn" type="button" data-hex="#2B3FC4" aria-pressed="true">cobalt</button>
+          <button class="swapbtn" type="button" data-hex="#E8358C" aria-pressed="false">flare</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead"><h2 class="d2">Klint by default, Panton on purpose</h2><span class="mono ns">the argument</span></div>
+    <div class="duo">
+      <p>Danish design has always run an argument with itself. Kaare Klint measured furniture against the human body and built systems out of it: proportion, modules, restraint. Verner Panton answered with saturated orange rooms and moulded plastic. Both are Nordic. Only one of them is the postcard.</p>
+      <p>This system keeps Klint's rigour in the structure and rations Panton's voltage to the places where it changes what you do. Pastels are the material; cobalt and flare are the current running through it. When a screen looks loud, the voltage rule has been broken somewhere.</p>
+    </div>
+  </section>
+
+  <section id="palette">
+    <div class="shead"><h2 class="d2">Palette</h2><span class="mono ns">--hub-color-*</span></div>
+
+    <div class="stack-lg">
+      <div class="stack">
+        <h3 class="d4">Glazes</h3>
+        <p class="small">Flat ceramic fields for large surfaces, empty states and node categories. No gradients, no blur, no shadow on a glaze. Each one carries a daylight value and a winter-night value.</p>
+        <div class="glazes">
+          <div class="glaze"><div class="lit" style="background:#C6DEE4"><span class="nm">glacier</span><span class="hx">#C6DEE4</span></div><div class="nyt" style="background:#24454E"><span class="hx">night</span><span class="hx">#24454E</span></div></div>
+          <div class="glaze"><div class="lit" style="background:#D6E1C8"><span class="nm">lichen</span><span class="hx">#D6E1C8</span></div><div class="nyt" style="background:#2E4030"><span class="hx">night</span><span class="hx">#2E4030</span></div></div>
+          <div class="glaze"><div class="lit" style="background:#D9D5EC"><span class="nm">dusk</span><span class="hx">#D9D5EC</span></div><div class="nyt" style="background:#34304C"><span class="hx">night</span><span class="hx">#34304C</span></div></div>
+          <div class="glaze"><div class="lit" style="background:#F3D4DC"><span class="nm">rhubarb</span><span class="hx">#F3D4DC</span></div><div class="nyt" style="background:#4A2E38"><span class="hx">night</span><span class="hx">#4A2E38</span></div></div>
+          <div class="glaze"><div class="lit" style="background:#EFE4C6"><span class="nm">rye</span><span class="hx">#EFE4C6</span></div><div class="nyt" style="background:#443C24"><span class="hx">night</span><span class="hx">#443C24</span></div></div>
+          <div class="glaze"><div class="lit" style="background:#E2DCD4"><span class="nm">clay</span><span class="hx">#E2DCD4</span></div><div class="nyt" style="background:#3B3630"><span class="hx">night</span><span class="hx">#3B3630</span></div></div>
+        </div>
+      </div>
+
+      <div class="stack">
+        <h3 class="d4">Ground and ink</h3>
+        <p class="small">Porcelain is cool and faintly green, the colour of low winter daylight through glass. Spruce is a green-black rather than a tinted grey, so large dark fields still carry hue.</p>
+        <div class="rowset">
+          <div class="srow"><span class="sw" style="background:#F7F8F5"></span><span class="meta"><span class="nm">porcelain</span><span class="mono tiny">#F7F8F5 &nbsp;ground</span></span></div>
+          <div class="srow"><span class="sw" style="background:#E4E7DF"></span><span class="meta"><span class="nm">ash</span><span class="mono tiny">#E4E7DF &nbsp;field</span></span></div>
+          <div class="srow"><span class="sw" style="background:#D6DACF"></span><span class="meta"><span class="nm">hairline</span><span class="mono tiny">#D6DACF &nbsp;border</span></span></div>
+          <div class="srow"><span class="sw" style="background:#132420"></span><span class="meta"><span class="nm">spruce</span><span class="mono tiny">#132420 &nbsp;ink</span></span></div>
+        </div>
+      </div>
+
+      <div class="stack">
+        <h3 class="d4">Voltage</h3>
+        <p class="small">Cobalt is the current: interaction, focus, edges, selection. Flare is the accent that appears once on a screen, or not at all. Neither is ever a background wash, and neither carries meaning that semantic colour should carry.</p>
+        <div class="rowset">
+          <div class="srow"><span class="sw" style="background:#2B3FC4"></span><span class="meta"><span class="nm">cobalt</span><span class="mono tiny">#2B3FC4 &nbsp;action, edges</span></span></div>
+          <div class="srow"><span class="sw" style="background:#E8358C"></span><span class="meta"><span class="nm">flare</span><span class="mono tiny">#E8358C &nbsp;emphasis only</span></span></div>
+        </div>
+        <div class="note">
+          <b class="d4">The five percent rule</b>
+          <p class="small">Cobalt and flare together cover no more than a twentieth of any screen: primary buttons, one live edge, a focus ring, the single number that matters. Past that they stop reading as signal and start reading as decoration.</p>
+        </div>
+      </div>
+
+      <div class="stack">
+        <h3 class="d4">How a colour reaches a component</h3>
+        <p class="small">Three tiers, the way Material 3 layers reference, system and component tokens. A component never names a primitive; that indirection is what makes a theme swap possible.</p>
+        <div class="pipe">
+          <span>--hub-cobalt-50: #2B3FC4</span><b>becomes</b>
+          <span>--hub-color-action</span><b>becomes</b>
+          <span>--hub-button-primary-bg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="type">
+    <div class="shead"><h2 class="d2">Type</h2><span class="mono ns">--hub-type-*</span></div>
+    <div class="stack-lg">
+      <div class="spec">
+        <p class="big">Schibsted Grotesk</p>
+        <p class="glyphs">Kaare Klint &nbsp; Verner Panton &nbsp; ÆØÅ &nbsp; 0123456789</p>
+      </div>
+      <div class="duo">
+        <p>One family carries the whole system. Schibsted Grotesk was drawn for a Norwegian newsroom, so it holds at 12px in a dense table and at 96px in an opener, and its Nordic diacritics are properly drawn rather than bolted on. Personality comes from weight and tracking, not from a second display face.</p>
+        <p>JetBrains Mono appears only where characters need to line up: code, hex values, identifiers, token names. It is a tool, not a voice. Never set a label in mono to make it look technical.</p>
+      </div>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>Step</th><th>Size / leading</th><th>Weight</th><th>Tracking</th><th>Used for</th></tr></thead>
+          <tbody>
+            <tr><td class="m">display-1</td><td class="m">61 / 1.03</td><td class="m">800</td><td class="m">-0.035em</td><td>Page opener, one per screen</td></tr>
+            <tr><td class="m">display-2</td><td class="m">39 / 1.10</td><td class="m">700</td><td class="m">-0.028em</td><td>Section heads</td></tr>
+            <tr><td class="m">title</td><td class="m">25 / 1.20</td><td class="m">700</td><td class="m">-0.020em</td><td>Card and dialog titles</td></tr>
+            <tr><td class="m">subtitle</td><td class="m">20 / 1.30</td><td class="m">600</td><td class="m">-0.012em</td><td>Group headings</td></tr>
+            <tr><td class="m">body</td><td class="m">16 / 1.55</td><td class="m">400</td><td class="m">0</td><td>Running text, 66ch maximum</td></tr>
+            <tr><td class="m">body-sm</td><td class="m">14 / 1.50</td><td class="m">400</td><td class="m">0</td><td>Dense UI, table cells</td></tr>
+            <tr><td class="m">label</td><td class="m">14 / 1.00</td><td class="m">600</td><td class="m">-0.005em</td><td>Buttons, tabs, form labels</td></tr>
+            <tr><td class="m">caption</td><td class="m">12 / 1.45</td><td class="m">400</td><td class="m">0</td><td>Helper and meta text</td></tr>
+            <tr><td class="m">code</td><td class="m">13 / 1.50</td><td class="m">400</td><td class="m">0</td><td>JetBrains Mono only</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="shape">
+    <div class="shead"><h2 class="d2">Space and shape</h2><span class="mono ns">--hub-space-*, --hub-radius-*</span></div>
+    <div class="duo">
+      <div class="card">
+        <h3 class="d4">Everything is a multiple of eight</h3>
+        <p class="small">Four exists only for optical nudges inside a control. The dot grid behind this page steps every 24px, three modules, so any plate you draw lands on it.</p>
+        <div class="ramp">
+          <i style="width:4px;height:16px"></i><i style="width:8px;height:20px"></i><i style="width:12px;height:24px"></i><i style="width:16px;height:28px"></i><i style="width:24px;height:32px"></i><i style="width:32px;height:36px"></i><i style="width:48px;height:40px"></i><i style="width:64px;height:44px"></i><i style="width:96px;height:48px"></i>
+        </div>
+        <p class="mono tiny">4 &nbsp;8 &nbsp;12 &nbsp;16 &nbsp;24 &nbsp;32 &nbsp;48 &nbsp;64 &nbsp;96</p>
+      </div>
+      <div class="card">
+        <h3 class="d4">Two radii, chosen by role</h3>
+        <p class="small">Controls take 4px so they read as machined. Plates take 12px so they read as objects you could pick up. Pills are reserved for status, never for buttons. One radius on everything flattens the hierarchy.</p>
+        <div class="shapes">
+          <figure><span class="sq" style="border-radius:4px"></span><figcaption class="mono tiny">4px control</figcaption></figure>
+          <figure><span class="sq" style="border-radius:12px"></span><figcaption class="mono tiny">12px plate</figcaption></figure>
+          <figure><span class="sq" style="border-radius:999px;width:80px;height:28px"></span><figcaption class="mono tiny">pill status</figcaption></figure>
+        </div>
+      </div>
+      <div class="card">
+        <h3 class="d4">Elevation is material, not fog</h3>
+        <p class="small">A raised plate gets a hairline plus a tight shadow tinted with spruce, never a soft grey blur stamped under every block. Glazes do not lift at all, because a painted surface casts nothing.</p>
+        <p class="mono tiny">0 1px 0 hairline, 0 10px 26px -18px rgba(19,36,32,.55)</p>
+      </div>
+      <div class="card">
+        <h3 class="d4">Motion answers an action</h3>
+        <p class="small">Expanding, confirming, connecting: 160&ndash;240ms on cubic-bezier(.2,.7,.3,1). One orchestrated moment per page is allowed, like the wiring that drew itself above. Scroll-triggered fades on every section are banned, and reduced motion is always honoured.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="canvas">
+    <div class="shead"><h2 class="d2">Canvas</h2><span class="mono ns">React Flow</span></div>
+    <div class="stack-lg">
+      <p class="lede">Node graphs are the thing you build most, so they get first-class rules instead of default styling.</p>
+
+      <div class="flowdemo">
+        <div class="flowgrid">
+          <div class="fstack">
+            <div class="fnode">
+              <div class="fh"><span class="kind" style="background:#C6DEE4"></span><b>Fetch table</b></div>
+              <div class="fb">statbank / FOLK1A<span class="handle r"></span></div>
+            </div>
+            <div class="fnode">
+              <div class="fh"><span class="kind" style="background:#D6E1C8"></span><b>Filter rows</b></div>
+              <div class="fb">region = "Hovedstaden"<span class="handle r"></span></div>
+            </div>
+          </div>
+          <svg class="fwire" viewBox="0 0 96 120" fill="none" aria-hidden="true">
+            <path d="M0 22 C48 22 48 60 96 60"></path>
+            <path d="M0 98 C48 98 48 60 96 60"></path>
+          </svg>
+          <div class="fnode sel">
+            <div class="fh"><span class="kind" style="background:#E8358C"></span><b>Join and chart</b></div>
+            <div class="fb"><span class="handle l"></span>output to dashboard</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>React Flow variable</th><th>hub value</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td class="m">--xy-edge-stroke-default</td><td class="m">--hub-color-line-strong</td><td>Idle edges recede; only live ones earn cobalt</td></tr>
+            <tr><td class="m">--xy-edge-stroke-selected-default</td><td class="m">--hub-color-action</td><td>Selection is the current, so it is cobalt</td></tr>
+            <tr><td class="m">--xy-edge-stroke-width-default</td><td class="m">1.5</td><td>True hairlines disappear on high-density displays</td></tr>
+            <tr><td class="m">--xy-node-background-color-default</td><td class="m">--hub-color-surface</td><td>Nodes are plates, not white boxes</td></tr>
+            <tr><td class="m">--xy-node-border-default</td><td class="m">1px solid --hub-color-line-strong</td><td>The border carries the edge, not a shadow</td></tr>
+            <tr><td class="m">--xy-node-boxshadow-selected-default</td><td class="m">0 0 0 2px --hub-color-action-soft</td><td>A ring reads at any zoom; a glow does not</td></tr>
+            <tr><td class="m">--xy-handle-background-color-default</td><td class="m">--hub-color-ink</td><td>Handles are hit targets, so maximum contrast</td></tr>
+            <tr><td class="m">--xy-controls-button-background-color-default</td><td class="m">--hub-color-surface</td><td>Controls match every other plate</td></tr>
+            <tr><td class="m">--xy-selection-background-color-default</td><td class="m">--hub-color-action-soft</td><td>Marquee tint stays inside the five percent budget</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="duo">
+        <div class="card">
+          <h3 class="d4">Node anatomy</h3>
+          <p class="small">Every node is a header and a body. The header holds a category square in a glaze and the node's name at label size. The body holds one line of the node's real configuration in mono, so a graph is readable without opening anything.</p>
+        </div>
+        <div class="card">
+          <h3 class="d4">Glaze means category</h3>
+          <p class="small">The category square is the only place a glaze appears inside a graph. Sources take glacier, transforms take lichen, outputs take flare, a failing node takes the danger token. Never fill a whole node with a glaze; the graph turns into confetti.</p>
+        </div>
+        <div class="card">
+          <h3 class="d4">Animate only real flow</h3>
+          <p class="small">A marching dashed edge means data is moving right now. If it animates while nothing runs, it is decoration and it goes. Background dots step at 24px to match the page grid, so a canvas embedded in a page lines up with the page.</p>
+        </div>
+        <div class="card">
+          <h3 class="d4">A canvas is still a document</h3>
+          <p class="small">Keyboard focus rings, a visible selected state and labels that survive 50% zoom are requirements, not polish. If a node is unreadable when zoomed out, its body line is too long.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rules">
+    <div class="shead"><h2 class="d2">The rules</h2><span class="mono ns">read before you build</span></div>
+    <div class="rules">
+      <div class="rule" style="background:#C6DEE4"><h4>Voltage stays under five percent</h4><p>Cobalt and flare are current, not paint. If a screen feels loud, measure the coloured area.</p></div>
+      <div class="rule" style="background:#D6E1C8"><h4>Glazes stay flat</h4><p>No gradient, no blur, no shadow on a pastel field. It is fired ceramic, not a lighting effect.</p></div>
+      <div class="rule" style="background:#D9D5EC"><h4>Lines mean connection</h4><p>A rule, a border or an edge states that two things relate. Nothing gets drawn to fill space.</p></div>
+      <div class="rule" style="background:#F3D4DC"><h4>One family, weight does the work</h4><p>No second display face. A heading that needs more presence needs more weight or tighter tracking.</p></div>
+      <div class="rule" style="background:#EFE4C6"><h4>Radius is a role, not a habit</h4><p>Four for controls, twelve for plates, pills for status. Anything else is a decision you have to defend.</p></div>
+      <div class="rule" style="background:#E2DCD4"><h4>Semantic colour is separate</h4><p>Success, warning and danger own their tokens. The accent never stands in for state.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead"><h2 class="d2">Tells to avoid</h2><span class="mono ns">the point of all this</span></div>
+    <div class="judge">
+      <div class="jcol" style="--jc:#E8358C">
+        <div class="jhead"><i style="background:#E8358C"></i>Reads as generated</div>
+        <ul class="jlist">
+          <li>Cream ground with a serif display and a terracotta accent</li>
+          <li>Tracked-out capitals as an eyebrow above every heading</li>
+          <li>Identical rounded cards under the same soft grey shadow</li>
+          <li>Numbered markers on content that is not a sequence</li>
+          <li>An arrow glued to the end of every button and link</li>
+          <li>A purple-to-blue gradient behind the opening headline</li>
+          <li>Meta lines strung together with middle dots</li>
+        </ul>
+      </div>
+      <div class="jcol" style="--jc:#2B3FC4">
+        <div class="jhead"><i style="background:#2B3FC4"></i>Reads as ours</div>
+        <ul class="jlist">
+          <li>Cool porcelain ground under a green-black ink that has hue</li>
+          <li>Headings that earn presence through weight and tight tracking</li>
+          <li>Plates that differ by material: flat glaze, hairline, or lifted</li>
+          <li>Structure that encodes a real dependency between two things</li>
+          <li>Buttons that name the outcome, then confirm it in the same words</li>
+          <li>One saturated moment on an otherwise quiet page</li>
+          <li>Values in mono because the digits need to line up</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <h2 class="d3">What this becomes</h2>
+    <p class="small">This page is the source for the Storybook. Each block below turns into a docs page and a set of stories.</p>
+    <div class="next">
+      <div><b>tokens</b><span class="small">Primitives, semantics and component tokens as CSS custom properties, published for every app to import.</span></div>
+      <div><b>primitives</b><span class="small">Button, input, select, chip, plate, table. Every one styled from tokens only.</span></div>
+      <div><b>canvas</b><span class="small">Node, handle, edge and control components wired to the React Flow map above.</span></div>
+      <div><b>patterns</b><span class="small">Page shells, empty states, error states and the writing that goes inside them.</span></div>
+    </div>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var plate = document.getElementById('plate'),
+      chip  = document.getElementById('chip'),
+      out   = document.getElementById('hexout'),
+      btns  = Array.prototype.slice.call(document.querySelectorAll('.swapbtn')),
+      soft  = { '#2B3FC4':'var(--action-soft)', '#E8358C':'var(--voltage-soft)' };
+
+  function apply(hex){
+    plate.style.setProperty('--accent', hex);
+    chip.style.background = hex;
+    out.textContent = hex;
+    btns.forEach(function(b){
+      var on = b.getAttribute('data-hex') === hex;
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.style.setProperty('--accent', hex);
+      b.style.setProperty('--accent-soft', soft[hex]);
+    });
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){ apply(b.getAttribute('data-hex')); });
+  });
+  apply('#2B3FC4');
+})();
+</script>
