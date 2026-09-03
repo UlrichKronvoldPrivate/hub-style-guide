@@ -64,6 +64,18 @@ it — a 200px-wide graph is not a graph. Two consequences, both easy to miss:
 Canvas chrome is already spoken for: React Flow's Controls sit bottom-left and
 the MiniMap bottom-right. That is why toasts default to bottom-centre.
 
+**An optional footer band** (`.hub-page__foot`) adds a third row for a
+provenance strip, a run log or a status line. The row only exists when there is
+something in it — an empty band is a stripe of nothing — and it spans the panel
+too, because what it cites is the whole run, not the selected node.
+
+**A docked inspector and a transient one are different components.** The docked
+panel above is furniture: it is always there and shows whatever is selected. A
+panel that opens on demand and closes again — a step detail, a record viewer —
+is not that: it is an overlay at every width, it always carries a close
+control, and it does not get a grid column. Do not dock a transient panel just
+because there is room; a permanent empty inspector is worse than no inspector.
+
 ### 2. Table page
 
 Dense, scanned rather than read.

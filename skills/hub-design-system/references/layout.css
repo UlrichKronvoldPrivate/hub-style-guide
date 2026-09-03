@@ -142,6 +142,29 @@
 
 .hub-page__canvas { grid-area: canvas; min-width: 0; position: relative; }
 
+/* Optional footer band — a provenance strip, a run log, a status line. The row
+   only exists when there is something in it; an empty band is a stripe of
+   nothing. It spans the panel too, because what it cites is the whole run. */
+.hub-page--canvas:has(> .hub-page__foot) {
+  grid-template-rows: var(--hub-height-bar) minmax(0, 1fr) auto;
+  grid-template-areas:
+    "bar bar"
+    "canvas panel"
+    "foot foot";
+}
+
+.hub-page__foot {
+  grid-area: foot;
+  border-top: 1px solid var(--hub-color-line);
+  padding: var(--hub-space-3) var(--hub-space-5);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--hub-space-4);
+  font: var(--hub-text-caption);
+  color: var(--hub-color-ink-muted);
+}
+
 /* The inspector goes right because graphs flow left to right, so a left
    panel covers the upstream nodes you are tracing back from. */
 .hub-page__panel {
@@ -158,6 +181,9 @@
   .hub-page--canvas {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "bar" "canvas";
+  }
+  .hub-page--canvas:has(> .hub-page__foot) {
+    grid-template-areas: "bar" "canvas" "foot";
   }
   .hub-page__panel {
     position: absolute;

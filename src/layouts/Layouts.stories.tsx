@@ -252,6 +252,15 @@ function CanvasPageDemo() {
           <Button variant="ghost">Run this node only</Button>
         </aside>
       ) : null}
+
+      {/* Optional third row: a provenance strip citing the whole run, not the
+          selected node — which is why it spans the panel as well. */}
+      <div className="hub-page__foot">
+        <span>source version <span className="hub-code">sv_9f21c4</span></span>
+        <span>upload <span className="hub-code">up_3a17bd</span></span>
+        <span>evidence <span className="hub-code">ev_c48e02</span></span>
+        <span>ran in <span className="hub-code">4,2 s</span></span>
+      </div>
     </div>
   );
 }

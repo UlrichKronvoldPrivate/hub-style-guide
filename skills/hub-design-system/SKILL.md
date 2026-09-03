@@ -1,6 +1,6 @@
 ---
 name: hub-design-system
-description: Apply the hub house style ("Porcelain & Voltage") to any UI work — colours, typography, spacing, components, node canvases and UI copy. Use whenever writing or restyling HTML, CSS, React or Storybook for a hub app; adding or changing a component; picking colours, fonts or spacing; styling a React Flow graph; or reviewing a screen for consistency. Also use when a design looks generic or AI-generated and needs bringing onto the house style.
+description: Apply the hub house style ("Porcelain & Voltage") — colours, typography, spacing, layout, components, node canvases and UI copy. Use when starting a new UI, or working in a project that has no design system of its own. In a project that already has one, this skill DEFERS to it and only supplies the parts it lacks — see the precedence rule first. Also use for its portable half: layout archetypes, accessibility floor, UI copy rules, and the generated-design tells to avoid.
 ---
 
 # hub design system
@@ -9,9 +9,53 @@ The visual identity shared by every hub app. Its job is consistency across
 projects and a look that reads as one studio's work rather than one model's
 default.
 
-**Load `references/tokens.css` and style from those custom properties. Never
-hard-code a hex.** If a value you need has no token, that is a design decision:
-add the token, don't inline the value.
+## Precedence — read this before applying anything
+
+Order, highest first:
+
+1. **What the user asked for**, in their own words.
+2. **The project's own design system**, if it has one.
+3. **This skill.**
+
+**Check for an existing system before writing a line of CSS.** It is there if
+any of these are:
+
+- a token block in the project's stylesheet (`:root { --... }`), a
+  `tokens.*`/`theme.*` file, or a Tailwind theme config
+- design guidance in `CLAUDE.md` / `AGENTS.md`
+- a design reference file kept in the repo
+- a project-specific design agent under `.claude/agents/`
+
+If one exists, **it wins.** Do not introduce `--hub-*` tokens, do not
+re-palette, do not change its radius or its typeface. A project that has
+thought about its own look has usually thought about it *for that app* — a dark
+instrument-panel palette for a pipeline tool beats a pale one, and that is a
+better decision than consistency with a sibling app.
+
+Adopt this identity wholesale only when the project has no system, or when the
+user asks for it by name.
+
+## What still applies when a project has its own system
+
+The visual half does not travel. The rest does, because none of it names a
+colour:
+
+- **Layout** — the three page archetypes, one scroll container, the sticky
+  budget, two densities, placement. Shapes, not colours.
+- **Writing** — `references/writing.md`, all of it.
+- **Accessibility floor** — visible focus, native elements over rebuilt ones,
+  state readable without colour, reduced motion honoured.
+- **Tells to avoid** — the table near the end of this file.
+- **Behaviour** — one primary action per view, dismissible overlays, warnings
+  that do not time out, motion only in answer to an action.
+
+Express these through *that project's* tokens, never ours.
+
+## Applying the identity
+
+When this skill does own the look: **load `references/tokens.css` and style
+from those custom properties. Never hard-code a hex.** If a value you need has
+no token, that is a design decision: add the token, don't inline the value.
 
 ## The argument
 
@@ -37,7 +81,10 @@ rationed to the places where it changes what someone does.
    No second display face. A heading needing presence gets more weight or
    tighter tracking, never a different typeface.
 5. **Radius is a role, not a habit.** 4px controls, 12px plates, pills for
-   status only. One radius on everything flattens hierarchy.
+   status only. One radius on everything flattens hierarchy. Radius also sets
+   register: a full stadium pill reads as a consumer tag, so in an instrument
+   or pipeline UI where every status is a machine state, square the status
+   marker to `--hub-radius-control` instead.
 6. **Semantic colour is separate.** Success, warning and danger own their
    tokens. The accent never stands in for state, and state never borrows the
    accent.
