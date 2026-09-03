@@ -1,0 +1,97 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# Porcelain &amp; Voltage
+
+The house style shared by every hub app. Its job is consistency across projects,
+and a look that reads as one studio's work rather than one model's default.
+
+## The argument
+
+Danish design runs an argument with itself. Kaare Klint measured furniture
+against the human body and built systems out of it — proportion, modules,
+restraint. Verner Panton answered with saturated orange rooms and moulded
+plastic. Both are Nordic; only one is the postcard.
+
+**Klint by default, Panton on purpose.** Rigour holds the structure, and
+voltage is rationed to the places where it changes what someone does.
+
+## Six rules
+
+**Voltage stays under five percent.** Cobalt and flare are current, not paint.
+Primary buttons, one live edge, a focus ring, the single number that matters —
+that is the whole budget. If a screen feels loud, measure the coloured area.
+
+**Glazes stay flat.** No gradient, no blur, no shadow on a pastel field. It is
+fired ceramic, not a lighting effect.
+
+**Lines mean connection.** A rule, border or edge asserts that two things
+relate. Nothing is drawn to fill space.
+
+**One family, weight does the work.** Schibsted Grotesk carries everything. A
+heading needing presence gets more weight or tighter tracking, never a second
+typeface.
+
+**Radius is a role, not a habit.** 4px controls, 12px plates, pills for status
+only. One radius on everything flattens the hierarchy.
+
+**Semantic colour is separate.** Success, warning and danger own their tokens.
+The accent never stands in for state, and state never borrows the accent.
+
+## Using it in an app
+
+Load the fonts and the token file, then style from custom properties. Never a
+literal hex — if a value you need has no token, that is a design decision: add
+the token.
+
+```html
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="tokens.css">
+```
+
+```css
+.thing {
+  background: var(--hub-color-surface);
+  border: 1px solid var(--hub-color-line);
+  border-radius: var(--hub-radius-plate);
+  color: var(--hub-color-ink);
+}
+```
+
+Tokens layer in three tiers, the way Material 3 layers reference, system and
+component tokens:
+
+```
+--hub-cobalt-50   →   --hub-color-action   →   --hub-button-primary-bg
+   primitive              semantic                  component
+```
+
+A component never names a primitive. That indirection is what makes a theme
+swap possible — and it is why the **Theme** control in the toolbar re-themes
+every story here, canvases included, without a single component knowing about
+it.
+
+## Where things live
+
+`skills/hub-design-system/references/tokens.css` is the source of truth, and it
+lives with the skill rather than in `src/`, so the guidance Claude loads and the
+components rendered here can never drift apart.
+
+The same directory is linked into `~/.claude/skills/`, so any project on this
+machine builds on-identity without pasting values.
+
+## Tells to avoid
+
+These read as generated. If a review turns one up, it is a defect.
+
+| Tell | Instead |
+|---|---|
+| Cream ground, serif display, terracotta accent | Porcelain ground, one grotesque, cobalt |
+| Tracked-out capitals as an eyebrow above headings | Let the heading start the section |
+| Identical rounded cards under the same grey shadow | Separate by material: glaze, hairline, or lift |
+| `01 / 02 / 03` markers on non-sequential content | Number only real sequences and timelines |
+| An arrow glued to every button and link | The verb already says what happens |
+| Purple-to-blue gradient behind the headline | Flat ground; spend the boldness on one element |
+| Near-black `#111` standing in for black | Spruce `#132420`, a dark that has hue |
+| Mono for small labels, to look technical | Mono only where characters must align |

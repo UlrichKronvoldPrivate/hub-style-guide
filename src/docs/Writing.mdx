@@ -1,0 +1,81 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundations/Writing" />
+
+# Writing
+
+Words are design material, not decoration. Copy makes a product feel as
+templated as the layout does, so it gets the same discipline as spacing.
+
+## Write from the user's side of the screen
+
+Name things by what someone recognises, not by how the system is built.
+
+| Not this | This |
+|---|---|
+| Configure webhook endpoint | Choose where to send notifications |
+| Invalid payload schema | The file is missing a `region` column |
+| Execute pipeline | Run the graph |
+| Auth token expired | You have been signed out |
+
+Being legible to someone on their first day beats being precise about
+internals. When a technical term is the real name of the thing — node, edge,
+graph, token — use it. Inventing a friendlier synonym just adds a second
+vocabulary to learn.
+
+## Actions name their outcome
+
+A control says exactly what happens, and keeps the same name through the whole
+flow. "Publish" produces a toast that says "Published".
+
+| Not this | This |
+|---|---|
+| Submit | Save changes |
+| OK / Cancel on a delete | Delete graph / Keep it |
+| Are you sure? | Delete "Population by region"? This cannot be undone. |
+
+Sentence case throughout. No trailing arrows, no exclamation marks.
+
+## Errors are directions
+
+Explain what happened and what to do next, in the interface's voice — no
+apologies, no personality, no "Oops! Something went wrong."
+
+> **Statbank did not respond.** The request timed out after 30 seconds. The
+> table may be large — try a narrower region filter, or retry.
+
+Three parts: what failed, why as far as we know, what to try. If we genuinely do
+not know why, say so and give the next step anyway.
+
+## Empty screens invite
+
+An empty state says what will live here and offers one way to start.
+
+> **No graphs yet.** A graph connects a data source to whatever reads it. Start
+> with a source.
+
+Never "Nothing to see here", never an illustration standing in for an
+explanation. See **Components → Empty state**.
+
+## Tone
+
+Conversational, plain verbs, no filler. Short sentences carry technical content
+better than long ones. Cut every instance of: *simply, just, easily,
+seamlessly, powerful, robust, leverage, utilize, in order to, please note*.
+
+Danish and English apps use the same structure. When writing Danish, keep the
+same directness — no "venligst", and no passive construction where an
+imperative works.
+
+## Numbers and units
+
+Real units, always: `kr.`, `%`, `MB`, `ms`, dates as `3 Sep 2026`. Thousands
+separated per locale — `1.895.000` in Danish, `1,895,000` in English. Numbers
+that stack in a column are tabular and right-aligned. Never round in a way that
+hides a meaningful difference.
+
+## Labels
+
+Sentence case, no colon, no all-caps. A label describes the input, not the act
+of filling it: "Region", not "Enter region". Helper text is present from the
+start where a format is required, not revealed only on error.

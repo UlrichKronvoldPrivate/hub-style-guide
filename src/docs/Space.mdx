@@ -1,0 +1,55 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { SpaceRamp, Shapes } from './Specimen';
+
+<Meta title="Foundations/Space and shape" />
+
+# Space and shape
+
+## Everything is a multiple of eight
+
+Four exists only for optical nudges inside a control. The dot grid behind every
+page steps every 24px — three modules — so any plate you draw lands on it.
+
+<SpaceRamp />
+
+Layout does the spacing: flex or grid with `gap`, never per-element margins that
+collapse or double.
+
+## Two radii, chosen by role
+
+Controls take 4px so they read as machined. Plates take 12px so they read as
+objects you could pick up. Pills are reserved for status, never for buttons or
+filters.
+
+<Shapes />
+
+One radius on everything flattens the hierarchy. If a shape needs a third
+radius, that is a decision to defend, not a default to reach for.
+
+## Elevation is material, not fog
+
+A raised plate gets a hairline plus a tight spruce-tinted shadow — never a soft
+grey blur stamped under every block. Glazes do not lift at all, because a
+painted surface casts nothing.
+
+```css
+--hub-shadow-plate: 0 1px 0 var(--hub-color-line),
+                    0 10px 26px -18px rgba(19, 36, 32, .55);
+```
+
+**Not everything is a plate.** There are three ways to separate an object from
+the ground — a flat glaze field, a hairline border, or a lift — and a screen
+picks one per object type. A page where some cards are lifted and others glazed,
+for the same kind of content, is a mistake.
+
+## Motion
+
+Motion answers an action: expanding, confirming, connecting. 160–240ms on
+`--hub-ease` (`cubic-bezier(.2, .7, .3, 1)`).
+
+One orchestrated moment per page is allowed — a load sequence, a reveal.
+**Banned:** fade-and-slide-up on every section as it scrolls into view, and a
+hover-lift on every card. Both are among the clearest tells of a generated page.
+
+`prefers-reduced-motion` is honoured globally in `tokens.css`, so a component
+never has to remember it.

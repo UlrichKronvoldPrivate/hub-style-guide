@@ -1,0 +1,128 @@
+/* React Flow's own stylesheet first, so our overrides win. */
+@import "@xyflow/react/dist/style.css";
+
+/* ── Variable map ─────────────────────────────────────────────
+   Every --xy-* points at a SEMANTIC token, never a primitive,
+   so the canvas follows the app's theme with no extra wiring.
+   ─────────────────────────────────────────────────────────── */
+.react-flow {
+  --xy-background-color: var(--hub-color-ground);
+
+  /* edges: idle edges recede, only live ones earn cobalt */
+  --xy-edge-stroke-default: var(--hub-color-line-strong);
+  --xy-edge-stroke-selected-default: var(--hub-color-action);
+  --xy-edge-stroke-width-default: 1.5;
+  --xy-connectionline-stroke-default: var(--hub-color-action);
+  --xy-connectionline-stroke-width-default: 1.5;
+
+  /* nodes are plates, not white boxes */
+  --xy-node-background-color-default: var(--hub-color-surface);
+  --xy-node-border-default: 1px solid var(--hub-color-line-strong);
+  --xy-node-color-default: var(--hub-color-ink);
+  --xy-node-group-background-color-default: var(--hub-color-surface-sunken);
+  --xy-node-boxshadow-hover-default: var(--hub-shadow-plate);
+  --xy-node-boxshadow-selected-default: 0 0 0 2px var(--hub-color-action-soft);
+
+  /* handles are hit targets, so maximum contrast */
+  --xy-handle-background-color-default: var(--hub-color-ink);
+  --xy-handle-border-color-default: var(--hub-color-surface);
+
+  /* chrome matches every other plate */
+  --xy-controls-button-background-color-default: var(--hub-color-surface);
+  --xy-controls-button-background-color-hover-default: var(--hub-color-surface-sunken);
+  --xy-controls-button-color-default: var(--hub-color-ink);
+  --xy-controls-button-border-color-default: var(--hub-color-line);
+  --xy-minimap-background-color-default: var(--hub-color-surface-sunken);
+  --xy-resize-background-color-default: var(--hub-color-action);
+  --xy-selection-background-color-default: var(--hub-color-action-soft);
+  --xy-selection-border-default: 1px solid var(--hub-color-action);
+
+  font-family: var(--hub-font-sans);
+}
+
+/* ── Node ─────────────────────────────────────────────────────
+   Header and body. The header carries a category square in a
+   glaze; the body carries one line of the node's real config.
+   ─────────────────────────────────────────────────────────── */
+.hub-node {
+  width: 208px;
+  background: var(--hub-color-surface);
+  border: 1px solid var(--hub-color-line-strong);
+  border-radius: var(--hub-radius-plate);
+  box-shadow: var(--hub-shadow-plate);
+  overflow: hidden;
+}
+
+.hub-node__head {
+  display: flex;
+  align-items: center;
+  gap: var(--hub-space-2);
+  padding: 10px var(--hub-space-3);
+  border-bottom: 1px solid var(--hub-color-line);
+  font: var(--hub-text-label);
+  letter-spacing: var(--hub-tracking-label);
+  color: var(--hub-color-ink);
+}
+
+.hub-node__kind {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex: none;
+}
+
+/* Glaze means category — the only place a glaze appears in a graph.
+   Never fill a whole node with one; the graph turns into confetti. */
+.hub-node__kind[data-kind="source"]    { background: var(--hub-color-glaze-1); }
+.hub-node__kind[data-kind="transform"] { background: var(--hub-color-glaze-2); }
+.hub-node__kind[data-kind="logic"]     { background: var(--hub-color-glaze-3); }
+.hub-node__kind[data-kind="model"]     { background: var(--hub-color-glaze-4); }
+.hub-node__kind[data-kind="storage"]   { background: var(--hub-color-glaze-5); }
+.hub-node__kind[data-kind="note"]      { background: var(--hub-color-glaze-6); }
+.hub-node__kind[data-kind="output"]    { background: var(--hub-color-voltage); }
+.hub-node__kind[data-kind="failing"]   { background: var(--hub-color-danger); }
+
+.hub-node__body {
+  padding: 10px var(--hub-space-3);
+  font: var(--hub-text-code);
+  color: var(--hub-color-ink-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Selected reads by border weight as well as colour, so it does not
+   depend on hue alone. */
+.react-flow__node.selected .hub-node {
+  border-color: var(--hub-color-action);
+  border-width: 2px;
+}
+
+.react-flow__handle {
+  width: 9px;
+  height: 9px;
+  border-width: 1.5px;
+}
+
+/* Chrome */
+.react-flow__controls,
+.react-flow__minimap {
+  border: 1px solid var(--hub-color-line);
+  border-radius: var(--hub-radius-plate);
+  box-shadow: var(--hub-shadow-plate);
+  overflow: hidden;
+}
+.react-flow__controls-button { border-bottom: 1px solid var(--hub-color-line); }
+.react-flow__controls-button svg { fill: currentColor; }
+.react-flow__minimap-node { fill: var(--hub-color-line-strong); stroke: none; }
+.react-flow__minimap-mask { fill: var(--hub-color-ground); fill-opacity: .6; }
+
+.react-flow__attribution { background: transparent; color: var(--hub-color-ink-subtle); }
+
+/* A canvas needs a sized container. */
+.hub-canvas {
+  height: 420px;
+  border: 1px solid var(--hub-color-line);
+  border-radius: var(--hub-radius-plate);
+  overflow: hidden;
+}

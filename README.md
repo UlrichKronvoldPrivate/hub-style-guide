@@ -7,15 +7,39 @@ The identity is called **Porcelain & Voltage**: Klint by default, Panton on
 purpose. Nordic restraint holds the structure, and saturated colour is rationed
 to the places where it changes what someone does.
 
+## Run it
+
+```bash
+npm install
+npm run storybook
+```
+
+Storybook opens on <http://localhost:6006>. The **Theme** control in the toolbar
+switches every story — canvases included — between daylight and winter night.
+
+| Script | What it does |
+|---|---|
+| `npm run storybook` | Dev server on port 6006 |
+| `npm run build` | Static build into `storybook-static/` |
+| `npm run typecheck` | `tsc --noEmit` over `src` and `.storybook` |
+
+Requires Node 22.12+ (Storybook 10 is ESM-only).
+
 ## What's here
 
 | Path | What it is |
 |---|---|
-| [`docs/identity.html`](docs/identity.html) | The visual identity, as a page you can look at. Palette, type, space, canvas rules, and the tells that make a UI look generated. |
-| [`skills/hub-design-system/`](skills/hub-design-system/) | A Claude Code skill carrying the whole system, so any project builds on-identity without pasting values. |
-| [`skills/hub-design-system/references/tokens.css`](skills/hub-design-system/references/tokens.css) | The token file. Source of truth for every colour, size and shape in the system. |
+| [`skills/hub-design-system/`](skills/hub-design-system/) | The design system as a Claude Code skill. Linked into `~/.claude/skills/`, so every project builds on-identity. |
+| [`skills/hub-design-system/references/tokens.css`](skills/hub-design-system/references/tokens.css) | **Source of truth.** Every colour, size and shape in the system. |
+| [`src/components/`](src/components/) | Button, Field, Plate, Chip, DataTable, EmptyState, and the React Flow canvas node. |
+| [`src/docs/`](src/docs/) | Storybook docs pages — colour, typography, space and shape, writing. |
+| [`docs/identity.html`](docs/identity.html) | The identity as a standalone page, for sharing outside the repo. |
 
-## Using the tokens in an app
+The token file lives with the skill rather than under `src/`, and the Storybook
+imports it from there. One copy, so the guidance Claude loads and the components
+rendered here cannot drift apart.
+
+## Using the tokens in another app
 
 ```html
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -38,16 +62,25 @@ component tokens:
 
 ```
 --hub-cobalt-50   →   --hub-color-action   →   --hub-button-primary-bg
-   primitive             semantic                   component
+   primitive              semantic                  component
 ```
 
 A component never names a primitive. That indirection is what makes a theme
-swap possible.
+swap possible, and it is why one toolbar control re-themes every story without
+any component knowing about it.
+
+## React Flow
+
+`tokens.css` treats `.dark` as an alias for the night theme, so a canvas with
+`colorMode="system"` follows the app with no extra wiring. The full `--xy-*`
+map is in
+[`references/react-flow.md`](skills/hub-design-system/references/react-flow.md)
+and applied in [`src/components/Canvas/canvas.css`](src/components/Canvas/canvas.css).
 
 ## The skill
 
-`skills/hub-design-system/` is linked into `~/.claude/skills/`, so Claude Code
-loads it in any project when the work touches UI. Edits here take effect
+`skills/hub-design-system/` is junctioned into `~/.claude/skills/`, so Claude
+Code loads it in any project when the work touches UI. Edits here take effect
 everywhere immediately.
 
 To link it on another machine:
@@ -65,4 +98,12 @@ New-Item -ItemType Junction -Path "$HOME\.claude\skills\hub-design-system" -Targ
 5. Radius is a role, not a habit.
 6. Semantic colour is separate.
 
-The reasoning behind each is in [`docs/identity.html`](docs/identity.html).
+The reasoning behind each is in
+[`SKILL.md`](skills/hub-design-system/SKILL.md) and, at more length, in the
+Introduction page of the Storybook.
+
+## Version pins
+
+TypeScript is pinned to 5.x rather than 7.x: it does nothing here but
+typecheck stories, and Storybook 10's own type definitions have not been
+validated against the new compiler. Worth revisiting once that settles.

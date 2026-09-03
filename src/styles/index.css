@@ -1,0 +1,4 @@
+/* The token file is the source of truth and lives with the skill, so the
+   skill and the Storybook can never drift apart. */
+@import "../../skills/hub-design-system/references/tokens.css";
+@import "./base.css";

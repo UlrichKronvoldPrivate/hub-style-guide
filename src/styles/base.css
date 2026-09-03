@@ -1,0 +1,23 @@
+/* Shared element defaults and typography helpers.
+   Everything here reads tokens; nothing declares a literal value. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+.hub-display-1 { font: var(--hub-text-display-1); letter-spacing: var(--hub-tracking-display-1); margin: 0; text-wrap: balance; }
+.hub-display-2 { font: var(--hub-text-display-2); letter-spacing: var(--hub-tracking-display-2); margin: 0; text-wrap: balance; }
+.hub-title     { font: var(--hub-text-title);     letter-spacing: var(--hub-tracking-title);     margin: 0; text-wrap: balance; }
+.hub-subtitle  { font: var(--hub-text-subtitle);  letter-spacing: var(--hub-tracking-subtitle);  margin: 0; }
+.hub-body      { font: var(--hub-text-body);      margin: 0; max-width: var(--hub-measure); }
+.hub-body-sm   { font: var(--hub-text-body-sm);   margin: 0; max-width: var(--hub-measure); }
+.hub-label     { font: var(--hub-text-label);     letter-spacing: var(--hub-tracking-label); }
+.hub-caption   { font: var(--hub-text-caption);   color: var(--hub-color-ink-muted); margin: 0; }
+.hub-code      { font: var(--hub-text-code);      font-variant-numeric: tabular-nums; }
+
+.hub-muted  { color: var(--hub-color-ink-muted); }
+.hub-subtle { color: var(--hub-color-ink-subtle); }
+
+/* Layout does the spacing: gap, never per-child margins. */
+.hub-stack { display: flex; flex-direction: column; gap: var(--hub-space-4); align-items: flex-start; }
+.hub-row   { display: flex; flex-wrap: wrap; gap: var(--hub-space-3); align-items: center; }
+
+.hub-scroll-x { overflow-x: auto; }

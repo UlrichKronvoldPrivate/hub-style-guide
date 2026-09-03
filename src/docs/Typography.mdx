@@ -1,0 +1,58 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { TypeScale } from './Specimen';
+
+<Meta title="Foundations/Typography" />
+
+# Typography
+
+One family carries the whole system. **Schibsted Grotesk** was drawn for a
+Norwegian newsroom, so it holds at 12px in a dense table and at 96px in an
+opener, and its ÆØÅ are properly drawn rather than bolted on.
+
+Personality comes from weight and tracking, not from a second display face.
+There is no serif in this system.
+
+**JetBrains Mono** appears only where characters must line up: code, hex values,
+identifiers, token names. It is a tool, not a voice. Never set a label in mono
+to make it look technical.
+
+## The scale
+
+Nine steps at a 1.25 ratio. Each is a single `font` shorthand token plus a
+tracking token, so a component sets both in two declarations.
+
+<TypeScale />
+
+## Rules
+
+Running text stops at 66 characters (`--hub-measure`). Headings get
+`text-wrap: balance`. Anywhere digits stack in a column — tables, token values,
+metrics — use `font-variant-numeric: tabular-nums`.
+
+Tracking tightens as size grows, and only as size grows. Body text is never
+tracked; a display line at 61px is tracked to -0.035em because the same optical
+spacing that works at 16px reads as loose at that scale.
+
+```css
+.thing {
+  font: var(--hub-text-title);
+  letter-spacing: var(--hub-tracking-title);
+}
+```
+
+## Loading
+
+```html
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+```
+
+Both stacks declare a real fallback, so a blocked font host degrades to
+Helvetica Neue rather than to whatever the browser picks.
+
+## What not to do
+
+Do not accent a single word inside a headline with a different colour or style —
+it is one of the clearest tells of a generated page. Do not set labels in
+tracked-out capitals as an eyebrow above every heading. Let the heading start
+the section.

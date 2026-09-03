@@ -1,0 +1,30 @@
+/* The one container. A plate is an object you could pick up.
+   Pick ONE separation per object type on a screen. A page where some cards
+   are lifted and others are glazed, for the same content, is a mistake. */
+
+.hub-plate {
+  background: var(--hub-plate-bg);
+  border: 1px solid var(--hub-plate-border);
+  border-radius: var(--hub-plate-radius);
+  box-shadow: var(--hub-plate-shadow);
+  padding: var(--hub-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--hub-space-3);
+  align-items: flex-start;
+}
+
+/* hairline only — for dense lists where a shadow per row would be noise */
+.hub-plate--flat { box-shadow: none; }
+
+/* flat ceramic field. no shadow, because a painted surface casts nothing */
+.hub-plate--glaze {
+  background: var(--hub-glaze, var(--hub-color-glaze-1));
+  border-color: transparent;
+  box-shadow: none;
+  color: var(--hub-color-ink-on-glaze);
+}
+
+.hub-plate[data-tone="danger"]  { border-left: 2px solid var(--hub-color-danger); }
+.hub-plate[data-tone="warning"] { border-left: 2px solid var(--hub-color-warning); }
+.hub-plate[data-tone="success"] { border-left: 2px solid var(--hub-color-success); }

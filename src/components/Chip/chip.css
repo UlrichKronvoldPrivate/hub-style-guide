@@ -1,0 +1,26 @@
+/* Pills are for status only, never for buttons or toggling filters. */
+
+.hub-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: var(--hub-text-caption);
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: var(--hub-chip-radius);
+  background: var(--hub-color-surface-sunken);
+  color: var(--hub-color-ink-muted);
+  white-space: nowrap;
+}
+
+/* State reads in form as well as colour, so it survives greyscale and
+   colour-blind vision: the dot shape changes with the status. */
+.hub-chip__dot { width: 6px; height: 6px; flex: none; background: currentColor; }
+.hub-chip--neutral .hub-chip__dot { border-radius: 50%; }
+.hub-chip--ok      .hub-chip__dot { border-radius: 50%; }
+.hub-chip--warn    .hub-chip__dot { border-radius: 1px; transform: rotate(45deg); }
+.hub-chip--fail    .hub-chip__dot { border-radius: 1px; }
+
+.hub-chip--ok   { background: var(--hub-color-success-soft); color: var(--hub-color-success); }
+.hub-chip--warn { background: var(--hub-color-warning-soft); color: var(--hub-color-warning); }
+.hub-chip--fail { background: var(--hub-color-danger-soft);  color: var(--hub-color-danger); }

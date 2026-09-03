@@ -1,0 +1,37 @@
+.hub-btn {
+  font: var(--hub-text-label);
+  letter-spacing: var(--hub-tracking-label);
+  padding: var(--hub-button-pad);
+  border-radius: var(--hub-button-radius);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--hub-color-ink);
+  cursor: pointer;
+  transition: background-color var(--hub-duration-fast) var(--hub-ease),
+              border-color var(--hub-duration-fast) var(--hub-ease),
+              color var(--hub-duration-fast) var(--hub-ease);
+}
+
+.hub-btn--primary {
+  background: var(--hub-button-primary-bg);
+  color: var(--hub-button-primary-ink);
+}
+
+.hub-btn--ghost {
+  color: var(--hub-button-ghost-ink);
+  border-color: var(--hub-button-ghost-border);
+}
+.hub-btn--ghost:hover:not(:disabled) { border-color: var(--hub-color-ink-subtle); }
+
+.hub-btn--quiet {
+  color: var(--hub-color-action);
+  padding-inline: var(--hub-space-2);
+}
+.hub-btn--quiet:hover:not(:disabled) { background: var(--hub-color-action-soft); }
+
+.hub-btn--danger {
+  background: var(--hub-color-danger);
+  color: var(--hub-color-ink-on-action);
+}
+
+.hub-btn:disabled { opacity: .45; cursor: not-allowed; }

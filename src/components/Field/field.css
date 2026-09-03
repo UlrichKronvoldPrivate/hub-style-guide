@@ -1,0 +1,34 @@
+.hub-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hub-space-2);
+  min-width: 260px;
+}
+
+.hub-field__label {
+  font: var(--hub-text-label);
+  letter-spacing: var(--hub-tracking-label);
+  color: var(--hub-color-ink);
+}
+
+.hub-input {
+  font: var(--hub-text-body-sm);
+  color: var(--hub-color-ink);
+  background: var(--hub-input-bg);
+  border: 1px solid var(--hub-input-border);
+  border-radius: var(--hub-radius-control);
+  padding: 9px var(--hub-space-3);
+  transition: border-color var(--hub-duration-fast) var(--hub-ease);
+}
+.hub-input::placeholder { color: var(--hub-input-ink-placeholder); }
+.hub-input:focus-visible { border-color: var(--hub-input-border-focus); }
+.hub-input:disabled { opacity: .45; cursor: not-allowed; }
+
+.hub-field__help {
+  font: var(--hub-text-caption);
+  color: var(--hub-color-ink-muted);
+  margin: 0;
+}
+
+.hub-field[data-invalid] .hub-input { border-color: var(--hub-color-danger); }
+.hub-field[data-invalid] .hub-field__help { color: var(--hub-color-danger); }
