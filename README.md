@@ -3,9 +3,11 @@
 The house style shared by every hub app — tokens, components, canvas rules and
 UI copy — so a handful of separate projects read as one studio's work.
 
-The identity is called **Porcelain & Voltage**: Klint by default, Panton on
-purpose. Nordic restraint holds the structure, and saturated colour is rationed
-to the places where it changes what someone does.
+The identity is called **Skumring** — Danish for dusk. The page ground is a
+dusk sky built from five pastel glazes; everything on it is tonal glass that
+takes the sky's hue, elevation is a step in tone rather than a shadow, and each
+app sets a `data-seed` that reorders the sky. Klint holds the structure; the
+Panton is in the atmosphere.
 
 ## Run it
 
@@ -33,7 +35,8 @@ Requires Node 22.12+ (Storybook 10 is ESM-only).
 | [`skills/hub-design-system/references/tokens.css`](skills/hub-design-system/references/tokens.css) | **Source of truth.** Every colour, size and shape in the system. |
 | [`src/components/`](src/components/) | Button, Field, Plate, Chip, DataTable, EmptyState, and the React Flow canvas node. |
 | [`src/docs/`](src/docs/) | Storybook docs pages — colour, typography, space and shape, writing. |
-| [`docs/identity.html`](docs/identity.html) | The identity as a standalone page, for sharing outside the repo. |
+| [`docs/skumring.html`](docs/skumring.html) | The identity as a standalone page — day/night and the seeds side by side, plus a Material 3 scorecard. |
+| [`docs/identity.html`](docs/identity.html) | The earlier identity, Porcelain & Voltage. Kept for the reasoning; superseded by Skumring. |
 
 The token file lives with the skill rather than under `src/`, and the Storybook
 imports it from there. One copy, so the guidance Claude loads and the components

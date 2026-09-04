@@ -1,6 +1,6 @@
 ---
 name: hub-design-system
-description: Apply the hub house style ("Porcelain & Voltage") — colours, typography, spacing, layout, components, node canvases and UI copy. Use when starting a new UI, or working in a project that has no design system of its own. In a project that already has one, this skill DEFERS to it and only supplies the parts it lacks — see the precedence rule first. Also use for its portable half: layout archetypes, accessibility floor, UI copy rules, and the generated-design tells to avoid.
+description: Apply the hub house style ("Skumring" — a dusk sky of pastel glazes under tonal glass, one seed per app) — colours, typography, spacing, layout, components, node canvases and UI copy. Use when starting a new UI, or working in a project that has no design system of its own. In a project that already has one, this skill DEFERS to it and only supplies the parts it lacks — see the precedence rule first. Also use for its portable half: layout archetypes, accessibility floor, UI copy rules, and the generated-design tells to avoid.
 ---
 
 # hub design system
@@ -57,6 +57,17 @@ When this skill does own the look: **load `references/tokens.css` and style
 from those custom properties. Never hard-code a hex.** If a value you need has
 no token, that is a design decision: add the token, don't inline the value.
 
+Three things `tokens.css` does for you, so do not redo them:
+
+- **The sky.** `body` gets the dusk field. Do not paint another background on
+  the page, and do not put a gradient on anything else.
+- **The seed.** Set `data-seed` on `<html>` — `glacier` (default), `rye`,
+  `dusk`, `lichen` or `rhubarb`. One per app, chosen once. It reorders the sky
+  and touches nothing else.
+- **Glass.** Every surface token is translucent. A surface needs
+  `backdrop-filter: var(--hub-glass)` to read as glass; the component recipes
+  include it.
+
 ## The argument
 
 Danish design runs an argument with itself. Kaare Klint measured furniture
@@ -67,21 +78,31 @@ plastic. Both are Nordic; only one is the postcard.
 **Klint by default, Panton on purpose.** Rigour holds the structure; voltage is
 rationed to the places where it changes what someone does.
 
+**Skumring** — Danish for dusk — is where the Panton went. The page ground is a
+Nordic dusk sky built from the glazes: cold glacier leading, lilac, rhubarb, a
+warm rye horizon; at night it goes aurora-green, not violet. Everything on it is
+tonal glass that takes the sky's hue. Saturation lives in the ground and quiet
+lives in the surfaces, so the pastels do the work instead of sitting in a
+swatch table.
+
 ## Six rules
 
-1. **Voltage stays under five percent.** Cobalt and flare are current, not
-   paint. Primary buttons, one live edge, a focus ring, the single number that
-   matters — that is the whole budget. If a screen feels loud, measure the
-   coloured area.
-2. **Glazes stay flat.** No gradient, no blur, no shadow on a pastel field. It
-   is fired ceramic, not a lighting effect.
+1. **Colour lives in the sky; voltage on surfaces stays under five percent.**
+   The ground carries the atmosphere. On top of it, cobalt and flare are
+   current, not paint: primary buttons, one live edge, a focus ring, the single
+   number that matters. If a surface feels loud, measure its coloured area —
+   the sky does not count.
+2. **Elevation is tone, not shadow.** Five surface levels, each a step more
+   opaque. A raised thing is a higher level; a dialog is the highest. There
+   are no drop shadows anywhere, and the only gradient on the page is the sky.
 3. **Lines mean connection.** A rule, border or edge asserts that two things
    relate. Nothing is drawn to fill space.
 4. **One family, weight does the work.** Schibsted Grotesk carries everything.
    No second display face. A heading needing presence gets more weight or
    tighter tracking, never a different typeface.
-5. **Radius is a role, not a habit.** 4px controls, 12px plates, pills for
-   status only. One radius on everything flattens hierarchy. Radius also sets
+5. **Radius is a role, not a habit.** 10px controls, 20px plates, 28px for
+   the one tile that leads a page, pills for status only. One radius on
+   everything flattens hierarchy. Radius also sets
    register: a full stadium pill reads as a consumer tag, so in an instrument
    or pipeline UI where every status is a machine state, square the status
    marker to `--hub-radius-control` instead.
@@ -91,17 +112,27 @@ rationed to the places where it changes what someone does.
 
 ## Colour
 
-Ground is porcelain — cool and faintly green, low winter daylight through
-glass. Never cream. Ink is spruce, a green-black rather than a tinted grey, so
-large dark fields still carry hue.
+The ground is the **sky**: five radial stops of glaze over porcelain by day
+(`#F2F5F1`) and over spruce-black by night (`#0C1614`). `--hub-sky-1` leads at
+top-left, `-2` right, `-3` low-right, `-4` is the horizon, `-5` a centre haze.
+Never cream. Ink is spruce, a green-black rather than a tinted grey.
 
-| Role | Token | Light | Night |
+Surfaces are **tonal glass** — white at five opacities by day, frost at five by
+night — and they need `backdrop-filter: var(--hub-glass)`:
+
+| Level | Token | Day | Night | For |
+|---|---|---|---|---|
+| lowest | `--hub-color-surface-lowest` | white 22% | white 3% | nav, sunken fields |
+| low | `--hub-color-surface-low` | 40% | 6% | the app bar, flat lists |
+| surface | `--hub-color-surface` | 58% | 9% | plates — the default |
+| high | `--hub-color-surface-high` | 78% | 14% | inputs, chips, nodes, ghost buttons |
+| highest | `--hub-color-surface-highest` | 94% | spruce 92% | dialogs, toasts, overlays |
+
+| Role | Token | Day | Night |
 |---|---|---|---|
-| ground | `--hub-color-ground` | `#F7F8F5` | `#0F1917` |
-| surface (plate) | `--hub-color-surface` | `#FCFDFA` | `#16221E` |
-| sunken field | `--hub-color-surface-sunken` | `#E4E7DF` | `#1E2C27` |
-| hairline | `--hub-color-line` | `#D6DACF` | `#2A3A34` |
-| ink | `--hub-color-ink` | `#132420` | `#E9EEE8` |
+| lit edge of glass | `--hub-edge` | white 55% | white 12% |
+| hairline | `--hub-color-line` | spruce 10% | frost 10% |
+| ink | `--hub-color-ink` | `#132420` | `#EAF0EA` |
 | action (cobalt) | `--hub-color-action` | `#2B3FC4` | `#8494FF` |
 | voltage (flare) | `--hub-color-voltage` | `#E8358C` | `#FF77B9` |
 
@@ -111,12 +142,24 @@ categories. `--hub-color-glaze-1` … `-6`:
 | | glacier | lichen | dusk | rhubarb | rye | clay |
 |---|---|---|---|---|---|---|
 | light | `#C6DEE4` | `#D6E1C8` | `#D9D5EC` | `#F3D4DC` | `#EFE4C6` | `#E2DCD4` |
-| night | `#24454E` | `#2E4030` | `#34304C` | `#4A2E38` | `#443C24` | `#3B3630` |
+| night | `#1E4A50` | `#2E4030` | `#33304F` | `#4A2C3A` | `#3F3A22` | `#3B3630` |
 
 Text on a glaze is always `--hub-color-ink-on-glaze`.
 
 **Flare appears once on a screen, or not at all.** It marks the one thing that
 matters most on that page. Two flares on a screen means neither is the one.
+
+**A tonal cell** keeps a stop of the sky at `--hub-tint-alpha` over the glass
+(`color-mix(in srgb, var(--hub-sky-1) var(--hub-tint-alpha), var(--hub-color-surface))`).
+That is how a stat row or an empty state gets a pastel without a solid field.
+
+### Seeds
+
+One structure, one hue family per app. `data-seed` on `<html>` reorders the
+sky — `glacier` (default), `rye`, `dusk`, `lichen`, `rhubarb`, named for the
+glaze that leads. A seed never touches ink, action, status or surfaces, which
+is what keeps five apps recognisably one studio's work without being one app.
+Choose it once per app. Do not invent a sixth colour; add a seed block.
 
 ## Type
 
@@ -146,18 +189,21 @@ wherever digits stack in a column.
 
 Everything is a multiple of **8**. Four exists only for optical nudges inside a
 control. Scale: `4 8 12 16 24 32 48 64 96` (`--hub-space-1` … `-9`).
-The dot grid steps every 24px — three modules — so any plate lands on it.
+The dot grid is engineer's paper for canvases (`.hub-paper`, and React Flow
+draws its own at 24px); it is no longer on the page ground.
 
-Radius: `--hub-radius-control` 4px, `--hub-radius-plate` 12px,
+Radius: `--hub-radius-control` 10px, `--hub-radius-plate` 20px,
+`--hub-radius-hero` 28px for the one tile that leads a page,
 `--hub-radius-pill` for status only.
 
-**Elevation is material, not fog.** A raised plate gets a hairline plus a tight
-spruce-tinted shadow (`--hub-shadow-plate`). Never a soft grey blur stamped
-under every block. Glazes do not lift at all — a painted surface casts nothing.
+**Elevation is tone, not shadow.** Lift something by moving it up a surface
+level, not by drawing under it. `--hub-shadow-plate` and `-overlay` now resolve
+to the lit top edge of the glass (`inset 0 1px 0 var(--hub-edge)`) — keep
+using them, but nothing casts.
 
-**Not everything is a plate.** Three separations, picked by role: a flat glaze
-field, a hairline border, or a lifted plate. Using all three on the same screen
-for the same kind of object is a mistake.
+**Not everything is a plate.** Three separations, picked by role: a tonal cell
+(a stop of the sky at tint-alpha), a hairline, or a step up in surface level.
+Using all three on the same screen for the same kind of object is a mistake.
 
 ## Layout
 
@@ -237,12 +283,12 @@ These read as generated. If a review turns one up, it is a defect.
 
 | Tell | Instead |
 |---|---|
-| Cream ground, serif display, terracotta accent | Porcelain ground, one grotesque, cobalt |
+| Cream ground, serif display, terracotta accent | A dusk sky, one grotesque, cobalt |
 | Tracked-out capitals as an eyebrow above headings | Let the heading start the section |
-| Identical rounded cards under the same grey shadow | Separate by material: glaze, hairline, or lift |
+| Identical rounded cards under the same grey shadow | Separate by tone: a surface level, a hairline, or a tonal cell. Nothing casts |
 | `01 / 02 / 03` markers on non-sequential content | Number only real sequences and timelines |
 | `→` glued to every button and link | The verb already says what happens |
-| Purple-to-blue gradient behind the headline | Flat ground; spend the boldness on one element |
+| A gradient on a component, a hero band, or a purple-to-blue wallpaper | The sky is the only gradient, it is made of our glazes, and everything on it is flat glass |
 | Meta strung together with middle dots | Give each fact its own slot |
 | Near-black `#111` standing in for black | Spruce `#132420`, a dark that has hue |
 | Mono for small labels to look technical | Mono only where digits must align |
@@ -262,7 +308,10 @@ These read as generated. If a review turns one up, it is a defect.
   with exactly one scroll container.
 - Any chart's labels are HTML, not SVG text. Check one rendered size.
 - Both themes checked — light, night, and the un-stamped system default.
-- Coloured (cobalt + flare) area is under a twentieth of the screen.
+- Coloured (cobalt + flare) area on surfaces is under a twentieth; the sky
+  does not count.
+- No drop shadows anywhere. Anything raised is a higher surface level.
+- `data-seed` is set on `<html>` — chosen once for the app, glacier if unsure.
 - Keyboard focus is visible on every interactive element.
 - Running text is at most 66ch; headings balance.
 - Nothing depends on hover alone to be discoverable.

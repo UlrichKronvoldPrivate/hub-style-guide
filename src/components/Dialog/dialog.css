@@ -5,10 +5,12 @@
   /* padding lives on the inner wrapper, so a click landing on the dialog
      element itself is unambiguously a backdrop click */
   padding: 0;
-  border: 1px solid var(--hub-color-line);
+  border: 1px solid var(--hub-edge);
   border-radius: var(--hub-dialog-radius);
   background: var(--hub-dialog-bg);
   box-shadow: var(--hub-dialog-shadow);
+  backdrop-filter: var(--hub-glass);
+  -webkit-backdrop-filter: var(--hub-glass);
   color: var(--hub-color-ink);
   width: var(--hub-dialog-width);
   max-height: calc(100vh - var(--hub-space-8));

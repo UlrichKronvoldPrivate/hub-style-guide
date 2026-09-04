@@ -1,27 +1,35 @@
-/* The summary at the top of a dashboard.
-   One plate divided by hairlines, NOT N cards — four identical lifted cards
-   under four identical shadows is the tell this system names. One instrument
-   with four readings is the answer. */
+/* The summary at the top of a dashboard: one instrument, N tonal cells.
+   Each cell keeps a stop of the sky at tint-alpha over the glass, so the
+   pastels live in the UI instead of on an 8px square. Still not "N cards":
+   same height, same padding, same radius, one row. */
 
 .hub-stats {
   display: grid;
   grid-template-columns: repeat(var(--hub-stats-count, 4), minmax(0, 1fr));
-  background: var(--hub-color-surface);
-  border: 1px solid var(--hub-color-line);
-  border-radius: var(--hub-radius-plate);
-  box-shadow: var(--hub-shadow-plate);
-  overflow: hidden;                 /* keeps the divisions inside the radius */
+  gap: var(--hub-space-3);
 }
 
 .hub-stat {
-  padding: var(--hub-space-5);
+  padding: var(--hub-space-5) var(--hub-space-5) 18px;
   display: flex;
   flex-direction: column;
   gap: var(--hub-space-1);
-  border-left: 1px solid var(--hub-color-line);
   min-width: 0;
+  border-radius: var(--hub-radius-plate);
+  border: 1px solid var(--hub-edge);
+  box-shadow: var(--hub-shadow-plate);
+  backdrop-filter: var(--hub-glass);
+  -webkit-backdrop-filter: var(--hub-glass);
+  background: color-mix(in srgb, var(--hub-tint) var(--hub-tint-alpha), var(--hub-color-surface));
 }
-.hub-stat:first-child { border-left: 0; }
+
+/* cells take the sky in order, so a seed re-tints the row with the page */
+.hub-stat:nth-child(1) { --hub-tint: var(--hub-sky-1); }
+.hub-stat:nth-child(2) { --hub-tint: var(--hub-sky-5); }
+.hub-stat:nth-child(3) { --hub-tint: var(--hub-sky-2); }
+.hub-stat:nth-child(4) { --hub-tint: var(--hub-sky-3); }
+.hub-stat:nth-child(5) { --hub-tint: var(--hub-sky-4); }
+.hub-stat:nth-child(n + 6) { --hub-tint: var(--hub-color-surface-high); }
 
 .hub-stat__label {
   font: var(--hub-text-body-sm);
@@ -35,6 +43,10 @@
   color: var(--hub-color-ink);
 }
 
+/* the one figure the page leads with */
+.hub-stat--hero { border-radius: var(--hub-radius-hero); }
+.hub-stat--hero .hub-stat__value { font: var(--hub-text-display-1); letter-spacing: var(--hub-tracking-display-1); }
+
 /* At most one per row, and only when that figure asks for an action.
    This is the screen's single use of flare. */
 .hub-stat--attention .hub-stat__value { color: var(--hub-color-voltage); }
@@ -44,9 +56,6 @@
   color: var(--hub-color-ink-subtle);
 }
 
-/* Two columns below the compact breakpoint, for any number of stats. */
 @media (max-width: 720px) {
   .hub-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .hub-stat:nth-child(odd) { border-left: 0; }
-  .hub-stat:nth-child(n + 3) { border-top: 1px solid var(--hub-color-line); }
 }

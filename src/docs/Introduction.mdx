@@ -2,10 +2,15 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Introduction" />
 
-# Porcelain &amp; Voltage
+# Skumring
 
 The house style shared by every hub app. Its job is consistency across projects,
 and a look that reads as one studio's work rather than one model's default.
+
+*Skumring* is Danish for dusk. The page ground is a Nordic dusk sky built from
+five pastel glazes; everything on it is tonal glass that takes the sky's hue.
+Saturation lives in the ground and quiet lives in the surfaces. Use the **Seed**
+control in the toolbar to reorder the sky, and **Theme** to see it at night.
 
 ## The argument
 
@@ -14,17 +19,19 @@ against the human body and built systems out of it — proportion, modules,
 restraint. Verner Panton answered with saturated orange rooms and moulded
 plastic. Both are Nordic; only one is the postcard.
 
-**Klint by default, Panton on purpose.** Rigour holds the structure, and
-voltage is rationed to the places where it changes what someone does.
+**Klint by default, Panton on purpose.** Rigour holds the structure. The Panton
+is in the atmosphere.
 
 ## Six rules
 
-**Voltage stays under five percent.** Cobalt and flare are current, not paint.
-Primary buttons, one live edge, a focus ring, the single number that matters —
-that is the whole budget. If a screen feels loud, measure the coloured area.
+**Colour lives in the sky; voltage on surfaces stays under five percent.** The
+ground carries the atmosphere. On top of it, cobalt and flare are current, not
+paint — primary buttons, one live edge, a focus ring, the single number that
+matters.
 
-**Glazes stay flat.** No gradient, no blur, no shadow on a pastel field. It is
-fired ceramic, not a lighting effect.
+**Elevation is tone, not shadow.** Five surface levels, each a step more
+opaque. A dialog is the highest. There are no drop shadows anywhere, and the
+only gradient on the page is the sky.
 
 **Lines mean connection.** A rule, border or edge asserts that two things
 relate. Nothing is drawn to fill space.
@@ -33,19 +40,26 @@ relate. Nothing is drawn to fill space.
 heading needing presence gets more weight or tighter tracking, never a second
 typeface.
 
-**Radius is a role, not a habit.** 4px controls, 12px plates, pills for status
-only. One radius on everything flattens the hierarchy.
+**Radius is a role, not a habit.** 10px controls, 20px plates, 28px for the one
+tile that leads a page, pills for status only.
 
 **Semantic colour is separate.** Success, warning and danger own their tokens.
 The accent never stands in for state, and state never borrows the accent.
 
+## One structure, a seed per app
+
+Material 3's dynamic colour, turned into a house rule. `data-seed` on `<html>`
+picks which glaze leads the sky — `glacier`, `rye`, `dusk`, `lichen` or
+`rhubarb`. A seed never touches ink, action, status or surfaces. That is what
+keeps five apps recognisably one studio's work without being one app.
+
 ## Using it in an app
 
-Load the fonts and the token file, then style from custom properties. Never a
-literal hex — if a value you need has no token, that is a design decision: add
-the token.
+Load the fonts and the token file, set the seed, then style from custom
+properties. Never a literal hex.
 
 ```html
+<html data-seed="rye">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="tokens.css">
 ```
@@ -53,8 +67,9 @@ the token.
 ```css
 .thing {
   background: var(--hub-color-surface);
-  border: 1px solid var(--hub-color-line);
+  border: 1px solid var(--hub-edge);
   border-radius: var(--hub-radius-plate);
+  backdrop-filter: var(--hub-glass);
   color: var(--hub-color-ink);
 }
 ```
@@ -67,19 +82,15 @@ component tokens:
    primitive              semantic                  component
 ```
 
-A component never names a primitive. That indirection is what makes a theme
-swap possible — and it is why the **Theme** control in the toolbar re-themes
-every story here, canvases included, without a single component knowing about
-it.
+A component never names a primitive. That indirection is what makes the theme
+and seed controls re-skin every story here without any component knowing.
 
 ## Where things live
 
 `skills/hub-design-system/references/tokens.css` is the source of truth, and it
 lives with the skill rather than in `src/`, so the guidance Claude loads and the
-components rendered here can never drift apart.
-
-The same directory is linked into `~/.claude/skills/`, so any project on this
-machine builds on-identity without pasting values.
+components rendered here can never drift apart. The same directory is linked
+into `~/.claude/skills/`, so any project on this machine builds on-identity.
 
 ## Tells to avoid
 
@@ -87,11 +98,11 @@ These read as generated. If a review turns one up, it is a defect.
 
 | Tell | Instead |
 |---|---|
-| Cream ground, serif display, terracotta accent | Porcelain ground, one grotesque, cobalt |
+| Cream ground, serif display, terracotta accent | A dusk sky, one grotesque, cobalt |
 | Tracked-out capitals as an eyebrow above headings | Let the heading start the section |
-| Identical rounded cards under the same grey shadow | Separate by material: glaze, hairline, or lift |
-| `01 / 02 / 03` markers on non-sequential content | Number only real sequences and timelines |
+| Identical rounded cards under the same grey shadow | Separate by tone. Nothing casts |
+| `01 / 02 / 03` markers on non-sequential content | Number only real sequences |
 | An arrow glued to every button and link | The verb already says what happens |
-| Purple-to-blue gradient behind the headline | Flat ground; spend the boldness on one element |
+| A gradient on a component, or a purple-to-blue wallpaper | The sky is the only gradient, and it is made of our glazes |
 | Near-black `#111` standing in for black | Spruce `#132420`, a dark that has hue |
 | Mono for small labels, to look technical | Mono only where characters must align |

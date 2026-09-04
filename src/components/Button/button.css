@@ -19,7 +19,10 @@
 
 .hub-btn--ghost {
   color: var(--hub-button-ghost-ink);
+  background: var(--hub-button-ghost-bg);
   border-color: var(--hub-button-ghost-border);
+  backdrop-filter: var(--hub-glass);
+  -webkit-backdrop-filter: var(--hub-glass);
 }
 .hub-btn--ghost:hover:not(:disabled) { border-color: var(--hub-color-ink-subtle); }
 

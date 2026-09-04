@@ -24,7 +24,9 @@
   position: sticky;
   top: 0;
   z-index: 30;
-  background: var(--hub-color-ground);
+  background: var(--hub-color-surface-low);
+  backdrop-filter: var(--hub-glass);
+  -webkit-backdrop-filter: var(--hub-glass);
   border-bottom: 1px solid var(--hub-color-line);
   display: flex;
   align-items: center;
@@ -56,7 +58,7 @@
 .hub-nav-item:hover { color: var(--hub-color-ink); background: var(--hub-color-surface-sunken); }
 .hub-nav-item[aria-current="page"] {
   color: var(--hub-color-ink);
-  background: var(--hub-color-surface-sunken);
+  background: var(--hub-color-surface-high);
   font-weight: 600;
 }
 
@@ -190,7 +192,9 @@
     inset: var(--hub-height-bar) 0 0 auto;
     width: var(--hub-width-panel);
     max-width: 100%;
-    background: var(--hub-color-surface);
+    background: var(--hub-color-surface-highest);
+    backdrop-filter: var(--hub-glass);
+    -webkit-backdrop-filter: var(--hub-glass);
     box-shadow: var(--hub-shadow-overlay);
     z-index: 20;
   }
@@ -212,7 +216,9 @@
 .hub-page--table .hub-table th {
   position: sticky;
   top: var(--hub-height-bar);
-  background: var(--hub-color-ground);
+  background: var(--hub-color-surface-high);
+  backdrop-filter: var(--hub-glass);
+  -webkit-backdrop-filter: var(--hub-glass);
   z-index: 1;
 }
 

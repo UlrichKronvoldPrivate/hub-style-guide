@@ -142,10 +142,11 @@ and an inert background all come from the platform — never rebuild them.
 .hub-dialog {
   padding: 0;            /* padding goes on an inner wrapper, so a click on
                             the dialog element itself is unambiguously the backdrop */
-  border: 1px solid var(--hub-color-line);
+  border: 1px solid var(--hub-edge);
   border-radius: var(--hub-dialog-radius);
-  background: var(--hub-dialog-bg);
+  background: var(--hub-dialog-bg);              /* surface-highest: the top of the tone scale */
   box-shadow: var(--hub-dialog-shadow);
+  backdrop-filter: var(--hub-glass);
   width: var(--hub-dialog-width);
   max-height: calc(100vh - var(--hub-space-8));
   overflow: auto;
@@ -173,16 +174,19 @@ The one container. A plate is an object you could pick up.
 
 ```css
 .hub-plate {
-  background: var(--hub-plate-bg);
-  border: 1px solid var(--hub-plate-border);
+  background: var(--hub-plate-bg);                 /* tonal glass */
+  border: 1px solid var(--hub-plate-border);       /* the lit edge */
   border-radius: var(--hub-plate-radius);
-  box-shadow: var(--hub-plate-shadow);
+  box-shadow: var(--hub-plate-shadow);             /* inset edge, not a shadow */
+  backdrop-filter: var(--hub-glass);
   padding: var(--hub-space-5);
 }
-.hub-plate--flat  { box-shadow: none; }                              /* hairline only */
-.hub-plate--glaze { background: var(--hub-color-glaze-1);            /* flat field   */
-                    border-color: transparent; box-shadow: none;
-                    color: var(--hub-color-ink-on-glaze); }
+.hub-plate--flat  { background: var(--hub-color-surface-low); box-shadow: none; } /* a level down */
+.hub-plate--glaze {                                                                  /* a tonal cell */
+  background: color-mix(in srgb, var(--hub-glaze, var(--hub-color-glaze-1)) var(--hub-tint-alpha), var(--hub-color-surface));
+  color: var(--hub-color-ink-on-glaze);
+}
+.hub-plate--hero  { border-radius: var(--hub-radius-hero); }                        /* leads the page */
 ```
 
 Pick one separation per object type on a screen. A page where some cards are
@@ -190,26 +194,34 @@ lifted and others are glazed, for the same kind of content, is a mistake.
 
 ## Stat row
 
-The summary at the top of a dashboard. **One plate divided by hairlines, not N
-cards** — four identical lifted cards under four identical shadows is the tell
-this system names; one instrument with four readings is the answer.
+The summary at the top of a dashboard. **One instrument, N tonal cells** — same
+height, same padding, same radius, one row, each cell keeping a stop of the sky
+at tint-alpha over the glass. Four identical lifted cards under four identical
+shadows is the tell this system names; this is not that, because nothing
+casts and the cells are the page's own colour.
 
 ```css
 .hub-stats {
   display: grid;
   grid-template-columns: repeat(var(--hub-stats-count, 4), minmax(0, 1fr));
-  background: var(--hub-color-surface);
-  border: 1px solid var(--hub-color-line);
-  border-radius: var(--hub-radius-plate);
-  box-shadow: var(--hub-shadow-plate);
-  overflow: hidden;                 /* keeps the divisions inside the radius */
+  gap: var(--hub-space-3);
 }
 .hub-stat {
   padding: var(--hub-space-5);
   display: flex; flex-direction: column; gap: var(--hub-space-1);
-  border-left: 1px solid var(--hub-color-line);
+  border-radius: var(--hub-radius-plate);
+  border: 1px solid var(--hub-edge);
+  box-shadow: var(--hub-shadow-plate);
+  backdrop-filter: var(--hub-glass);
+  background: color-mix(in srgb, var(--hub-tint) var(--hub-tint-alpha), var(--hub-color-surface));
 }
-.hub-stat:first-child { border-left: 0; }
+/* cells take the sky in order, so a seed re-tints the row with the page */
+.hub-stat:nth-child(1) { --hub-tint: var(--hub-sky-1); }
+.hub-stat:nth-child(2) { --hub-tint: var(--hub-sky-5); }
+.hub-stat:nth-child(3) { --hub-tint: var(--hub-sky-2); }
+.hub-stat:nth-child(4) { --hub-tint: var(--hub-sky-3); }
+.hub-stat--hero { border-radius: var(--hub-radius-hero); }
+.hub-stat--hero .hub-stat__value { font: var(--hub-text-display-1); letter-spacing: var(--hub-tracking-display-1); }
 .hub-stat__label { font: var(--hub-text-body-sm); color: var(--hub-color-ink-muted); }
 .hub-stat__value {
   font: var(--hub-text-display-2);
@@ -221,11 +233,8 @@ this system names; one instrument with four readings is the answer.
 /* At most one per row, and only when that figure asks for an action. */
 .hub-stat--attention .hub-stat__value { color: var(--hub-color-voltage); }
 
-/* Two columns below the compact breakpoint, correct for any number of stats. */
 @media (max-width: 720px) {
   .hub-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .hub-stat:nth-child(odd) { border-left: 0; }
-  .hub-stat:nth-child(n + 3) { border-top: 1px solid var(--hub-color-line); }
 }
 ```
 
@@ -241,7 +250,7 @@ Pills are for status only, never for buttons or filters that toggle.
   display: inline-flex; align-items: center; gap: 6px;
   font: var(--hub-text-caption); font-weight: 600;
   padding: 3px 10px; border-radius: var(--hub-chip-radius);
-  background: var(--hub-color-surface-sunken);
+  background: var(--hub-chip-bg); border: 1px solid var(--hub-edge);
   color: var(--hub-color-ink-muted);
 }
 .hub-chip--ok    { background: var(--hub-color-success-soft); color: var(--hub-color-success); }
@@ -300,7 +309,8 @@ when empty so a screen reader is already watching it when the first toast lands.
 .hub-toast {
   width: var(--hub-toast-width);
   background: var(--hub-toast-bg);
-  border: 1px solid var(--hub-color-line);
+  border: 1px solid var(--hub-edge);
+  backdrop-filter: var(--hub-glass);
   border-left: 2px solid var(--hub-color-line-strong);
   border-radius: var(--hub-toast-radius);
   box-shadow: var(--hub-toast-shadow);

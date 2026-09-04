@@ -167,8 +167,9 @@ export function Shapes() {
     border: '1px solid var(--hub-color-line-strong)',
   };
   const items: [ReactNode, string][] = [
-    [<span key="c" style={{ ...box, borderRadius: 'var(--hub-radius-control)' }} />, '4px control'],
-    [<span key="p" style={{ ...box, borderRadius: 'var(--hub-radius-plate)' }} />, '12px plate'],
+    [<span key="c" style={{ ...box, borderRadius: 'var(--hub-radius-control)' }} />, '10px control'],
+    [<span key="p" style={{ ...box, borderRadius: 'var(--hub-radius-plate)' }} />, '20px plate'],
+    [<span key="h" style={{ ...box, width: 96, height: 64, borderRadius: 'var(--hub-radius-hero)' }} />, '28px hero'],
     [<span key="s" style={{ ...box, width: 88, height: 28, borderRadius: 'var(--hub-radius-pill)' }} />, 'pill status'],
   ];
   return (

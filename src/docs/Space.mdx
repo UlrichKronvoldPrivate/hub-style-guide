@@ -7,49 +7,50 @@ import { SpaceRamp, Shapes } from './Specimen';
 
 ## Everything is a multiple of eight
 
-Four exists only for optical nudges inside a control. The dot grid behind every
-page steps every 24px — three modules — so any plate you draw lands on it.
+Four exists only for optical nudges inside a control. Layout does the spacing:
+flex or grid with `gap`, never per-element margins that collapse or double.
 
 <SpaceRamp />
 
-Layout does the spacing: flex or grid with `gap`, never per-element margins that
-collapse or double.
+The dot grid is engineer's paper for canvases — React Flow draws its own at
+24px, and `.hub-paper` puts one on anything else that wants it. It is no
+longer on the page ground; the sky is.
 
-## Two radii, chosen by role
+## Radius has a range, and still means role
 
-Controls take 4px so they read as machined. Plates take 12px so they read as
-objects you could pick up. Pills are reserved for status, never for buttons or
-filters.
+Controls take 10px. Plates take 20px. The one tile that leads a page takes
+28px. Pills are reserved for status, never for buttons or filters.
 
 <Shapes />
 
-One radius on everything flattens the hierarchy. If a shape needs a third
-radius, that is a decision to defend, not a default to reach for.
+One radius on everything flattens the hierarchy. Radius also sets register: a
+full stadium pill reads as a consumer tag, so in an instrument UI where every
+status is a machine state, square the status marker to the control radius
+instead.
 
-## Elevation is material, not fog
+## Elevation is tone, not shadow
 
-A raised plate gets a hairline plus a tight spruce-tinted shadow — never a soft
-grey blur stamped under every block. Glazes do not lift at all, because a
-painted surface casts nothing.
+Five surface levels, each a step more opaque — lowest, low, surface, high,
+highest. Lift something by moving it up a level, not by drawing under it. A
+dialog is simply the highest surface over a scrim. There are no drop shadows
+anywhere in the system.
 
 ```css
---hub-shadow-plate: 0 1px 0 var(--hub-color-line),
-                    0 10px 26px -18px rgba(19, 36, 32, .55);
+--hub-shadow-plate:   inset 0 1px 0 var(--hub-edge);   /* the lit top edge, not a shadow */
+--hub-shadow-overlay: inset 0 1px 0 var(--hub-edge);
 ```
 
-**Not everything is a plate.** There are three ways to separate an object from
-the ground — a flat glaze field, a hairline border, or a lift — and a screen
-picks one per object type. A page where some cards are lifted and others glazed,
-for the same kind of content, is a mistake.
+Every surface is translucent and needs `backdrop-filter: var(--hub-glass)` to
+read as glass. The component recipes include it.
+
+**Not everything is a plate.** Three separations, picked by role: a tonal cell
+(a stop of the sky at tint-alpha), a hairline, or a step up in surface level. A
+screen picks one per object type. A page where some things are tonal and others
+are lifted, for the same kind of content, is a mistake.
 
 ## Motion
 
 Motion answers an action: expanding, confirming, connecting. 160–240ms on
-`--hub-ease` (`cubic-bezier(.2, .7, .3, 1)`).
-
-One orchestrated moment per page is allowed — a load sequence, a reveal.
-**Banned:** fade-and-slide-up on every section as it scrolls into view, and a
-hover-lift on every card. Both are among the clearest tells of a generated page.
-
-`prefers-reduced-motion` is honoured globally in `tokens.css`, so a component
-never has to remember it.
+`--hub-ease`. One orchestrated moment per page is allowed. **Banned:**
+fade-and-slide-up on every section as it scrolls into view, and a hover-lift on
+every card. `prefers-reduced-motion` is honoured globally in `tokens.css`.

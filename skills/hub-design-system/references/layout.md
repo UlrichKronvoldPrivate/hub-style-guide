@@ -150,6 +150,11 @@ a main area. The bar is `--hub-height-bar`, and every sticky offset in the app
 is measured from it — which is why it is a token rather than a number typed in
 three places.
 
+The bar is glass at `surface-low`, so the sky shows through it as the page
+scrolls underneath. The sky itself is `background-attachment: fixed` on
+`body`: content moves, the atmosphere does not. Do not paint a page background
+of your own on top of it.
+
 Sidebar nav, not top nav. These apps have more destinations than a top bar
 holds, and a vertical list survives a name getting longer. Below 720px it
 becomes a drawer (`data-open="true"`).

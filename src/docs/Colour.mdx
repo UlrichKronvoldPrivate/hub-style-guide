@@ -6,21 +6,48 @@ import { Swatches, GlazeGrid } from './Specimen';
 # Colour
 
 Every value below is read off the live document, so this page shows the true
-token value in whichever theme the **Theme** control is set to. Switch it to
-Winter night and the swatches follow.
+token value in whichever theme and seed the toolbar is set to. Switch **Theme**
+to Winter night and **Seed** between glazes, and the swatches follow.
 
-## Ground and ink
+## The sky
 
-Porcelain is cool and faintly green — the colour of low winter daylight through
-glass. Never cream. Spruce is a green-black rather than a tinted grey, so large
-dark fields still carry hue.
+The page ground is five radial stops of glaze over porcelain by day and over
+spruce-black by night. `--hub-sky-1` leads at top-left, `-2` right, `-3`
+low-right, `-4` is the horizon, `-5` a centre haze. A seed reorders them and
+touches nothing else.
 
 <Swatches tokens={[
   ['--hub-color-ground', 'ground'],
-  ['--hub-color-surface', 'surface'],
-  ['--hub-color-surface-sunken', 'sunken field'],
+  ['--hub-sky-1', 'sky 1, leads'],
+  ['--hub-sky-2', 'sky 2, right'],
+  ['--hub-sky-3', 'sky 3, low right'],
+  ['--hub-sky-4', 'sky 4, horizon'],
+  ['--hub-sky-5', 'sky 5, haze'],
+]} />
+
+## Tonal glass
+
+Surfaces are white at five opacities by day and frost at five by night. Each
+level is a step in elevation; there are no drop shadows. Every surface needs
+`backdrop-filter: var(--hub-glass)`.
+
+<Swatches tokens={[
+  ['--hub-color-surface-lowest', 'lowest: nav, sunken'],
+  ['--hub-color-surface-low', 'low: app bar, flat lists'],
+  ['--hub-color-surface', 'surface: plates'],
+  ['--hub-color-surface-high', 'high: inputs, chips, nodes'],
+  ['--hub-color-surface-highest', 'highest: dialogs, toasts'],
+  ['--hub-edge', 'lit edge'],
   ['--hub-color-line', 'hairline'],
   ['--hub-color-line-strong', 'hairline strong'],
+]} />
+
+## Ink
+
+Spruce is a green-black rather than a tinted grey, so large dark fields still
+carry hue. Frost is its night counterpart.
+
+<Swatches tokens={[
   ['--hub-color-ink', 'ink'],
   ['--hub-color-ink-muted', 'ink muted'],
   ['--hub-color-ink-subtle', 'ink subtle'],
@@ -28,19 +55,17 @@ dark fields still carry hue.
 
 ## Glazes
 
-Flat ceramic fields for large surfaces, empty states and node categories. No
-gradient, no blur, no shadow — a painted surface casts nothing. Each glaze has a
-daylight value and a winter-night value, so dark mode is a considered palette
-rather than an inversion.
+The five sky stops and clay, as flat values. Use them as a **tonal cell** —
+a stop of the sky at `--hub-tint-alpha` over the glass — for stat rows, empty
+states and node categories. Never as a solid field on a component.
 
 <GlazeGrid />
 
-Text on a glaze is always `--hub-color-ink-on-glaze`.
-
 ## Voltage
 
-Cobalt is the current: interaction, focus, edges, selection. Flare is the accent
-that appears once on a screen, or not at all.
+Cobalt is the current on surfaces: interaction, focus, edges, selection. Flare
+is the accent that appears once on a screen, or not at all. Together they stay
+under a twentieth of the surfaces; the sky does not count.
 
 <Swatches tokens={[
   ['--hub-color-action', 'action (cobalt)'],
@@ -48,14 +73,6 @@ that appears once on a screen, or not at all.
   ['--hub-color-voltage', 'voltage (flare)'],
   ['--hub-color-voltage-soft', 'voltage soft'],
 ]} />
-
-### The five percent rule
-
-Cobalt and flare together cover no more than a twentieth of any screen: primary
-buttons, one live edge, a focus ring, the single number that matters. Past that
-they stop reading as signal and start reading as decoration.
-
-Two flares on a screen means neither is the one.
 
 ## Status
 
@@ -75,11 +92,11 @@ brighter version of flare.
 State must also read in form, not colour alone — see the shape of the dot in
 **Components → Chip**.
 
-## Both themes
+## Three theme states and five seeds
 
 Only semantic tokens change between themes; primitives never do, and components
-never restyle inside a theme block. There are three states to design for, not
-two: an explicit `data-theme="light"`, an explicit `data-theme="dark"`, and the
-un-stamped default where only `prefers-color-scheme` separates them. `tokens.css`
-handles all three, and treats `.dark` as an alias so React Flow's
-`colorMode` works with no extra wiring.
+never restyle inside a theme block. There are three states to design for: an
+explicit `data-theme="light"`, an explicit `data-theme="dark"`, and the
+un-stamped default where only `prefers-color-scheme` separates them. Seeds sit
+on top of all three: `data-seed` reorders the five sky stops and nothing else,
+so a seed is safe to set once per app and forget.

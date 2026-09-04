@@ -1,12 +1,15 @@
-/* The one container. A plate is an object you could pick up.
-   Pick ONE separation per object type on a screen. A page where some cards
-   are lifted and others are glazed, for the same content, is a mistake. */
+/* The one container: tonal glass over the sky. Elevation is a step in
+   tone (surface → high → highest), never a drop shadow. The lit top edge
+   is what reads as an object; the sky showing through is what reads as
+   material. */
 
 .hub-plate {
   background: var(--hub-plate-bg);
   border: 1px solid var(--hub-plate-border);
   border-radius: var(--hub-plate-radius);
   box-shadow: var(--hub-plate-shadow);
+  backdrop-filter: var(--hub-glass);
+  -webkit-backdrop-filter: var(--hub-glass);
   padding: var(--hub-space-5);
   display: flex;
   flex-direction: column;
@@ -14,16 +17,20 @@
   align-items: flex-start;
 }
 
-/* hairline only — for dense lists where a shadow per row would be noise */
-.hub-plate--flat { box-shadow: none; }
-
-/* flat ceramic field. no shadow, because a painted surface casts nothing */
-.hub-plate--glaze {
-  background: var(--hub-glaze, var(--hub-color-glaze-1));
-  border-color: transparent;
+/* a step lower in tone — for dense lists where every row is a plate */
+.hub-plate--flat {
+  background: var(--hub-color-surface-low);
   box-shadow: none;
+}
+
+/* a tonal cell: the sky's own glaze, kept at tint-alpha over the glass */
+.hub-plate--glaze {
+  background: color-mix(in srgb, var(--hub-glaze, var(--hub-color-glaze-1)) var(--hub-tint-alpha), var(--hub-color-surface));
   color: var(--hub-color-ink-on-glaze);
 }
+
+/* the one tile that leads a page */
+.hub-plate--hero { border-radius: var(--hub-radius-hero); }
 
 .hub-plate[data-tone="danger"]  { border-left: 2px solid var(--hub-color-danger); }
 .hub-plate[data-tone="warning"] { border-left: 2px solid var(--hub-color-warning); }
