@@ -133,8 +133,19 @@ night — and they need `backdrop-filter: var(--hub-glass)`:
 | lit edge of glass | `--hub-edge` | white 55% | white 12% |
 | hairline | `--hub-color-line` | spruce 10% | frost 10% |
 | ink | `--hub-color-ink` | `#132420` | `#EAF0EA` |
-| action (Skagen) | `--hub-color-action` | `#0F6C86` | `#5FD0DC` |
+| action (Skagen) — fills, indicators, edges | `--hub-color-action` | `#0F6C86` | `#5FD0DC` |
+| action as text — links, quiet buttons | `--hub-color-action-text` | `#0A5062` | `#A9ECF1` |
 | voltage (flare) | `--hub-color-voltage` | `#E8358C` | `#FF77B9` |
+
+**Small type takes the text step, never the fill colour.** The fill value is
+tuned for buttons and bars, where 3:1 is the bar. Measured as 14px text on
+glass over the densest stop of every seed's sky: by day it clears AA (4.9
+floor) but not AAA; at night it **fails AA** over glacier and lichen (4.2).
+`--hub-color-action-text` is deeper by day — 7.3 floor, AAA on every seed at
+both plate levels — and paler by night — 5.8 floor, AAA on dusk, rhubarb and
+rye. AAA at night over the two cool seeds is not reachable in-hue; it would
+need near-white, which stops being Skagen. Links also keep an underline —
+colour alone is not an affordance.
 
 **Glazes** — flat ceramic fields for large surfaces, empty states and node
 categories. `--hub-color-glaze-1` … `-6`:

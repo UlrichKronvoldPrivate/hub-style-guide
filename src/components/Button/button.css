@@ -27,7 +27,7 @@
 .hub-btn--ghost:hover:not(:disabled) { border-color: var(--hub-color-ink-subtle); }
 
 .hub-btn--quiet {
-  color: var(--hub-color-action);
+  color: var(--hub-button-quiet-ink);   /* the text step, not the fill colour */
   padding-inline: var(--hub-space-2);
 }
 .hub-btn--quiet:hover:not(:disabled) { background: var(--hub-color-action-soft); }

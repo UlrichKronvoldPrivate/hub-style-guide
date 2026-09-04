@@ -1,0 +1,123 @@
+<title>Skagen as text</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F2F5F1; --ink:#132420; --ink-2:#4A5852; --ink-3:#73807A;
+  --edge:rgba(255,255,255,.55); --line:rgba(19,36,32,.10);
+  --s:rgba(255,255,255,.58); --s-low:rgba(255,255,255,.40); --s-high:rgba(255,255,255,.78);
+  --sg:#C6DEE4; --sl:#D6E1C8; --sd:#D9D5EC; --sr:#F3D4DC; --sy:#EFE4C6;
+  --ok:#23684A; --ok-soft:rgba(35,104,74,.16); --bad:#B33A2B; --bad-soft:rgba(179,58,43,.14); --warn:#8A5D07; --warn-soft:rgba(138,93,7,.16);
+  --sans:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif; --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --glass:blur(16px) saturate(1.15);
+  color-scheme:light dark;
+}
+:root[data-theme="dark"]{
+  --ground:#0C1614; --ink:#EAF0EA; --ink-2:#A9B6AE; --ink-3:#778780;
+  --edge:rgba(255,255,255,.12); --line:rgba(234,240,234,.10);
+  --s:rgba(255,255,255,.09); --s-low:rgba(255,255,255,.06); --s-high:rgba(255,255,255,.14);
+  --sg:#1E4A50; --sl:#1F4A3A; --sd:#33304F; --sr:#4A2C3A; --sy:#3F3A22;
+  --ok:#6FCB9F; --ok-soft:rgba(111,203,159,.16); --bad:#FF8F7A; --bad-soft:rgba(255,143,122,.16); --warn:#E9B44C; --warn-soft:rgba(233,180,76,.16);
+}
+*{box-sizing:border-box}
+html{background:var(--ground)}
+body{margin:0;font-family:var(--sans);color:var(--ink);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100dvh;
+  background:radial-gradient(70% 60% at 6% -4%,var(--sg) 0%,transparent 70%),radial-gradient(58% 54% at 104% 26%,var(--sd) 0%,transparent 70%),radial-gradient(64% 48% at 74% 104%,var(--sr) 0%,transparent 70%),radial-gradient(80% 42% at 16% 104%,var(--sy) 0%,transparent 70%),radial-gradient(46% 34% at 50% 50%,var(--sl) 0%,transparent 74%),var(--ground);background-attachment:fixed}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 24px 64px}
+h1{font-size:clamp(2rem,4.5vw,3rem);font-weight:800;letter-spacing:-.04em;line-height:1;margin:0}
+.lede{margin:10px 0 0;max-width:64ch;color:var(--ink-2);font-size:1.02rem}
+.pro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:22px}
+.seg{display:inline-flex;padding:3px;border-radius:999px;background:var(--s-high);border:1px solid var(--edge);backdrop-filter:var(--glass)}
+.seg button{font:600 .8125rem/1 var(--sans);padding:8px 14px;border:0;border-radius:999px;background:transparent;color:var(--ink-2);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
+.klabel{font-size:.75rem;color:var(--ink-3);margin-right:6px}
+.glass{background:var(--s);border:1px solid var(--edge);border-radius:20px;backdrop-filter:var(--glass);box-shadow:inset 0 1px 0 var(--edge)}
+.plate{padding:20px 22px;margin-bottom:14px}
+.plate h2{margin:0 0 4px;font-size:1.2rem;font-weight:800;letter-spacing:-.02em}
+.plate p{margin:0 0 14px;color:var(--ink-2);font-size:.9rem;max-width:70ch}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th{text-align:left;font-size:.72rem;font-weight:600;color:var(--ink-2);padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle;font-variant-numeric:tabular-nums}
+tr:last-child td{border:0}
+.sw{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:8px;border:1px solid var(--edge)}
+.hex{font:500 .75rem/1 var(--mono);color:var(--ink-3)}
+.pill{display:inline-block;font:600 .72rem/1 var(--sans);padding:4px 8px;border-radius:999px}
+.aaa{background:var(--ok-soft);color:var(--ok)} .aa{background:var(--warn-soft);color:var(--warn)} .fail{background:var(--bad-soft);color:var(--bad)}
+.tiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.tile{border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.tile small{font-size:.7rem;color:var(--ink-3)}
+.spec{border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;border:1px solid var(--edge);backdrop-filter:var(--glass)}
+.spec a{font-size:.9rem;text-decoration:underline;text-underline-offset:3px}
+.spec .q{font:600 .85rem/1 var(--sans)}
+.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:.78rem;color:var(--ink-2);margin-top:10px}
+@media (max-width:900px){.tiles{grid-template-columns:repeat(2,1fr)}}
+</style>
+<div class="wrap">
+  <div class="pro">
+    <div><h1>Skagen as text</h1>
+      <p class="lede">The fill value of an action colour is tuned for buttons and bars, where 3:1 is the bar. As 14px text — links, quiet buttons — it has to clear 4.5:1 (AA) and should clear 7:1 (AAA). This page computes that against the real glass, over the densest stop of every seed's sky, for the fill value and two text candidates in each theme.</p></div>
+    <div><span class="klabel">Sky</span><div class="seg" role="group" aria-label="Theme"><button type="button" data-theme="light" aria-pressed="true">Day</button><button type="button" data-theme="dark" aria-pressed="false">Night</button></div></div>
+  </div>
+
+  <div class="glass plate">
+    <h2>Contrast over the densest sky stop of each seed</h2>
+    <p>Worst case by construction: the plate sits where the leading glaze is at full strength. Two surface levels — <em>surface</em> (plates) and <em>low</em> (flat lists) — because low glass shows more sky and is the harder one. Numbers are WCAG 2 contrast ratios.</p>
+    <div id="table"></div>
+    <div class="legend"><span class="pill aaa">≥ 7.0 AAA</span><span class="pill aa">4.5 – 7.0 AA</span><span class="pill fail">&lt; 4.5 fails</span></div>
+  </div>
+
+  <div class="glass plate">
+    <h2>What it looks like</h2>
+    <p>Each tile is a plate over that seed's leading glaze at full strength — the exact case the table measures. Link and quiet button, in the fill value first, then the two text candidates.</p>
+    <div class="tiles" id="tiles"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var GL={light:{glacier:'#C6DEE4',lichen:'#D6E1C8',dusk:'#D9D5EC',rhubarb:'#F3D4DC',rye:'#EFE4C6'},
+          dark: {glacier:'#1E4A50',lichen:'#1F4A3A',dusk:'#33304F',rhubarb:'#4A2C3A',rye:'#3F3A22'}};
+  var SURF={light:{surface:.58,low:.40},dark:{surface:.09,low:.06}};
+  var CAND={light:[['fill  --hub-color-action','#0F6C86'],['text A','#0C5E76'],['text B  --hub-color-action-text','#0A5062']],
+            dark: [['fill  --hub-color-action','#5FD0DC'],['text A','#8FE3EA'],['text B  --hub-color-action-text','#A9ECF1']]};
+  function hex(h){h=h.replace('#','');return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
+  function over(fg,a,bg){return [0,1,2].map(function(i){return Math.round(fg[i]*a+bg[i]*(1-a));});}
+  function lum(c){var r=c.map(function(v){v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4);});return .2126*r[0]+.7152*r[1]+.0722*r[2];}
+  function cr(a,b){var x=lum(a),y=lum(b);var hi=Math.max(x,y),lo=Math.min(x,y);return (hi+.05)/(lo+.05);}
+  function pill(v){var c=v>=7?'aaa':v>=4.5?'aa':'fail';return '<span class="pill '+c+'">'+v.toFixed(1)+'</span>';}
+  function rgb(c){return 'rgb('+c.join(',')+')';}
+  function render(){
+    var t=root.getAttribute('data-theme')||'light', white=[255,255,255], seeds=Object.keys(GL[t]);
+    var h='<table><thead><tr><th>Candidate</th>';
+    seeds.forEach(function(s){h+='<th>'+s+'<br><span class="hex">surface / low</span></th>';});
+    h+='<th>floor</th></tr></thead><tbody>';
+    CAND[t].forEach(function(c){
+      var fg=hex(c[1]), floor=99;
+      h+='<tr><td><span class="sw" style="background:'+c[1]+'"></span>'+c[0]+' <span class="hex">'+c[1]+'</span></td>';
+      seeds.forEach(function(s){
+        var g=hex(GL[t][s]);
+        var bs=over(white,SURF[t].surface,g), bl=over(white,SURF[t].low,g);
+        var a=cr(fg,bs), b=cr(fg,bl); floor=Math.min(floor,a,b);
+        h+='<td>'+pill(a)+' '+pill(b)+'</td>';
+      });
+      h+='<td>'+pill(floor)+'</td></tr>';
+    });
+    h+='</tbody></table>';
+    document.getElementById('table').innerHTML=h;
+
+    var tiles='';
+    seeds.forEach(function(s){
+      var g=GL[t][s];
+      tiles+='<div class="tile" style="background:'+g+'"><small>'+s+' at full strength</small>';
+      CAND[t].forEach(function(c){
+        tiles+='<div class="spec" style="background:rgba(255,255,255,'+SURF[t].surface+')"><a href="#0" style="color:'+c[1]+'">All runs</a><span class="q" style="color:'+c[1]+'">Preview</span></div>';
+      });
+      tiles+='</div>';
+    });
+    document.getElementById('tiles').innerHTML=tiles;
+  }
+  document.querySelectorAll('button[data-theme]').forEach(function(b){b.addEventListener('click',function(){root.setAttribute('data-theme',b.getAttribute('data-theme'));document.querySelectorAll('button[data-theme]').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});render();});});
+  root.setAttribute('data-theme','light'); render();
+})();
+</script>

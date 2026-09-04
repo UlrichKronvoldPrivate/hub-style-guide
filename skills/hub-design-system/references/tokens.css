@@ -46,6 +46,9 @@
      Skagen is sea petrol: blue enough to stay clear of moss, green enough
      to stop reading as the default tech blue. */
   --hub-skagen-40: #0F6C86;  --hub-skagen-70: #5FD0DC;
+  /* text-only steps: deeper by day, brighter by night, so small type on
+     glass clears AAA over the densest sky stop of every seed */
+  --hub-skagen-30: #0A5062;  --hub-skagen-80: #A9ECF1;
   --hub-flare-50:  #E8358C;  --hub-flare-70:  #FF77B9;
 
   /* status — separate from voltage, always */
@@ -88,7 +91,8 @@
   --hub-color-ink-on-glaze:  var(--hub-spruce);
   --hub-color-ink-on-action: #FFFFFF;
 
-  --hub-color-action:        var(--hub-skagen-40);
+  --hub-color-action:        var(--hub-skagen-40);   /* fills, indicators, edges */
+  --hub-color-action-text:   var(--hub-skagen-30);   /* links, quiet buttons: small type */
   --hub-color-action-soft:   rgba(15, 108, 134, .13);
   --hub-color-focus:         var(--hub-skagen-40);
   --hub-color-voltage:       var(--hub-flare-50);
@@ -168,6 +172,7 @@
   --hub-button-ghost-ink:     var(--hub-color-ink);
   --hub-button-radius:        var(--hub-radius-control);
   --hub-button-pad:           11px 18px;
+  --hub-button-quiet-ink:     var(--hub-color-action-text);
 
   --hub-input-bg:             var(--hub-color-surface-high);
   --hub-input-border:         var(--hub-color-line-strong);
@@ -238,6 +243,7 @@
     --hub-color-ink-on-action: var(--hub-night);
 
     --hub-color-action:        var(--hub-skagen-70);
+    --hub-color-action-text:   var(--hub-skagen-80);
     --hub-color-action-soft:   rgba(95, 208, 220, .16);
     --hub-color-focus:         var(--hub-skagen-70);
     --hub-color-voltage:       var(--hub-flare-70);
@@ -289,6 +295,7 @@
   --hub-color-ink-on-action: var(--hub-night);
 
   --hub-color-action:        var(--hub-skagen-70);
+  --hub-color-action-text:   var(--hub-skagen-80);
   --hub-color-action-soft:   rgba(95, 208, 220, .16);
   --hub-color-focus:         var(--hub-skagen-70);
   --hub-color-voltage:       var(--hub-flare-70);
@@ -364,6 +371,13 @@ body {
 .hub-paper {
   background-image: radial-gradient(circle at 1px 1px, var(--hub-color-dot) 1px, transparent 0);
   background-size: var(--hub-grid) var(--hub-grid);
+}
+
+/* Links are small type on glass, so they take the text step and keep an
+   underline — colour alone is not an affordance. */
+a {
+  color: var(--hub-color-action-text);
+  text-underline-offset: 3px;
 }
 
 :focus-visible {

@@ -30,7 +30,7 @@ page exists for; there is at most one per view.
 }
 .hub-btn--quiet {           /* text-only, for tertiary actions in dense UI */
   background: transparent;
-  color: var(--hub-color-action);
+  color: var(--hub-color-action-text);   /* small type takes the text step */
   border-color: transparent;
   padding-inline: var(--hub-space-2);
 }
