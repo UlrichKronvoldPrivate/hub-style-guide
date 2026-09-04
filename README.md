@@ -64,7 +64,7 @@ Tokens layer in three tiers, the way Material 3 layers reference, system and
 component tokens:
 
 ```
---hub-cobalt-50   →   --hub-color-action   →   --hub-button-primary-bg
+--hub-skagen-40   →   --hub-color-action   →   --hub-button-primary-bg
    primitive              semantic                  component
 ```
 

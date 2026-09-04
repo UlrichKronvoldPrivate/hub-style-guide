@@ -12,7 +12,7 @@ const meta = {
         component:
           'The input is the box — `appearance: none` on the real element rather than a ' +
           'hidden input behind a fake square, so keyboard, focus and screen-reader ' +
-          'behaviour stay native. Checked fills with cobalt: small enough that a full ' +
+          'behaviour stay native. Checked fills with the action colour: small enough that a full ' +
           'column of them stays well inside the five percent voltage budget.',
       },
     },

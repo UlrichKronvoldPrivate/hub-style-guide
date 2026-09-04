@@ -42,8 +42,10 @@
   --hub-frost-70:   #A9B6AE;
   --hub-frost-50:   #778780;
 
-  /* voltage — accent on surfaces, rationed */
-  --hub-cobalt-50: #2B3FC4;  --hub-cobalt-70: #8494FF;
+  /* voltage — accent on surfaces, rationed.
+     Skagen is sea petrol: blue enough to stay clear of moss, green enough
+     to stop reading as the default tech blue. */
+  --hub-skagen-40: #0F6C86;  --hub-skagen-70: #5FD0DC;
   --hub-flare-50:  #E8358C;  --hub-flare-70:  #FF77B9;
 
   /* status — separate from voltage, always */
@@ -86,9 +88,9 @@
   --hub-color-ink-on-glaze:  var(--hub-spruce);
   --hub-color-ink-on-action: #FFFFFF;
 
-  --hub-color-action:        var(--hub-cobalt-50);
-  --hub-color-action-soft:   rgba(43, 63, 196, .12);
-  --hub-color-focus:         var(--hub-cobalt-50);
+  --hub-color-action:        var(--hub-skagen-40);
+  --hub-color-action-soft:   rgba(15, 108, 134, .13);
+  --hub-color-focus:         var(--hub-skagen-40);
   --hub-color-voltage:       var(--hub-flare-50);
   --hub-color-voltage-soft:  rgba(232, 53, 140, .12);
 
@@ -235,9 +237,9 @@
     --hub-color-ink-on-glaze:  var(--hub-frost);
     --hub-color-ink-on-action: var(--hub-night);
 
-    --hub-color-action:        var(--hub-cobalt-70);
-    --hub-color-action-soft:   rgba(132, 148, 255, .16);
-    --hub-color-focus:         var(--hub-cobalt-70);
+    --hub-color-action:        var(--hub-skagen-70);
+    --hub-color-action-soft:   rgba(95, 208, 220, .16);
+    --hub-color-focus:         var(--hub-skagen-70);
     --hub-color-voltage:       var(--hub-flare-70);
     --hub-color-voltage-soft:  rgba(255, 119, 185, .16);
 
@@ -286,9 +288,9 @@
   --hub-color-ink-on-glaze:  var(--hub-frost);
   --hub-color-ink-on-action: var(--hub-night);
 
-  --hub-color-action:        var(--hub-cobalt-70);
-  --hub-color-action-soft:   rgba(132, 148, 255, .16);
-  --hub-color-focus:         var(--hub-cobalt-70);
+  --hub-color-action:        var(--hub-skagen-70);
+  --hub-color-action-soft:   rgba(95, 208, 220, .16);
+  --hub-color-focus:         var(--hub-skagen-70);
   --hub-color-voltage:       var(--hub-flare-70);
   --hub-color-voltage-soft:  rgba(255, 119, 185, .16);
 

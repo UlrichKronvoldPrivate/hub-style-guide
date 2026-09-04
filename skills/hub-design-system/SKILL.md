@@ -88,7 +88,7 @@ swatch table.
 ## Six rules
 
 1. **Colour lives in the sky; voltage on surfaces stays under five percent.**
-   The ground carries the atmosphere. On top of it, cobalt and flare are
+   The ground carries the atmosphere. On top of it, Skagen and flare are
    current, not paint: primary buttons, one live edge, a focus ring, the single
    number that matters. If a surface feels loud, measure its coloured area —
    the sky does not count.
@@ -133,7 +133,7 @@ night — and they need `backdrop-filter: var(--hub-glass)`:
 | lit edge of glass | `--hub-edge` | white 55% | white 12% |
 | hairline | `--hub-color-line` | spruce 10% | frost 10% |
 | ink | `--hub-color-ink` | `#132420` | `#EAF0EA` |
-| action (cobalt) | `--hub-color-action` | `#2B3FC4` | `#8494FF` |
+| action (Skagen) | `--hub-color-action` | `#0F6C86` | `#5FD0DC` |
 | voltage (flare) | `--hub-color-voltage` | `#E8358C` | `#FF77B9` |
 
 **Glazes** — flat ceramic fields for large surfaces, empty states and node
@@ -262,7 +262,7 @@ arrives on screen at 31px and the type scale means nothing. Put the marks in
 the SVG and lay the labels over or under it in HTML, on a grid with one column
 per mark. Always check one rendered label at real size.
 
-**Marks are neutral by default.** A chart of fourteen bars in cobalt spends the
+**Marks are neutral by default.** A chart of fourteen bars in Skagen spends the
 whole voltage budget on decoration. Draw them in `--hub-color-surface-sunken`
 and give the accent to the one mark that carries the point — today, the
 selected series, the outlier. Everything else recedes.
@@ -283,7 +283,7 @@ These read as generated. If a review turns one up, it is a defect.
 
 | Tell | Instead |
 |---|---|
-| Cream ground, serif display, terracotta accent | A dusk sky, one grotesque, cobalt |
+| Cream ground, serif display, terracotta accent | A dusk sky, one grotesque, Skagen |
 | Tracked-out capitals as an eyebrow above headings | Let the heading start the section |
 | Identical rounded cards under the same grey shadow | Separate by tone: a surface level, a hairline, or a tonal cell. Nothing casts |
 | `01 / 02 / 03` markers on non-sequential content | Number only real sequences and timelines |
@@ -308,7 +308,7 @@ These read as generated. If a review turns one up, it is a defect.
   with exactly one scroll container.
 - Any chart's labels are HTML, not SVG text. Check one rendered size.
 - Both themes checked — light, night, and the un-stamped system default.
-- Coloured (cobalt + flare) area on surfaces is under a twentieth; the sky
+- Coloured (Skagen + flare) area on surfaces is under a twentieth; the sky
   does not count.
 - No drop shadows anywhere. Anything raised is a higher surface level.
 - `data-seed` is set on `<html>` — chosen once for the app, glacier if unsure.

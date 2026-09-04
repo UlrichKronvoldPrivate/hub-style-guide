@@ -19,7 +19,7 @@ never onto primitives.
 .react-flow {
   --xy-background-color: var(--hub-color-ground);
 
-  /* edges: idle edges recede, only live ones earn cobalt */
+  /* edges: idle edges recede, only live ones earn the action colour */
   --xy-edge-stroke-default:          var(--hub-color-line-strong);
   --xy-edge-stroke-selected-default: var(--hub-color-action);
   --xy-edge-stroke-width-default:    1.5;
@@ -119,7 +119,7 @@ outputs — they are storage.
 ## Edges
 
 - Idle edges take `--hub-color-line-strong`. They are structure, not signal.
-- The selected edge takes cobalt. Selection *is* the current.
+- The selected edge takes Skagen. Selection *is* the current.
 - Stroke width 1.5. A true 1px hairline disappears on high-density displays.
 - **Animate only real flow.** A marching dashed edge means data is moving right
   now. If it animates while nothing runs, it is decoration and it goes.

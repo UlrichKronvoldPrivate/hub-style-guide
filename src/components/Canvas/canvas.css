@@ -8,7 +8,7 @@
 .react-flow {
   --xy-background-color: var(--hub-color-ground);
 
-  /* edges: idle edges recede, only live ones earn cobalt */
+  /* edges: idle edges recede, only live ones earn the action colour */
   --xy-edge-stroke-default: var(--hub-color-line-strong);
   --xy-edge-stroke-selected-default: var(--hub-color-action);
   --xy-edge-stroke-width-default: 1.5;
