@@ -10,6 +10,9 @@ import { Select } from '../components/Select/Select';
 import { Field } from '../components/Field/Field';
 import { Chip } from '../components/Chip/Chip';
 import { DataTable } from '../components/DataTable/DataTable';
+import { StatRow } from '../components/StatRow/StatRow';
+import { BarChart } from '../components/BarChart/BarChart';
+import { Plate } from '../components/Plate/Plate';
 import '../components/Canvas/canvas.css';
 
 const nf = new Intl.NumberFormat('da-DK');
@@ -123,6 +126,114 @@ export const TablePage: Story = {
             ][i % 4],
           }))}
         />
+      </div>
+    </Shell>
+  ),
+};
+
+/**
+ * Summary first, then detail. The stat row is one plate divided by hairlines
+ * rather than four cards — identical lifted cards under identical shadows is
+ * the tell this system names. `.hub-page__split` below it is deliberately
+ * unequal, so the reader is not asked to choose where to start.
+ */
+export const DashboardPage: Story = {
+  name: 'Dashboard page',
+  render: () => (
+    <Shell current="Overview">
+      <div className="hub-page--dashboard" data-density="compact">
+        <div className="hub-page__head">
+          <h1 className="hub-page__title">Overview</h1>
+          <div className="hub-row">
+            <Button variant="primary">New upload</Button>
+            <Button variant="ghost">Connect a source</Button>
+          </div>
+        </div>
+
+        <StatRow
+          stats={[
+            { label: 'Runs today', value: '34', note: '4 still running' },
+            { label: 'Rows ingested', value: nf.format(1284902), note: 'since midnight' },
+            { label: 'Sources connected', value: '12', note: '2 added this week' },
+            // The screen's single use of flare: the one figure asking for action.
+            { label: 'Runs failed', value: '2', note: 'both on Statbank BYGV80', attention: true },
+          ]}
+        />
+
+        <Plate variant="lifted" style={{ gap: 'var(--hub-space-4)' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 'var(--hub-space-4)', width: '100%' }}>
+            <h2 className="hub-subtitle">Runs per day</h2>
+            <span style={{ display: 'flex', gap: 'var(--hub-space-4)' }}>
+              <span className="hub-caption">last 14 days</span>
+              <span className="hub-caption">peak 36</span>
+            </span>
+          </div>
+
+          <div style={{ width: '100%' }}>
+            <BarChart
+              data={[28, 31, 24, 0, 0, 33, 36, 29, 35, 27, 4, 0, 30, 34]}
+              labels={{ 0: '21 Aug', 6: '27 Aug', 10: '30 Aug', 13: 'Today' }}
+              accentIndex={13}
+              ariaLabel="Runs per day over the last fourteen days. Between 24 and 36 runs on weekdays, none at weekends, and a dip to 4 on 30 August during the Statbank outage. Today stands at 34."
+            />
+          </div>
+
+          <p className="hub-caption">
+            Weekends carry no scheduled runs. The dip on 30 August is the Statbank outage.
+          </p>
+        </Plate>
+
+        <div className="hub-page__split">
+          <Plate variant="lifted">
+            <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 'var(--hub-space-4)', width: '100%' }}>
+              <h2 className="hub-subtitle">Recent runs</h2>
+              <Button variant="quiet">All runs</Button>
+            </div>
+            <DataTable
+              caption="Example rows. Not live figures."
+              columns={[
+                { key: 'source', label: 'Source' },
+                { key: 'run', label: 'Run', mono: true },
+                { key: 'rows', label: 'Rows', numeric: true },
+                { key: 'status', label: 'Status' },
+              ]}
+              rows={[
+                { source: 'Befolkning, region', run: 'r_9f21c4', rows: nf.format(5940000), status: <Chip status="ok">Finished</Chip> },
+                { source: 'Boligbyggeri', run: 'r_3a17bd', rows: nf.format(18422), status: <Chip status="fail">Timed out</Chip> },
+                { source: 'Pendling', run: 'r_c48e02', rows: nf.format(902311), status: <Chip status="ok">Finished</Chip> },
+                { source: 'Energimix', run: 'r_7b1d55', rows: nf.format(4410), status: <Chip status="warn">Stale data</Chip> },
+                { source: 'Befolkning, kommune', run: 'r_e02a91', rows: nf.format(1284902), status: <Chip>Running</Chip> },
+              ]}
+            />
+          </Plate>
+
+          <Plate variant="lifted">
+            <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 'var(--hub-space-4)', width: '100%' }}>
+              <h2 className="hub-subtitle">Needs attention</h2>
+              <span className="hub-caption">3 sources</span>
+            </div>
+            <ul style={{ listStyle: 'none', margin: 0, padding: 0, width: '100%' }}>
+              {[
+                ['Boligbyggeri', 'Timed out twice. Try a narrower region filter.'],
+                ['Energimix', 'Statbank last answered 28 August.'],
+                ['Ledige stillinger', 'Credentials expire in 6 days.'],
+              ].map(([name, why], i, all) => (
+                <li
+                  key={name}
+                  style={{
+                    display: 'flex', alignItems: 'baseline', justifyContent: 'space-between',
+                    gap: 'var(--hub-space-4)', padding: 'var(--hub-space-3) 0',
+                    borderBottom: i === all.length - 1 ? 'none' : '1px solid var(--hub-color-line)',
+                  }}
+                >
+                  <span className="hub-body-sm">{name}</span>
+                  <span className="hub-caption" style={{ textAlign: 'right' }}>{why}</span>
+                </li>
+              ))}
+            </ul>
+            <Button variant="ghost">Review sources</Button>
+          </Plate>
+        </div>
       </div>
     </Shell>
   ),

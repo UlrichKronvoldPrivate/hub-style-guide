@@ -197,7 +197,7 @@ this system names; one instrument with four readings is the answer.
 ```css
 .hub-stats {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--hub-stats-count, 4), minmax(0, 1fr));
   background: var(--hub-color-surface);
   border: 1px solid var(--hub-color-line);
   border-radius: var(--hub-radius-plate);
@@ -221,9 +221,10 @@ this system names; one instrument with four readings is the answer.
 /* At most one per row, and only when that figure asks for an action. */
 .hub-stat--attention .hub-stat__value { color: var(--hub-color-voltage); }
 
+/* Two columns below the compact breakpoint, correct for any number of stats. */
 @media (max-width: 720px) {
   .hub-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .hub-stat:nth-child(3) { border-left: 0; }
+  .hub-stat:nth-child(odd) { border-left: 0; }
   .hub-stat:nth-child(n + 3) { border-top: 1px solid var(--hub-color-line); }
 }
 ```
