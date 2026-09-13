@@ -1,0 +1,255 @@
+<title>Prik</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Doto:wght@700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* ── Prik: Skumring's colour, Nothing OS 5.0's look ────────────────
+   Prik is Danish for dot. The sky, the seeds, Skagen and flare are
+   untouched. What changes is the treatment: Lucent-style frosted tiles
+   drawn with hairline outlines instead of lit edges, a strict widget
+   module, Geist for the voice, and dot-matrix readouts as the accent. */
+:root{
+  --ground:#F2F5F1;
+  --sg:#C6DEE4; --sl:#D6E1C8; --sd:#D9D5EC; --sr:#F3D4DC; --sy:#EFE4C6;
+  --s1:var(--sg); --s2:var(--sd); --s3:var(--sr); --s4:var(--sy); --s5:var(--sl);
+  --ink:#132420; --ink-2:#4A5852; --ink-3:#73807A;
+  --outline:rgba(19,36,32,.16); --outline-strong:rgba(19,36,32,.30); --line:rgba(19,36,32,.10);
+  --s-low:rgba(255,255,255,.34); --s:rgba(255,255,255,.52); --s-high:rgba(255,255,255,.74); --s-highest:rgba(255,255,255,.94);
+  --tint-alpha:52%;
+  --action:#0F6C86; --action-text:#0A5062; --action-ink:#fff; --action-soft:rgba(15,108,134,.13);
+  --flare:#E8358C;
+  --ok:#23684A; --ok-soft:rgba(35,104,74,.14); --warn:#8A5D07; --warn-soft:rgba(138,93,7,.14); --bad:#B33A2B; --bad-soft:rgba(179,58,43,.14);
+  --r-tile:24px; --r-ctl:999px; --r-cell:12px;
+  --blur:18px;
+  --sans:"Geist","Helvetica Neue",Arial,sans-serif;
+  --dot:"Doto","Courier New",monospace;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light dark;
+}
+:root[data-seed="rye"]{--s1:var(--sy);--s2:var(--sr);--s3:var(--sg);--s4:var(--sl);--s5:var(--sd)}
+:root[data-seed="dusk"]{--s1:var(--sd);--s2:var(--sg);--s3:var(--sl);--s4:var(--sr);--s5:var(--sy)}
+:root[data-seed="lichen"]{--s1:var(--sl);--s2:var(--sg);--s3:var(--sy);--s4:var(--sd);--s5:var(--sr)}
+:root[data-seed="rhubarb"]{--s1:var(--sr);--s2:var(--sd);--s3:var(--sy);--s4:var(--sg);--s5:var(--sl)}
+:root[data-theme="dark"]{
+  --ground:#0C1614; --sg:#1E4A50; --sl:#1F4A3A; --sd:#33304F; --sr:#4A2C3A; --sy:#3F3A22;
+  --ink:#EAF0EA; --ink-2:#A9B6AE; --ink-3:#778780;
+  --outline:rgba(234,240,234,.16); --outline-strong:rgba(234,240,234,.32); --line:rgba(234,240,234,.10);
+  --s-low:rgba(255,255,255,.05); --s:rgba(255,255,255,.08); --s-high:rgba(255,255,255,.13); --s-highest:rgba(20,32,29,.92);
+  --tint-alpha:56%;
+  --action:#5FD0DC; --action-text:#A9ECF1; --action-ink:#0C1614; --action-soft:rgba(95,208,220,.16);
+  --flare:#FF77B9;
+  --ok:#6FCB9F; --ok-soft:rgba(111,203,159,.14); --warn:#E9B44C; --warn-soft:rgba(233,180,76,.14); --bad:#FF8F7A; --bad-soft:rgba(255,143,122,.14);
+}
+*{box-sizing:border-box}
+html{background:var(--ground)}
+body{margin:0;font-family:var(--sans);color:var(--ink);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100dvh;
+  background:radial-gradient(70% 60% at 6% -4%,var(--s1) 0%,transparent 70%),radial-gradient(58% 54% at 104% 26%,var(--s2) 0%,transparent 70%),radial-gradient(64% 48% at 74% 104%,var(--s3) 0%,transparent 70%),radial-gradient(80% 42% at 16% 104%,var(--s4) 0%,transparent 70%),radial-gradient(46% 34% at 50% 50%,var(--s5) 0%,transparent 74%),var(--ground);background-attachment:fixed}
+a{color:var(--action-text);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--action);outline-offset:3px;border-radius:6px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.dot{font-family:var(--dot);font-weight:900;letter-spacing:.02em}
+
+.wrap{max-width:1180px;margin:0 auto;padding:28px 24px 72px}
+.pro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:22px}
+.pro h1{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;letter-spacing:-.045em;line-height:1;margin:0}
+.pro p{margin:8px 0 0;max-width:62ch;color:var(--ink-2);font-size:1.02rem}
+.knobs{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.seg{display:inline-flex;padding:3px;border-radius:999px;background:var(--s-high);border:1px solid var(--outline);backdrop-filter:blur(var(--blur))}
+.seg button{font:600 .8125rem/1 var(--sans);padding:8px 14px;border:0;border-radius:999px;background:transparent;color:var(--ink-2);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
+.klabel{font-size:.75rem;color:var(--ink-3)}
+
+/* ── Lucent tiles: frosted, outlined, no lit edge ─────────────────── */
+.tile{background:var(--s);border:1px solid var(--outline);border-radius:var(--r-tile);backdrop-filter:blur(var(--blur)) saturate(1.1);-webkit-backdrop-filter:blur(var(--blur)) saturate(1.1);min-width:0}
+.tile--low{background:var(--s-low)} .tile--high{background:var(--s-high)}
+.tile--tint{background:color-mix(in srgb,var(--tint) var(--tint-alpha),var(--s))}
+
+/* ── App scene ────────────────────────────────────────────────────── */
+.scene{border-radius:28px;border:1px solid var(--outline);background:var(--s-low);backdrop-filter:blur(10px);overflow:hidden}
+.bar{display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 22px;border-bottom:1px solid var(--outline)}
+.mark{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.03em;font-size:1.05rem}
+.mark i{width:12px;height:12px;border-radius:50%;background:var(--ink);display:block}
+.readout{font-family:var(--dot);font-weight:700;font-size:.95rem;letter-spacing:.04em;color:var(--ink-2)}
+.app{display:grid;grid-template-columns:212px minmax(0,1fr)}
+nav{padding:16px 12px;display:flex;flex-direction:column;gap:4px;border-right:1px solid var(--outline)}
+nav a{display:flex;align-items:center;gap:10px;font-size:.875rem;font-weight:500;color:var(--ink-2);text-decoration:none;padding:9px 12px;border-radius:999px}
+nav a i{width:8px;height:8px;border-radius:50%;border:1.5px solid currentColor;display:block}
+nav a[aria-current]{background:var(--ink);color:var(--ground);font-weight:600}
+nav a[aria-current] i{background:var(--ground);border-color:var(--ground)}
+main{padding:24px 24px 28px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:4px}
+.title{font-size:2.2rem;font-weight:800;letter-spacing:-.04em;line-height:1;margin:0}
+.sub{margin:6px 0 0;color:var(--ink-2);font-size:.9rem;display:flex;gap:10px;align-items:center}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* buttons are pills; icon actions are circles — Nothing's control grammar */
+.btn{font:600 .875rem/1 var(--sans);padding:12px 18px;border-radius:var(--r-ctl);border:1px solid transparent;cursor:pointer;background:transparent;color:var(--ink)}
+.btn--primary{background:var(--action);color:var(--action-ink)}
+.btn--ghost{border-color:var(--outline-strong);background:var(--s-high)}
+.btn--quiet{color:var(--action-text);padding-inline:8px}
+.glyph{width:40px;height:40px;border-radius:50%;border:1px solid var(--outline-strong);background:var(--s-high);display:inline-grid;place-content:center;color:var(--ink);cursor:pointer}
+.glyph svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round}
+
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:.75rem;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--outline-strong);background:transparent;color:var(--ink-2);white-space:nowrap}
+.chip i{width:7px;height:7px;border-radius:50%;background:currentColor}
+.chip--ok{color:var(--ok);border-color:var(--ok)} .chip--warn{color:var(--warn);border-color:var(--warn)} .chip--warn i{border-radius:1px;transform:rotate(45deg)}
+.chip--bad{color:var(--bad);border-color:var(--bad)} .chip--bad i{border-radius:1px}
+
+/* ── The widget grid: 8px module, 12px gutters, 4 columns ─────────── */
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:132px;gap:12px}
+.w{padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between;gap:6px}
+.w-2{grid-column:span 2} .w-4{grid-column:span 4} .h-2{grid-row:span 2}
+.w b{font-size:.8125rem;font-weight:500;color:var(--ink-2)}
+.w .val{font-family:var(--dot);font-weight:900;font-size:2.6rem;line-height:1;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.w--hero .val{font-size:5.6rem}
+.w--attn .val{color:var(--flare)}
+.w small{font-size:.75rem;color:var(--ink-3)}
+.w .top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.w:nth-child(1){--tint:var(--s1)} .w:nth-child(2){--tint:var(--s5)} .w:nth-child(3){--tint:var(--s2)} .w:nth-child(4){--tint:var(--s3)}
+
+/* dotted bars: the chart is drawn in the same matrix as the readouts */
+.chart{grid-column:span 4;grid-row:span 2;padding:20px 22px;display:flex;flex-direction:column}
+.ch{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:8px}
+.ch h2{font-size:1.05rem;font-weight:700;letter-spacing:-.015em;margin:0}
+.bars{flex:1;display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:10px;align-items:end;border-bottom:1px solid var(--outline);padding-bottom:6px;min-height:0}
+.bars i{display:block;height:var(--h);
+  background:radial-gradient(circle,var(--outline-strong) 2px,transparent 2.6px) 50% 100%/8px 8px repeat-y;
+  background-clip:content-box;width:100%}
+.bars i.today{background-image:radial-gradient(circle,var(--action) 2.2px,transparent 2.8px)}
+.bars i.zero{--h:8px;background-image:radial-gradient(circle,var(--outline) 2px,transparent 2.6px)}
+.xl{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));margin-top:8px;font-family:var(--dot);font-weight:700;font-size:.8rem;letter-spacing:.04em;color:var(--ink-3)}
+.xl span:last-child{text-align:right}
+
+.list-tile{grid-column:span 2;grid-row:span 2;padding:18px 20px;display:flex;flex-direction:column;gap:8px}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th{text-align:left;font-size:.72rem;font-weight:600;color:var(--ink-2);padding:6px 6px;border-bottom:1px solid var(--outline)}
+td{padding:8px 6px;border-bottom:1px solid var(--line)}
+tr:last-child td{border:0}
+.num{text-align:right;font-family:var(--dot);font-weight:700;font-size:.95rem;letter-spacing:.03em}
+.list{list-style:none;margin:0;padding:0}
+.list li{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.85rem}
+.list li:last-child{border:0}
+.list em{font-style:normal;font-size:.74rem;color:var(--ink-2);text-align:right}
+
+/* ── Components strip ─────────────────────────────────────────────── */
+.strip{margin-top:14px;padding:20px 22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.strip h3{margin:0 0 10px;font-size:.8rem;font-weight:600;color:var(--ink-2)}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:.8125rem;font-weight:600}
+.input{font:400 .875rem/1.4 var(--sans);color:var(--ink);background:var(--s-high);border:1px solid var(--outline-strong);border-radius:14px;padding:10px 14px}
+.tabs{display:flex;gap:6px;padding:3px;border:1px solid var(--outline);border-radius:999px;background:var(--s-low);width:max-content}
+.tab{font:600 .8rem/1 var(--sans);padding:8px 14px;border-radius:999px;color:var(--ink-2)}
+.tab.on{background:var(--ink);color:var(--ground)}
+.cb{display:flex;align-items:center;gap:10px;font-size:.875rem}
+.cb i{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--outline-strong);display:grid;place-content:center}
+.cb i.on{background:var(--action);border-color:var(--action)}
+.cb i.on::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--action-ink)}
+.toast{background:var(--s-highest);border:1px solid var(--outline-strong);border-radius:18px;padding:12px 14px;font-size:.85rem;display:flex;justify-content:space-between;gap:10px;align-items:center}
+
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:22px}
+.note{padding:20px 22px}
+.note h3{margin:0 0 6px;font-size:1rem;font-weight:700;letter-spacing:-.012em}
+.note p{margin:0;font-size:.9rem;color:var(--ink-2)}
+@media (max-width:1000px){.app{grid-template-columns:1fr}nav{display:none}.grid{grid-template-columns:repeat(2,1fr)}.w-4,.chart{grid-column:span 2}.list-tile{grid-column:span 2}.w--hero{grid-row:span 1}.w--hero .val{font-size:3.6rem}}
+</style>
+
+<div class="wrap">
+  <div class="pro">
+    <div>
+      <h1>Prik</h1>
+      <p>Skumring's colour, Nothing OS 5.0's look. The sky, the seeds, Skagen and flare are exactly as they were. What changes is the treatment: Lucent-style frosted tiles drawn with hairline outlines instead of lit edges, a strict widget module, Geist for the voice, and dot-matrix readouts as the one accent. Prik is Danish for dot.</p>
+    </div>
+    <div class="knobs">
+      <span class="klabel">Sky</span>
+      <div class="seg" role="group" aria-label="Theme"><button type="button" data-theme="light" aria-pressed="true">Day</button><button type="button" data-theme="dark" aria-pressed="false">Night</button></div>
+      <span class="klabel">Seed</span>
+      <div class="seg" role="group" aria-label="Seed"><button type="button" data-seed="glacier" aria-pressed="true">Glacier</button><button type="button" data-seed="rye" aria-pressed="false">Rye</button><button type="button" data-seed="dusk" aria-pressed="false">Dusk</button><button type="button" data-seed="lichen" aria-pressed="false">Lichen</button><button type="button" data-seed="rhubarb" aria-pressed="false">Rhubarb</button></div>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="bar">
+      <span class="mark"><i></i>hub</span>
+      <span class="row"><span class="readout">THU 04.09 · 06:00</span><span class="chip chip--ok"><i></i>Statbank reachable</span></span>
+    </div>
+    <div class="app">
+      <nav aria-label="Sections">
+        <a href="#s" aria-current="page"><i></i>Overview</a><a href="#s"><i></i>Sources</a><a href="#s"><i></i>Runs</a><a href="#s"><i></i>Hierarchies</a><a href="#s"><i></i>Settings</a>
+      </nav>
+      <main id="s">
+        <div class="head">
+          <div><h2 class="title">Overview</h2><p class="sub">Morning sweep finished <span class="readout">4 RUNNING</span></p></div>
+          <div class="row">
+            <button class="btn btn--primary" type="button">New upload</button>
+            <button class="btn btn--ghost" type="button">Connect a source</button>
+            <button class="glyph" type="button" aria-label="Refresh"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg></button>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="tile tile--tint w w-2 h-2 w--hero"><div class="top"><b>Runs today</b><span class="readout">LIVE</span></div><span class="val">34</span><small>4 still running</small></div>
+          <div class="tile tile--tint w"><b>Rows ingested</b><span class="val" style="font-size:2rem">1.284.902</span><small>since midnight</small></div>
+          <div class="tile tile--tint w"><b>Sources</b><span class="val">12</span><small>2 added this week</small></div>
+          <div class="tile tile--tint w w--attn"><b>Runs failed</b><span class="val">2</span><small>both on BYGV80</small></div>
+          <div class="tile w"><div class="top"><b>Next sweep</b><span class="glyph" style="width:28px;height:28px"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></span></div><span class="val" style="font-size:2rem">22:00</span><small>in 9 h 12 min</small></div>
+          <div class="tile w w-4"><div class="top"><b>Statbank latency</b><span class="readout">P95</span></div><span class="val" style="font-size:2rem">412 MS</span><small>steady since the 30 August outage</small></div>
+
+          <div class="tile chart">
+            <div class="ch"><h2>Runs per day</h2><span class="readout">14 DAYS · PEAK 36</span></div>
+            <div class="bars" role="img" aria-label="Runs per day for fourteen days: between 24 and 36 on weekdays, none at weekends, a dip to 4 on 30 August, and 34 today.">
+              <i style="--h:78%"></i><i style="--h:86%"></i><i style="--h:67%"></i><i class="zero"></i><i class="zero"></i><i style="--h:92%"></i><i style="--h:100%"></i><i style="--h:81%"></i><i style="--h:97%"></i><i style="--h:75%"></i><i style="--h:11%"></i><i class="zero"></i><i style="--h:83%"></i><i class="today" style="--h:94%"></i>
+            </div>
+            <div class="xl" aria-hidden="true"><span style="grid-column:1">21.08</span><span style="grid-column:7">27.08</span><span style="grid-column:11">30.08</span><span style="grid-column:14">TODAY</span></div>
+          </div>
+
+          <div class="tile list-tile">
+            <div class="ch"><h2>Recent runs</h2><button class="btn btn--quiet" type="button">All runs</button></div>
+            <table>
+              <thead><tr><th>Source</th><th class="num">Rows</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Befolkning, region</td><td class="num">5.940.000</td><td><span class="chip chip--ok"><i></i>Finished</span></td></tr>
+                <tr><td>Boligbyggeri</td><td class="num">18.422</td><td><span class="chip chip--bad"><i></i>Timed out</span></td></tr>
+                <tr><td>Pendling</td><td class="num">902.311</td><td><span class="chip chip--ok"><i></i>Finished</span></td></tr>
+                <tr><td>Energimix</td><td class="num">4.410</td><td><span class="chip chip--warn"><i></i>Stale</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tile list-tile">
+            <div class="ch"><h2>Needs attention</h2><span class="readout">3</span></div>
+            <ul class="list">
+              <li><span>Boligbyggeri</span><em>Timed out twice. Try a narrower region filter.</em></li>
+              <li><span>Energimix</span><em>Statbank last answered 28 August.</em></li>
+              <li><span>Ledige stillinger</span><em>Credentials expire in 6 days.</em></li>
+            </ul>
+            <div><button class="btn btn--ghost" type="button">Review sources</button></div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="tile strip">
+    <div><h3>Buttons and glyphs</h3><div class="row"><button class="btn btn--primary">Save changes</button><button class="btn btn--ghost">Discard</button><button class="btn btn--quiet">Preview</button><span class="glyph"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></div></div>
+    <div><h3>Field</h3><div class="field"><label>Region</label><span class="input">Hovedstaden</span></div></div>
+    <div><h3>Tabs</h3><div class="tabs"><span class="tab on">Rows</span><span class="tab">Runs</span><span class="tab">Schedule</span></div></div>
+    <div><h3>Choice and status</h3><div class="row"><span class="cb"><i class="on"></i>Cache</span><span class="cb"><i></i>Notify</span><span class="chip chip--warn"><i></i>Stale data</span></div></div>
+    <div><h3>Toast</h3><div class="toast">Graph deleted. <button class="btn btn--quiet" type="button">Undo</button></div></div>
+    <div><h3>Readouts</h3><div class="row"><span class="readout">06:00</span><span class="readout">P95 412 MS</span><span class="dot" style="font-size:1.6rem">34</span></div></div>
+  </div>
+
+  <div class="notes">
+    <div class="tile note"><h3>Outlines, not lit edges</h3><p>Lucent tiles are frosted and drawn with a 1px hairline in ink. The inner highlight is gone. Separation comes from the outline and from tone, the way Nothing's widgets sit on a wallpaper.</p></div>
+    <div class="tile note"><h3>A widget module</h3><p>Four columns, 132px rows, 12px gutters. Tiles are 1×1, 2×1, 4×2 — never freeform. Hero figure spans two; the chart spans four. Tiles differ by size and role, not by decoration.</p></div>
+    <div class="tile note"><h3>Dot matrix is the accent</h3><p>Doto appears only as readouts: the hero figure, tile numerals, timestamps, the chart's axis. Geist carries everything else. Body text never goes dotted — that is what 5.0 fixed about 4.0.</p></div>
+    <div class="tile note"><h3>The chart is drawn in the same matrix</h3><p>Bars are columns of dots on the 8px module, idle ones in outline grey, today in Skagen. The chart and the readouts share one material instead of a chart looking like a chart.</p></div>
+    <div class="tile note"><h3>Control grammar</h3><p>Text actions are pills. Icon actions are circles. Selection is a filled ink pill. Choices are ring-then-dot. One shape per job, which is why it reads as a system.</p></div>
+    <div class="tile note"><h3>What it is not</h3><p>Not black-and-white: the sky and seeds stay, tonal tints stay. Not tracked-out capitals as eyebrows — readouts do that job. Not Nothing's typefaces: Geist is theirs, the dot face is ours, the content is Danish statistics.</p></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  function wire(attr){var btns=document.querySelectorAll('button[data-'+attr+']');btns.forEach(function(b){b.addEventListener('click',function(){root.setAttribute('data-'+attr,b.getAttribute('data-'+attr));btns.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});});});}
+  wire('theme');wire('seed');root.setAttribute('data-theme','light');root.setAttribute('data-seed','glacier');
+})();
+</script>
