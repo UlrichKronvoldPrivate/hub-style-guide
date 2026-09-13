@@ -38,9 +38,13 @@
 
 .hub-stat__value {
   font: var(--hub-text-display-2);
+  /* a seven-digit figure with thousands separators must fit a quarter-width
+     cell on a laptop, so the size is fluid and the string may never clip */
+  font-size: clamp(1.5rem, 1rem + 1.6vw, 2.4375rem);
   letter-spacing: var(--hub-tracking-display-2);
   font-variant-numeric: tabular-nums;
   color: var(--hub-color-ink);
+  overflow-wrap: anywhere;
 }
 
 /* the one figure the page leads with */
