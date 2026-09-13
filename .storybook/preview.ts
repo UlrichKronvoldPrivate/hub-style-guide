@@ -20,7 +20,7 @@ const preview: Preview = {
             'Tabs',
             'Plate', 'Dialog',
             'Toast', 'Chip',
-            'Data table', 'Empty state',
+            'Data table', 'Stat row', 'Bar chart', 'Empty state',
           ],
           'Canvas',
         ],

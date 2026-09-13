@@ -13,6 +13,8 @@ export interface Stat {
    * do something — flare appears once on a screen, or not at all.
    */
   attention?: boolean;
+  /** The one figure the page leads with: hero radius and display-1 size. At most one. */
+  hero?: boolean;
 }
 
 export function StatRow({ stats }: { stats: Stat[] }) {
@@ -23,8 +25,11 @@ export function StatRow({ stats }: { stats: Stat[] }) {
       {stats.map((s) => (
         <div
           key={s.label}
-          className={['hub-stat', s.attention ? 'hub-stat--attention' : null]
-            .filter(Boolean).join(' ')}
+          className={[
+            'hub-stat',
+            s.attention ? 'hub-stat--attention' : null,
+            s.hero ? 'hub-stat--hero' : null,
+          ].filter(Boolean).join(' ')}
         >
           <span className="hub-stat__label">{s.label}</span>
           <span className="hub-stat__value">{s.value}</span>
