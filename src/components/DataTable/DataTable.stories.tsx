@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { DataTable } from './DataTable';
 import { Chip } from '../Chip/Chip';
+import { Plate } from '../Plate/Plate';
 
 const meta = {
   title: 'Components/Data table',
@@ -17,6 +18,14 @@ const meta = {
       },
     },
   },
+  // A table lives on a plate; hairlines alone over the sky read as floating.
+  decorators: [
+    (Story) => (
+      <Plate style={{ width: '100%' }}>
+        <div style={{ width: '100%' }}><Story /></div>
+      </Plate>
+    ),
+  ],
 } satisfies Meta<typeof DataTable>;
 
 export default meta;

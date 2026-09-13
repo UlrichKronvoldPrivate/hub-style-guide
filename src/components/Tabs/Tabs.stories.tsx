@@ -4,6 +4,7 @@ import { DataTable } from '../DataTable/DataTable';
 import { Chip } from '../Chip/Chip';
 import { EmptyState } from '../EmptyState/EmptyState';
 import { Button } from '../Button/Button';
+import { Plate } from '../Plate/Plate';
 
 const nf = new Intl.NumberFormat('da-DK');
 
@@ -23,6 +24,14 @@ const meta = {
       },
     },
   },
+  // Tabs live on a plate; a hairline tablist over bare sky reads as floating.
+  decorators: [
+    (Story) => (
+      <Plate style={{ width: '100%' }}>
+        <div style={{ width: '100%' }}><Story /></div>
+      </Plate>
+    ),
+  ],
 } satisfies Meta<typeof Tabs>;
 
 export default meta;
