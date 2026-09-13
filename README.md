@@ -42,6 +42,12 @@ The token file lives with the skill rather than under `src/`, and the Storybook
 imports it from there. One copy, so the guidance Claude loads and the components
 rendered here cannot drift apart.
 
+## Adopting it in a project
+
+The full instructions — skill vs. hand-wired, seeds, themes, archetypes,
+components, and the definition of done — are in [ADOPTING.md](ADOPTING.md).
+The short version follows.
+
 ## Using the tokens in another app
 
 ```html

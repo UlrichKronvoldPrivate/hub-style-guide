@@ -4,6 +4,17 @@
   "private": true,
   "type": "module",
   "description": "The house style shared by every hub app.",
+  "exports": {
+    "./tokens.css": "./skills/hub-design-system/references/tokens.css",
+    "./layout.css": "./skills/hub-design-system/references/layout.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "skills/hub-design-system",
+    "src/components",
+    "ADOPTING.md",
+    "README.md"
+  ],
   "scripts": {
     "storybook": "storybook dev -p 6006 --no-open",
     "build": "storybook build -o storybook-static",
