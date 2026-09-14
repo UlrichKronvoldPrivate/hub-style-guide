@@ -3,6 +3,12 @@
 The house style shared by every hub app — tokens, components, canvas rules and
 UI copy — so a handful of separate projects read as one studio's work.
 
+> Lives at `https://github.com/UlrichKronvoldPrivate/hub-style-guide`. Every
+> path in this README and in `ADOPTING.md` is relative to that repository's
+> root. If you are reading a copy of these files inside another project, the
+> paths will not resolve there — see *Where the system lives* in
+> [ADOPTING.md](ADOPTING.md) for how to bring the system in.
+
 The identity is called **Skumring** — Danish for dusk. The page ground is a
 dusk sky built from five pastel glazes; everything on it is tonal glass that
 takes the sky's hue, elevation is a step in tone rather than a shadow, and each

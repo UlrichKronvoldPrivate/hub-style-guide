@@ -1,16 +1,34 @@
 # Adopting the hub design system in a project
 
+## Where the system lives
+
+**Repository:** `https://github.com/UlrichKronvoldPrivate/hub-style-guide`
+(private — you need access to that GitHub account or an invitation).
+
+Every path in this document is relative to the root of *that repository*.
+This file is meant to be copied into other projects, so if you are reading it
+somewhere else — a `style-guide/` folder, a wiki, a Slack paste — none of the
+paths below exist next to it. That is expected. **The guide travels; the
+system does not travel with it.** Bring the system in with one of the two
+methods under *Path B, step 1*, or link the skill under *Path A*.
+
+Do not copy `package.json` alongside this file. It is the repository's own
+manifest, and its `exports` map only resolves inside `node_modules` after a
+git install. As a loose file it describes things that are not there.
+
+## What it is
+
 The system is called **Skumring**. It ships as three things, and a project can
 take any of them independently:
 
-| Thing | What it is | Where |
+| Thing | What it is | Where, in the repository |
 |---|---|---|
-| **The skill** | Guidance Claude Code loads automatically when it touches UI, so it builds on-identity without being told | `skills/hub-design-system/` |
+| **The skill** | Guidance Claude Code loads automatically when it touches UI, so it builds on-identity without being told | `skills/hub-design-system/` — one folder, self-contained |
 | **The CSS** | `tokens.css` (every colour, size, shape, theme and seed) and `layout.css` (shell and page archetypes) | `skills/hub-design-system/references/` |
 | **The components** | Twelve React components, each a `.tsx` plus a `.css` that reads only tokens | `src/components/` |
 
-The Storybook (`npm run storybook`) is the reference for all three. It is not
-something a project depends on.
+The Storybook (`npm run storybook` in the repository) is the reference for all
+three. It is not something a project depends on.
 
 ---
 
@@ -70,18 +88,46 @@ Tokens come from `src/styles/tokens.css`; never hard-code a hex.
 
 ## Path B — wire it in by hand (the CSS)
 
-### 1. Get the two files
+### 1. Bring the system in
 
-**Simplest:** copy `tokens.css` and `layout.css` from
-`skills/hub-design-system/references/` into the project's styles folder.
-Note the commit you copied from.
+There are two ways. Both start from the repository, not from this file.
 
-**Cleaner:** install the repo as a git dependency and import by package path.
-The repo is private, so this needs GitHub access on the machine that runs
-`npm install`.
+**Vendor the files (simplest, no auth at build time).** Clone once, copy what
+you need, record the commit. This is the complete manifest — nothing else in
+the repository is needed by a consuming project:
+
+| Want | Copy | Into |
+|---|---|---|
+| The CSS | `skills/hub-design-system/references/tokens.css` and `layout.css` | your styles folder |
+| The skill for Claude | the whole `skills/hub-design-system/` folder | anywhere; then link it (Path A) |
+| A component | its folder under `src/components/`, e.g. `src/components/Button/` | your components folder |
+| The guide | `ADOPTING.md` (this file) | your docs — and note that it now points at files you did not copy |
+
+```bash
+git clone --depth 1 https://github.com/UlrichKronvoldPrivate/hub-style-guide.git /tmp/hub
+cp /tmp/hub/skills/hub-design-system/references/tokens.css  src/styles/
+cp /tmp/hub/skills/hub-design-system/references/layout.css  src/styles/
+cp -r /tmp/hub/src/components/Button src/components/
+git -C /tmp/hub rev-parse --short HEAD   # write this down next to the files
+```
+
+```powershell
+git clone --depth 1 https://github.com/UlrichKronvoldPrivate/hub-style-guide.git $env:TEMP\hub
+Copy-Item $env:TEMP\hub\skills\hub-design-system\references\tokens.css src\styles\
+Copy-Item $env:TEMP\hub\skills\hub-design-system\references\layout.css src\styles\
+Copy-Item -Recurse $env:TEMP\hub\src\components\Button src\components\
+git -C $env:TEMP\hub rev-parse --short HEAD
+```
+
+**Install as a git dependency (cleaner for the CSS).** The package's
+`exports` map makes the two stylesheets importable by name. The repository is
+private, so the machine running `npm install` needs GitHub access; over SSH
+that is the `git+ssh` form.
 
 ```bash
 npm install github:UlrichKronvoldPrivate/hub-style-guide#<commit-or-tag>
+# or, with an SSH key on the machine:
+npm install git+ssh://git@github.com/UlrichKronvoldPrivate/hub-style-guide.git#<commit-or-tag>
 ```
 
 ```css
@@ -89,8 +135,10 @@ npm install github:UlrichKronvoldPrivate/hub-style-guide#<commit-or-tag>
 @import "hub-style-guide/layout.css";
 ```
 
-Pin a commit. There is no semantic versioning yet; the token names are stable
-but their values change when the identity does.
+The components are not exported by the package — copy their folders as above.
+
+Either way, **pin a commit.** There is no semantic versioning yet; the token
+names are stable but their values change when the identity does.
 
 ### 2. Load the fonts
 
@@ -178,9 +226,10 @@ overlay).
 
 ### 7. Components
 
-There is no npm package for the React components yet. Copy the folders you
-need from `src/components/`. Each is self-contained — a `.tsx` and a `.css`
-that reads only tokens — and has no dependencies except:
+The React components are not exported by the package. Copy the folders you
+need from `src/components/` in the repository (see the manifest in step 1).
+Each is self-contained — a `.tsx` and a `.css` that reads only tokens — and
+has no dependencies except:
 
 - `Canvas/` needs `@xyflow/react`
 - everything else needs only React
