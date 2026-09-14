@@ -15,7 +15,10 @@ takes the sky's hue, elevation is a step in tone rather than a shadow, and each
 app sets a `data-seed` that reorders the sky. Klint holds the structure; the
 Panton is in the atmosphere.
 
-## Run it
+## Run it (in this repository)
+
+These commands run the Storybook from a clone of this repository. They do
+nothing useful from a copy of these files elsewhere.
 
 ```bash
 npm install
@@ -49,6 +52,11 @@ imports it from there. One copy, so the guidance Claude loads and the components
 rendered here cannot drift apart.
 
 ## Adopting it in a project
+
+**If you copy one file into your project, copy [QUICKREF.md](QUICKREF.md).**
+It is the one-page substance — seeds, tokens, the two rules people break
+first, archetypes, the six rules, the done-checklist — and it is written to
+be read away from this repository.
 
 The full instructions — skill vs. hand-wired, seeds, themes, archetypes,
 components, and the definition of done — are in [ADOPTING.md](ADOPTING.md).

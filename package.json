@@ -13,6 +13,7 @@
     "skills/hub-design-system",
     "src/components",
     "ADOPTING.md",
+    "QUICKREF.md",
     "README.md"
   ],
   "scripts": {

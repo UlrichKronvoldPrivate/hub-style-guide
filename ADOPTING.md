@@ -16,6 +16,10 @@ Do not copy `package.json` alongside this file. It is the repository's own
 manifest, and its `exports` map only resolves inside `node_modules` after a
 git install. As a loose file it describes things that are not there.
 
+**If you only want the substance on hand — seeds, tokens, rules, checklist —
+copy `QUICKREF.md` instead of this file.** It is one page and it is written to
+be read anywhere.
+
 ## What it is
 
 The system is called **Skumring**. It ships as three things, and a project can
