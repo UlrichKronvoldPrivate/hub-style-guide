@@ -2,8 +2,8 @@
 
 ## Where the system lives
 
-**Repository:** `https://github.com/UlrichKronvoldPrivate/hub-style-guide`
-(private — you need access to that GitHub account or an invitation).
+**Repository:** https://github.com/UlrichKronvoldPrivate/hub-style-guide
+(public — no account or access needed to clone it, install it, or read it).
 
 Every path in this document is relative to the root of *that repository*.
 This file is meant to be copied into other projects, so if you are reading it
@@ -125,13 +125,10 @@ git -C $env:TEMP\hub rev-parse --short HEAD
 
 **Install as a git dependency (cleaner for the CSS).** The package's
 `exports` map makes the two stylesheets importable by name. The repository is
-private, so the machine running `npm install` needs GitHub access; over SSH
-that is the `git+ssh` form.
+public, so this needs no credentials on the machine running `npm install`.
 
 ```bash
 npm install github:UlrichKronvoldPrivate/hub-style-guide#<commit-or-tag>
-# or, with an SSH key on the machine:
-npm install git+ssh://git@github.com/UlrichKronvoldPrivate/hub-style-guide.git#<commit-or-tag>
 ```
 
 ```css
