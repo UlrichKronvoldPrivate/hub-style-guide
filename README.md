@@ -44,7 +44,6 @@ Requires Node 22.12+ (Storybook 10 is ESM-only).
 | [`src/components/`](src/components/) | Button, Icon, Field, Select, Checkbox, Tabs, Plate, Dialog, Toast, Chip, DataTable, StatRow, BarChart, EmptyState, and the React Flow canvas node. |
 | [`src/docs/`](src/docs/) | Storybook docs pages — colour, typography, space and shape, writing. Layout archetypes live under `src/layouts/`. |
 | [`docs/kridt.html`](docs/kridt.html) | The identity as a standalone page — the dashboard archetype in Kridt, day and night. |
-| [`docs/skumring.html`](docs/skumring.html), [`docs/identity.html`](docs/identity.html) | Earlier identities (Skumring, Porcelain & Voltage). Kept for the reasoning; superseded. |
 
 The token file lives with the skill rather than under `src/`, and the Storybook
 imports it from there. One copy, so the guidance Claude loads and the components
