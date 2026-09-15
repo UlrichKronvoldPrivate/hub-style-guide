@@ -9,8 +9,8 @@
    single flat offset — the enamel-sign edge — never a blur. */
 :root{
   --ground:#F2F5F1;
-  --sg:#C6DEE4; --sl:#D6E1C8; --sd:#D9D5EC; --sr:#F3D4DC; --sy:#EFE4C6;
-  --s1:var(--sg); --s2:var(--sd); --s3:var(--sr); --s4:var(--sy); --s5:var(--sl);
+  /* the sky is one diagonal: green at the top-left, red-ish at the bottom-right */
+  --sky-from:#C9E3D8; --sky-mid:#EEF3EC; --sky-to:#F2CFD8;
   --ink:#132420; --ink-2:#4A5852; --ink-3:#73807A;
   --paper:#FFFFFF; --paper-2:#F4F6F2;
   --line:rgba(19,36,32,.12);
@@ -25,7 +25,8 @@
   color-scheme:light dark;
 }
 :root[data-theme="dark"]{
-  --ground:#0C1614; --sg:#1E4A50; --sl:#1F4A3A; --sd:#33304F; --sr:#4A2C3A; --sy:#3F3A22;
+  --ground:#0C1614;
+  --sky-from:#1F4A3A; --sky-mid:#0E1B18; --sky-to:#4A2C3A;
   --ink:#EAF0EA; --ink-2:#A9B6AE; --ink-3:#778780;
   --paper:#16221E; --paper-2:#1C2A25;
   --line:rgba(234,240,234,.12); --edge:rgba(0,0,0,.55);
@@ -36,8 +37,8 @@
 *{box-sizing:border-box}
 html{background:var(--ground)}
 body{margin:0;font-family:var(--sans);color:var(--ink);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100dvh;
-  /* the sky: unchanged from Skumring, a touch stronger so the flat shapes have something to sit on */
-  background:radial-gradient(72% 62% at 4% -6%,var(--s1) 0%,transparent 72%),radial-gradient(60% 56% at 106% 24%,var(--s2) 0%,transparent 72%),radial-gradient(66% 50% at 76% 106%,var(--s3) 0%,transparent 72%),radial-gradient(82% 44% at 14% 106%,var(--s4) 0%,transparent 72%),radial-gradient(48% 36% at 50% 50%,var(--s5) 0%,transparent 76%),var(--ground);background-attachment:fixed}
+  /* one diagonal, corner to corner; no blobs, no seeds */
+  background:linear-gradient(135deg,var(--sky-from) 0%,var(--sky-mid) 50%,var(--sky-to) 100%);background-attachment:fixed}
 a{color:var(--teal-deep);text-underline-offset:3px}
 :focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:6px}
 .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
@@ -153,7 +154,7 @@ tr:last-child td{border:0}
   <div class="pro">
     <div>
       <h1>Emalje</h1>
-      <p>The sky stays — it is the part of Skumring that works. Everything on it stops being glass. Surfaces are opaque, colour is solid and saturated, edges are hard, and depth is one flat offset like the edge of an enamel sign. Emalje is Danish for enamel. Toggle the long shadow to see the reference's one depth cue on and off.</p>
+      <p>The sky stays, simplified to one diagonal from green to red-ish — it is the part of Skumring that works. Everything on it stops being glass. Surfaces are opaque, colour is solid and saturated, edges are hard, and depth is one flat offset like the edge of an enamel sign. Emalje is Danish for enamel. Toggle the long shadow to see the reference's one depth cue on and off.</p>
     </div>
     <div class="knobs">
       <span class="klabel">Sky</span>
@@ -241,7 +242,7 @@ tr:last-child td{border:0}
   </div>
 
   <div class="notes">
-    <div class="card note"><h3>The sky is the only gradient</h3><p>It stays exactly as it was, a touch stronger. Nothing on it is translucent any more, so the gradient reads as a ground rather than bleeding through every surface and washing it out — which is what was happening.</p></div>
+    <div class="card note"><h3>The sky is the only gradient</h3><p>One diagonal, green at the top-left to red-ish at the bottom-right — no radial stops, no seeds. Nothing on it is translucent any more, so the gradient reads as a ground rather than bleeding through every surface and washing it out — which is what was happening.</p></div>
     <div class="card note"><h3>Opaque, hard, one flat offset</h3><p>Cards are paper white by day and spruce by night, with a 2px flat edge beneath — the enamel-sign edge. No blur, no glow, no soft grey shadow. Solid tiles get the same edge in their own colour.</p></div>
     <div class="card note"><h3>Colour is a fill, not a tint</h3><p>The reference's whole energy is saturated solids. Skagen, coral and mustard become fills for tiles, buttons and status; the glazes stay in the sky. The hero stat and the one that needs action are solid tiles; the rest are paper.</p></div>
     <div class="card note"><h3>Objects, not decoration</h3><p>The reference draws its data as things — a stopwatch, a pie, a line with dots. The glyph discs and the dotted line chart do the same job. They are flat geometry in a solid disc, one per idea.</p></div>
