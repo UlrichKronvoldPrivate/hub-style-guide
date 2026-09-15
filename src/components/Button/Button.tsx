@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import './button.css';
 
-export type ButtonVariant = 'primary' | 'ghost' | 'quiet' | 'danger';
+export type ButtonVariant = 'primary' | 'ghost' | 'quiet' | 'danger' | 'round';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Primary is the one action the screen exists for. At most one per view. */

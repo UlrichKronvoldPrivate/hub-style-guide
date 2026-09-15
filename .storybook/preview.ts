@@ -16,7 +16,7 @@ const preview: Preview = {
           'Layout',
           'Components',
           [
-            'Button', 'Field', 'Select', 'Checkbox',
+            'Button', 'Icon', 'Field', 'Select', 'Checkbox',
             'Tabs',
             'Plate', 'Dialog',
             'Toast', 'Chip',
@@ -41,32 +41,14 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
-    seed: {
-      description: 'Which glaze leads the sky — one hue family per app',
-      toolbar: {
-        title: 'Seed',
-        icon: 'paintbrush',
-        items: [
-          { value: 'glacier', title: 'Glacier' },
-          { value: 'rye', title: 'Rye' },
-          { value: 'dusk', title: 'Dusk' },
-          { value: 'lichen', title: 'Lichen' },
-          { value: 'rhubarb', title: 'Rhubarb' },
-        ],
-        dynamicTitle: true,
-      },
-    },
   },
 
-  initialGlobals: { theme: 'light', seed: 'glacier' },
+  initialGlobals: { theme: 'light' },
 
   decorators: [
     (Story, context) => {
       const theme = String(context.globals.theme ?? 'light');
-      const seed = String(context.globals.seed ?? 'glacier');
       document.documentElement.setAttribute('data-theme', theme);
-      // A seed reorders the sky and nothing else. Glacier is the default.
-      document.documentElement.setAttribute('data-seed', seed);
       // React Flow reads .dark on an ancestor; tokens.css treats it as an alias.
       document.documentElement.classList.toggle('dark', theme === 'dark');
       return Story();

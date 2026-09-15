@@ -46,9 +46,7 @@
    ─────────────────────────────────────────────────────────── */
 .hub-node {
   width: 208px;
-  background: var(--hub-color-surface-high);
-  backdrop-filter: var(--hub-glass);
-  -webkit-backdrop-filter: var(--hub-glass);
+  background: var(--hub-color-surface);
   border: 1px solid var(--hub-color-line-strong);
   border-radius: var(--hub-radius-plate);
   box-shadow: var(--hub-shadow-plate);
@@ -109,9 +107,7 @@
 /* Chrome */
 .react-flow__controls,
 .react-flow__minimap {
-  border: 1px solid var(--hub-edge);
-  backdrop-filter: var(--hub-glass);
-  -webkit-backdrop-filter: var(--hub-glass);
+  border: 1px solid var(--hub-color-line);
   border-radius: var(--hub-radius-plate);
   box-shadow: var(--hub-shadow-plate);
   overflow: hidden;
@@ -119,7 +115,7 @@
 .react-flow__controls-button { border-bottom: 1px solid var(--hub-color-line); }
 .react-flow__controls-button svg { fill: currentColor; }
 .react-flow__minimap-node { fill: var(--hub-color-line-strong); stroke: none; }
-.react-flow__minimap-mask { fill: var(--hub-color-ground); fill-opacity: .6; }
+.react-flow__minimap-mask { fill: var(--hub-color-surface-sunken); fill-opacity: .7; }
 
 .react-flow__attribution { background: transparent; color: var(--hub-color-ink-subtle); }
 

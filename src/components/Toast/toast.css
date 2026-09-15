@@ -35,12 +35,9 @@
   align-items: flex-start;
   gap: var(--hub-space-4);
   background: var(--hub-toast-bg);
-  border: 1px solid var(--hub-edge);
-  border-left: 2px solid var(--hub-color-line-strong);
+  border: 1px solid var(--hub-color-line);
+  border-left: 3px solid var(--hub-color-line-strong);
   border-radius: var(--hub-toast-radius);
-  box-shadow: var(--hub-toast-shadow);
-  backdrop-filter: var(--hub-glass);
-  -webkit-backdrop-filter: var(--hub-glass);
   padding: var(--hub-space-4);
 }
 

@@ -1,104 +1,83 @@
 import { Meta } from '@storybook/addon-docs/blocks';
-import { Swatches, GlazeGrid } from './Specimen';
+import { Swatches } from './Specimen';
 
 <Meta title="Foundations/Colour" />
 
 # Colour
 
 Every value below is read off the live document, so this page shows the true
-token value in whichever theme and seed the toolbar is set to. Switch **Theme**
-to Winter night and **Seed** between glazes, and the swatches follow.
+token value in whichever theme the **Theme** control is set to.
 
-## The sky
+## Ground, sheet, ink
 
-The page ground is five radial stops of glaze over porcelain by day and over
-spruce-black by night. `--hub-sky-1` leads at top-left, `-2` right, `-3`
-low-right, `-4` is the horizon, `-5` a centre haze. A seed reorders them and
-touches nothing else.
+Ground is porcelain, flat. The sheet is paper. Ink is spruce — a green-black
+rather than a tinted grey, so large dark blocks still carry hue.
 
 <Swatches tokens={[
   ['--hub-color-ground', 'ground'],
-  ['--hub-sky-1', 'sky 1, leads'],
-  ['--hub-sky-2', 'sky 2, right'],
-  ['--hub-sky-3', 'sky 3, low right'],
-  ['--hub-sky-4', 'sky 4, horizon'],
-  ['--hub-sky-5', 'sky 5, haze'],
-]} />
-
-## Tonal glass
-
-Surfaces are white at five opacities by day and frost at five by night. Each
-level is a step in elevation; there are no drop shadows. Every surface needs
-`backdrop-filter: var(--hub-glass)`.
-
-<Swatches tokens={[
-  ['--hub-color-surface-lowest', 'lowest: nav, sunken'],
-  ['--hub-color-surface-low', 'low: app bar, flat lists'],
-  ['--hub-color-surface', 'surface: plates'],
-  ['--hub-color-surface-high', 'high: inputs, chips, nodes'],
-  ['--hub-color-surface-highest', 'highest: dialogs, toasts'],
-  ['--hub-edge', 'lit edge'],
+  ['--hub-color-surface', 'sheet'],
+  ['--hub-color-surface-sunken', 'sunken: inputs, discs, thumbs'],
+  ['--hub-color-band', 'band: chart columns, gauge track'],
   ['--hub-color-line', 'hairline'],
-  ['--hub-color-line-strong', 'hairline strong'],
-]} />
-
-## Ink
-
-Spruce is a green-black rather than a tinted grey, so large dark fields still
-carry hue. Frost is its night counterpart.
-
-<Swatches tokens={[
+  ['--hub-color-line-strong', 'hairline, strong'],
   ['--hub-color-ink', 'ink'],
-  ['--hub-color-ink-muted', 'ink muted'],
-  ['--hub-color-ink-subtle', 'ink subtle'],
+  ['--hub-color-ink-muted', 'ink, muted'],
+  ['--hub-color-ink-subtle', 'ink, subtle'],
 ]} />
 
-## Glazes
+## Action
 
-The five sky stops and clay, as flat values. Use them as a **tonal cell** —
-a stop of the sky at `--hub-tint-alpha` over the glass — for stat rows, empty
-states and node categories. Never as a solid field on a component.
-
-<GlazeGrid />
-
-## Voltage
-
-Skagen — sea petrol — is the current on surfaces: interaction, focus, edges,
-selection. Blue enough to stay clear of moss, green enough to stop reading as
-the default tech blue. Flare
-is the accent that appears once on a screen, or not at all. Together they stay
-under a twentieth of the surfaces; the sky does not count.
+Skagen — sea petrol — is the one action colour: focus rings, selection, links,
+and the single chart mark that carries the point. **The primary button is not
+Skagen; it is the ink block**, the same black as the current nav item.
 
 <Swatches tokens={[
-  ['--hub-color-action', 'action (Skagen)'],
-  ['--hub-color-action-soft', 'action soft'],
-  ['--hub-color-voltage', 'voltage (flare)'],
-  ['--hub-color-voltage-soft', 'voltage soft'],
+  ['--hub-color-action', 'action — fills, focus, selection'],
+  ['--hub-color-action-text', 'action as text — links, quiet buttons'],
+  ['--hub-color-action-soft', 'action, soft'],
 ]} />
+
+Small type takes the text step, never the fill value: the fill clears AA but
+not AAA as 14px text by day and is marginal by night; the text step is deeper
+by day and paler by night and clears everywhere.
 
 ## Status
 
-Separate from voltage, always. The accent never stands in for state, and state
-never borrows the accent — which is why danger is a rust red rather than a
-brighter version of flare.
+Separate from the action colour, always. Soft fill, tone-coloured text.
 
 <Swatches tokens={[
   ['--hub-color-success', 'success'],
+  ['--hub-color-info', 'info'],
   ['--hub-color-warning', 'warning'],
   ['--hub-color-danger', 'danger'],
-  ['--hub-color-success-soft', 'success soft'],
-  ['--hub-color-warning-soft', 'warning soft'],
-  ['--hub-color-danger-soft', 'danger soft'],
+  ['--hub-color-success-soft', 'success, soft'],
+  ['--hub-color-info-soft', 'info, soft'],
+  ['--hub-color-warning-soft', 'warning, soft'],
+  ['--hub-color-danger-soft', 'danger, soft'],
 ]} />
 
 State must also read in form, not colour alone — see the shape of the dot in
 **Components → Chip**.
 
-## Three theme states and five seeds
+## Glazes
 
-Only semantic tokens change between themes; primitives never do, and components
-never restyle inside a theme block. There are three states to design for: an
-explicit `data-theme="light"`, an explicit `data-theme="dark"`, and the
-un-stamped default where only `prefers-color-scheme` separates them. Seeds sit
-on top of all three: `data-seed` reorders the five sky stops and nothing else,
-so a seed is safe to set once per app and forget.
+The six pastels survive only as category colours for canvas nodes. They are
+not a ground, not a tint and not a surface.
+
+<Swatches tokens={[
+  ['--hub-color-glaze-1', 'glacier — source'],
+  ['--hub-color-glaze-2', 'lichen — transform'],
+  ['--hub-color-glaze-3', 'dusk — logic'],
+  ['--hub-color-glaze-4', 'rhubarb — model'],
+  ['--hub-color-glaze-5', 'rye — storage'],
+  ['--hub-color-glaze-6', 'clay — note'],
+]} />
+
+## Three theme states
+
+Only semantic tokens change between themes; primitives never do, and
+components never restyle inside a theme block. There are three states to
+design for: an explicit `data-theme="light"`, an explicit `data-theme="dark"`,
+and the un-stamped default where only `prefers-color-scheme` separates them.
+`tokens.css` handles all three, and treats `.dark` as an alias so React Flow's
+`colorMode` works with no extra wiring.

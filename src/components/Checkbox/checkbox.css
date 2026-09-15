@@ -18,7 +18,7 @@
   place-content: center;
   background: var(--hub-checkbox-bg);
   border: 1px solid var(--hub-checkbox-border);
-  border-radius: var(--hub-radius-control);
+  border-radius: 6px;
   cursor: pointer;
   transition: background-color var(--hub-duration-fast) var(--hub-ease),
               border-color var(--hub-duration-fast) var(--hub-ease);

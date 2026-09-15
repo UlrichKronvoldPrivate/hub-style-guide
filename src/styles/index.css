@@ -1,5 +1,7 @@
-/* The token file is the source of truth and lives with the skill, so the
-   skill and the Storybook can never drift apart. */
+/* The token and layout files are the source of truth and live with the skill,
+   so the skill and the Storybook can never drift apart. */
 @import "../../skills/hub-design-system/references/tokens.css";
 @import "../../skills/hub-design-system/references/layout.css";
+/* Boxicons webfont: <i class="bx bx-name" aria-hidden="true"> */
+@import "boxicons/css/boxicons.min.css";
 @import "./base.css";

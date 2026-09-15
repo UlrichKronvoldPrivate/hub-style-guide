@@ -1,3 +1,7 @@
+/* Buttons are pills. Primary is the ink block — the same black as the
+   current nav item — so the one action a screen exists for is the darkest
+   thing on it. No shadows, no gradients, no arrows in the label. */
+
 .hub-btn {
   font: var(--hub-text-label);
   letter-spacing: var(--hub-tracking-label);
@@ -7,6 +11,9 @@
   background: transparent;
   color: var(--hub-color-ink);
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hub-space-2);
   transition: background-color var(--hub-duration-fast) var(--hub-ease),
               border-color var(--hub-duration-fast) var(--hub-ease),
               color var(--hub-duration-fast) var(--hub-ease);
@@ -21,20 +28,30 @@
   color: var(--hub-button-ghost-ink);
   background: var(--hub-button-ghost-bg);
   border-color: var(--hub-button-ghost-border);
-  backdrop-filter: var(--hub-glass);
-  -webkit-backdrop-filter: var(--hub-glass);
 }
-.hub-btn--ghost:hover:not(:disabled) { border-color: var(--hub-color-ink-subtle); }
+.hub-btn--ghost:hover:not(:disabled) { border-color: var(--hub-color-line-strong); }
 
 .hub-btn--quiet {
   color: var(--hub-button-quiet-ink);   /* the text step, not the fill colour */
   padding-inline: var(--hub-space-2);
 }
-.hub-btn--quiet:hover:not(:disabled) { background: var(--hub-color-action-soft); }
+.hub-btn--quiet:hover:not(:disabled) { background: var(--hub-color-surface-sunken); }
 
 .hub-btn--danger {
   background: var(--hub-color-danger);
   color: var(--hub-color-ink-on-action);
 }
 
+.hub-btn .bx { font-size: 1.1em; }
+
 .hub-btn:disabled { opacity: .45; cursor: not-allowed; }
+
+/* A round icon button: the bar's bell, the region's "more". Always give it
+   an aria-label; the icon is not the name. */
+.hub-btn--round {
+  width: 38px; height: 38px; padding: 0;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--hub-button-ghost-bg);
+  border-color: var(--hub-button-ghost-border);
+}

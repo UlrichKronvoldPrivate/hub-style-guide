@@ -1,7 +1,7 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import './chip.css';
 
-export type ChipStatus = 'neutral' | 'ok' | 'warn' | 'fail';
+export type ChipStatus = 'neutral' | 'ok' | 'info' | 'warn' | 'fail';
 
 export interface ChipProps extends HTMLAttributes<HTMLSpanElement> {
   status?: ChipStatus;

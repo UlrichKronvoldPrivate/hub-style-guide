@@ -1,13 +1,15 @@
 /* ============================================================
-   hub layout — the shell and the three page archetypes.
+   hub layout — the sheet, and the four page archetypes.
    Source of truth; layout.md explains the reasoning.
 
+   Kridt: an app is one white sheet on a flat ground. Regions inside
+   it touch and are divided by hairlines, never by gaps or shadows.
    Breakpoints are written literally because a media query cannot
-   read a custom property. Two of them, named for what the layout
-   does: 720px (compact) and 1100px (no room for a side panel).
+   read a custom property: 720px (compact) and 1100px (no room for
+   a side panel).
    ============================================================ */
 
-/* ── Shell ─────────────────────────────────────────────────── */
+/* ── The sheet ─────────────────────────────────────────────── */
 
 .hub-shell {
   min-height: 100dvh;
@@ -17,6 +19,17 @@
   grid-template-areas:
     "nav bar"
     "nav main";
+  background: var(--hub-color-surface);
+}
+
+/* Inside an app the sheet is the viewport. In a demo or a docs page,
+   .hub-shell--framed gives it the ground around it and its own corners. */
+.hub-shell--framed {
+  min-height: 0;
+  margin: var(--hub-space-5);
+  border: 1px solid var(--hub-color-line);
+  border-radius: var(--hub-radius-sheet);
+  overflow: hidden;
 }
 
 .hub-shell__bar {
@@ -24,9 +37,7 @@
   position: sticky;
   top: 0;
   z-index: 30;
-  background: var(--hub-color-surface-low);
-  backdrop-filter: var(--hub-glass);
-  -webkit-backdrop-filter: var(--hub-glass);
+  background: var(--hub-color-surface);
   border-bottom: 1px solid var(--hub-color-line);
   display: flex;
   align-items: center;
@@ -35,32 +46,66 @@
   padding-inline: var(--hub-space-5);
 }
 
+/* Where you are: "Dashboards › Overview". The current page is ink. */
+.hub-crumb { display: flex; align-items: center; gap: var(--hub-space-3); font: var(--hub-text-body-sm); color: var(--hub-color-ink-muted); }
+.hub-crumb b { font-weight: 500; color: var(--hub-color-ink); }
+.hub-crumb i { width: 6px; height: 6px; border-right: 1.5px solid var(--hub-color-ink-subtle); border-top: 1.5px solid var(--hub-color-ink-subtle); transform: rotate(45deg); display: inline-block; }
+
+.hub-shell__tools { display: flex; align-items: center; gap: var(--hub-space-3); }
+
+/* The search pill and the round icon buttons live in the bar. */
+.hub-search {
+  display: flex; align-items: center; gap: var(--hub-space-2);
+  height: 38px; min-width: 220px; padding: 0 var(--hub-space-4);
+  border: 1px solid var(--hub-color-line); border-radius: var(--hub-radius-pill);
+  background: var(--hub-color-surface); color: var(--hub-color-ink-subtle);
+  font: var(--hub-text-body-sm);
+}
+.hub-round {
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 1px solid var(--hub-color-line); background: var(--hub-color-surface);
+  color: var(--hub-color-ink); display: grid; place-content: center; cursor: pointer;
+  font-size: 1.1rem;
+}
+
 .hub-shell__nav {
   grid-area: nav;
   border-right: 1px solid var(--hub-color-line);
-  padding: var(--hub-space-4);
   display: flex;
   flex-direction: column;
-  gap: var(--hub-space-1);
+  min-height: 0;
+}
+.hub-shell__brand {
+  height: var(--hub-height-bar);
+  display: flex; align-items: center;
+  padding-inline: var(--hub-space-5);
+  font-weight: 700; letter-spacing: -.02em;
+  border-bottom: 1px solid var(--hub-color-line);
+}
+.hub-shell__menu { padding: var(--hub-space-4) var(--hub-space-3); display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.hub-nav-group { margin: var(--hub-space-3) 10px 6px; font: var(--hub-text-caption); color: var(--hub-color-ink-subtle); }
+
+/* Sidebar nav, not top nav. The current item is a solid ink block. */
+.hub-nav-item {
+  display: flex; align-items: center; gap: 10px;
+  font: var(--hub-text-body-sm); font-weight: 500;
+  color: var(--hub-color-ink-muted);
+  text-decoration: none;
+  padding: 9px 10px;
+  border-radius: var(--hub-radius-control);
+}
+.hub-nav-item .bx { font-size: 1.1rem; }
+.hub-nav-item:hover { color: var(--hub-color-ink); background: var(--hub-color-surface-sunken); }
+.hub-nav-item[aria-current="page"] { color: var(--hub-color-ink-on-ink); background: var(--hub-color-ink); }
+
+.hub-shell__me {
+  border-top: 1px solid var(--hub-color-line);
+  padding: var(--hub-space-4);
+  display: flex; align-items: center; gap: 10px;
+  font: var(--hub-text-body-sm);
 }
 
 .hub-shell__main { grid-area: main; min-width: 0; }
-
-/* Sidebar nav, not top nav: these apps have more destinations than a top bar
-   holds, and a vertical list survives a name getting longer. */
-.hub-nav-item {
-  font: var(--hub-text-body-sm);
-  color: var(--hub-color-ink-muted);
-  text-decoration: none;
-  padding: 7px var(--hub-space-3);
-  border-radius: var(--hub-radius-control);
-}
-.hub-nav-item:hover { color: var(--hub-color-ink); background: var(--hub-color-surface-sunken); }
-.hub-nav-item[aria-current="page"] {
-  color: var(--hub-color-ink);
-  background: var(--hub-color-surface-high);
-  font-weight: 600;
-}
 
 @media (max-width: 720px) {
   .hub-shell {
@@ -77,40 +122,34 @@
     transition: transform var(--hub-duration-base) var(--hub-ease);
   }
   .hub-shell__nav[data-open="true"] { transform: none; }
+  .hub-search { display: none; }
 }
 
 /* ── Shared page furniture ─────────────────────────────────── */
 
+/* A region of the sheet. Regions touch; a hairline between them. */
+.hub-region { padding: var(--hub-space-5); min-width: 0; }
+.hub-region + .hub-region { border-top: 1px solid var(--hub-color-line); }
+
+.hub-region__head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: var(--hub-space-3); margin-bottom: var(--hub-space-4);
+}
+.hub-region__head h2 { font: var(--hub-text-subtitle); letter-spacing: var(--hub-tracking-subtitle); margin: 0; }
+.hub-region__head p  { margin: 3px 0 0; font: var(--hub-text-caption); color: var(--hub-color-ink-muted); }
+
 .hub-page__head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--hub-space-4);
-  flex-wrap: wrap;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: var(--hub-space-4); flex-wrap: wrap;
 }
+.hub-page__title { font: var(--hub-text-display-2); letter-spacing: var(--hub-tracking-display-2); margin: 0; text-wrap: balance; }
 
-.hub-page__title {
-  font: var(--hub-text-display-2);
-  letter-spacing: var(--hub-tracking-display-2);
-  margin: 0;
-  text-wrap: balance;
-}
-
-/* Filters sit directly above the thing they filter; further away and they
-   read as global. */
-.hub-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--hub-space-3);
-  align-items: flex-end;
-}
+/* Filters sit directly above the thing they filter. */
+.hub-toolbar { display: flex; flex-wrap: wrap; gap: var(--hub-space-3); align-items: flex-end; }
 
 .hub-section { padding-top: var(--hub-space-9); }
-
 .hub-section__head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
+  display: flex; align-items: baseline; justify-content: space-between;
   gap: var(--hub-space-5);
   border-top: 1px solid var(--hub-color-line);
   padding-top: var(--hub-space-4);
@@ -127,75 +166,46 @@
   grid-template-areas:
     "bar bar"
     "canvas panel";
-  overflow: hidden;            /* the page itself never scrolls */
-  /* the overlay panel below 1100px positions against this, not the viewport */
+  overflow: hidden;
   position: relative;
+  background: var(--hub-color-surface);
 }
-
 .hub-page--canvas .hub-page__bar {
   grid-area: bar;
   border-bottom: 1px solid var(--hub-color-line);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--hub-space-5);
-  padding-inline: var(--hub-space-5);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--hub-space-5); padding-inline: var(--hub-space-5);
 }
-
 .hub-page__canvas { grid-area: canvas; min-width: 0; position: relative; }
 
-/* Optional footer band — a provenance strip, a run log, a status line. The row
-   only exists when there is something in it; an empty band is a stripe of
-   nothing. It spans the panel too, because what it cites is the whole run. */
 .hub-page--canvas:has(> .hub-page__foot) {
   grid-template-rows: var(--hub-height-bar) minmax(0, 1fr) auto;
-  grid-template-areas:
-    "bar bar"
-    "canvas panel"
-    "foot foot";
+  grid-template-areas: "bar bar" "canvas panel" "foot foot";
 }
-
 .hub-page__foot {
   grid-area: foot;
   border-top: 1px solid var(--hub-color-line);
   padding: var(--hub-space-3) var(--hub-space-5);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--hub-space-4);
-  font: var(--hub-text-caption);
-  color: var(--hub-color-ink-muted);
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--hub-space-4);
+  font: var(--hub-text-caption); color: var(--hub-color-ink-muted);
 }
 
-/* The inspector goes right because graphs flow left to right, so a left
-   panel covers the upstream nodes you are tracing back from. */
+/* The inspector goes right: graphs flow left to right. */
 .hub-page__panel {
   grid-area: panel;
   border-left: 1px solid var(--hub-color-line);
-  overflow-y: auto;            /* the only scroll container on this page */
+  overflow-y: auto;
   padding: var(--hub-space-5);
-  display: flex;
-  flex-direction: column;
-  gap: var(--hub-space-4);
+  display: flex; flex-direction: column; gap: var(--hub-space-4);
+  background: var(--hub-color-surface);
 }
 
 @media (max-width: 1100px) {
-  .hub-page--canvas {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "bar" "canvas";
-  }
-  .hub-page--canvas:has(> .hub-page__foot) {
-    grid-template-areas: "bar" "canvas" "foot";
-  }
+  .hub-page--canvas { grid-template-columns: minmax(0, 1fr); grid-template-areas: "bar" "canvas"; }
+  .hub-page--canvas:has(> .hub-page__foot) { grid-template-areas: "bar" "canvas" "foot"; }
   .hub-page__panel {
-    position: absolute;
-    inset: var(--hub-height-bar) 0 0 auto;
-    width: var(--hub-width-panel);
-    max-width: 100%;
-    background: var(--hub-color-surface-highest);
-    backdrop-filter: var(--hub-glass);
-    -webkit-backdrop-filter: var(--hub-glass);
-    box-shadow: var(--hub-shadow-overlay);
+    position: absolute; inset: var(--hub-height-bar) 0 0 auto;
+    width: var(--hub-width-panel); max-width: 100%;
     z-index: 20;
   }
 }
@@ -206,44 +216,26 @@
   max-width: var(--hub-width-wide);
   margin-inline: auto;
   padding: var(--hub-space-6) var(--hub-space-5) var(--hub-space-9);
-  display: flex;
-  flex-direction: column;
-  gap: var(--hub-space-5);
+  display: flex; flex-direction: column; gap: var(--hub-space-5);
 }
-
-/* The table header sticks; the page header does not. Two sticky bands
-   stacked on each other eat a laptop screen. */
 .hub-page--table .hub-table th {
-  position: sticky;
-  top: var(--hub-height-bar);
-  background: var(--hub-color-surface-high);
-  backdrop-filter: var(--hub-glass);
-  -webkit-backdrop-filter: var(--hub-glass);
+  position: sticky; top: var(--hub-height-bar);
+  background: var(--hub-color-surface);
   z-index: 1;
 }
 
 /* ── 3. Dashboard page ─────────────────────────────────────── */
 
-.hub-page--dashboard {
-  max-width: var(--hub-width-wide);
-  margin-inline: auto;
-  padding: var(--hub-space-6) var(--hub-space-5) var(--hub-space-9);
-  display: flex;
-  flex-direction: column;
-  gap: var(--hub-space-5);
-}
+/* Summary first, then detail. The rows of the sheet touch. */
+.hub-page--dashboard { display: flex; flex-direction: column; }
+.hub-page--dashboard > * + * { border-top: 1px solid var(--hub-color-line); }
 
-/* Unequal on purpose: the thing read first is wider. Two equal columns make
-   the reader choose where to start, which is the choice the layout should
-   have made for them. */
-.hub-page__split {
-  display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-  gap: var(--hub-space-5);
-  align-items: start;
-}
+/* Unequal on purpose, divided by a hairline, not a gap. */
+.hub-page__split { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+.hub-page__split > * + * { border-left: 1px solid var(--hub-color-line); }
 @media (max-width: 1100px) {
   .hub-page__split { grid-template-columns: minmax(0, 1fr); }
+  .hub-page__split > * + * { border-left: 0; border-top: 1px solid var(--hub-color-line); }
 }
 
 /* ── 4. Reading page ───────────────────────────────────────── */
@@ -253,14 +245,10 @@
   margin-inline: auto;
   padding: var(--hub-space-6) var(--hub-space-5) var(--hub-space-9);
 }
-
 .hub-page--reading p,
 .hub-page--reading li { max-width: var(--hub-width-prose); }
 
 /* ── Density ───────────────────────────────────────────────── */
-
-/* Compact is for tables, canvases, inspectors and toolbars. There is no
-   third density and no per-user switch. */
 [data-density="compact"] { font: var(--hub-text-body-sm); }
 [data-density="compact"] .hub-table td,
-[data-density="compact"] .hub-table th { padding: var(--hub-space-3) var(--hub-space-4); }
+[data-density="compact"] .hub-table th { padding: var(--hub-space-3) var(--hub-space-3); }

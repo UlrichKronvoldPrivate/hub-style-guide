@@ -1,19 +1,20 @@
 import type { CSSProperties } from 'react';
 import './bar-chart.css';
 
-const BAR = 16;
-const STEP = 24;
-const PLOT_H = 120;
+const BAR = 22;
+const STEP = 30;
+const PLOT_H = 140;
+const DASH = 3;
 
 export interface BarChartProps {
-  /** One value per bar. Nulls are missing data and draw nothing. */
+  /** One value per column. Nulls are missing data and draw no dash. */
   data: (number | null)[];
   /**
-   * Sparse labels by bar index, e.g. `{ 0: '21 Aug', 13: 'Today' }`.
+   * Sparse labels by column index, e.g. `{ 0: 'Mon', 6: 'Sun' }`.
    * Rendered as HTML beneath the plot, never as SVG text.
    */
   labels?: Record<number, string>;
-  /** The one mark that carries the point. Everything else recedes. */
+  /** The one mark that carries the point. Everything else stays ink. */
   accentIndex?: number;
   /**
    * Describes the shape and the outliers for anyone who cannot see it.
@@ -29,26 +30,28 @@ export function BarChart({ data, labels = {}, accentIndex, ariaLabel }: BarChart
 
   return (
     <div className="hub-chart">
-      <svg
-        className="hub-chart__plot"
-        viewBox={`0 0 ${width} ${PLOT_H + 2}`}
-        role="img"
-        aria-label={ariaLabel}
-      >
-        <line
-          className="hub-chart__axis"
-          x1="0" y1={PLOT_H + 0.5} x2={width} y2={PLOT_H + 0.5}
-        />
+      <svg className="hub-chart__plot" viewBox={`0 0 ${width} ${PLOT_H}`} role="img" aria-label={ariaLabel}>
         {data.map((value, i) => {
-          if (value === null) return null;
-          const h = value === 0 ? 2 : Math.round((value / max) * PLOT_H);
-          const cls = value === 0
-            ? 'hub-chart__bar hub-chart__bar--zero'
-            : i === accentIndex
-              ? 'hub-chart__bar hub-chart__bar--accent'
-              : 'hub-chart__bar';
+          const x = i * STEP;
+          const accent = i === accentIndex;
+          const y = value === null ? null : PLOT_H - DASH - Math.round(((value) / max) * (PLOT_H - DASH));
           return (
-            <rect key={i} className={cls} x={i * STEP} y={PLOT_H - h} width={BAR} height={h} />
+            <g key={i}>
+              <rect
+                className={accent ? 'hub-chart__band hub-chart__band--accent' : 'hub-chart__band'}
+                x={x} y="0" width={BAR} height={PLOT_H} rx="6"
+              />
+              {y === null ? null : (
+                <rect
+                  className={[
+                    'hub-chart__dash',
+                    accent ? 'hub-chart__dash--accent' : null,
+                    value === 0 ? 'hub-chart__dash--zero' : null,
+                  ].filter(Boolean).join(' ')}
+                  x={x + 3} y={y} width={BAR - 6} height={DASH} rx="1.5"
+                />
+              )}
+            </g>
           );
         })}
       </svg>

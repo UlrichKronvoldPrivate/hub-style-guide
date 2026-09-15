@@ -9,17 +9,19 @@ import { SpaceRamp, Shapes } from './Specimen';
 
 Four exists only for optical nudges inside a control. Layout does the spacing:
 flex or grid with `gap`, never per-element margins that collapse or double.
+Regions inside a sheet take `--hub-space-5` of padding.
 
 <SpaceRamp />
 
 The dot grid is engineer's paper for canvases — React Flow draws its own at
-24px, and `.hub-paper` puts one on anything else that wants it. It is no
-longer on the page ground; the sky is.
+24px, and `.hub-paper` puts one on anything else that wants it. It is not on
+the page ground; the ground is flat.
 
-## Radius has a range, and still means role
+## Radius is a role
 
-Controls take 10px. Plates take 20px. The one tile that leads a page takes
-28px. Pills are reserved for status, never for buttons or filters.
+A cell inside a sheet has none — the sheet has the corners. Controls and nav
+items take 8px. A sheet that stands alone, a dialog, a toast: 14px. Buttons
+and status are pills. Icon buttons and discs are circles.
 
 <Shapes />
 
@@ -28,25 +30,20 @@ full stadium pill reads as a consumer tag, so in an instrument UI where every
 status is a machine state, square the status marker to the control radius
 instead.
 
-## Elevation is tone, not shadow
+## There are no shadows
 
-Five surface levels, each a step more opaque — lowest, low, surface, high,
-highest. Lift something by moving it up a level, not by drawing under it. A
-dialog is simply the highest surface over a scrim. There are no drop shadows
-anywhere in the system.
+Regions of a sheet touch and share a 1px hairline. Depth does not exist;
+hierarchy is size, weight and position. A dialog is a sheet over a scrim.
 
 ```css
---hub-shadow-plate:   inset 0 1px 0 var(--hub-edge);   /* the lit top edge, not a shadow */
---hub-shadow-overlay: inset 0 1px 0 var(--hub-edge);
+--hub-shadow-plate:   none;   /* kept so older CSS keeps working */
+--hub-shadow-overlay: none;
 ```
 
-Every surface is translucent and needs `backdrop-filter: var(--hub-glass)` to
-read as glass. The component recipes include it.
-
-**Not everything is a plate.** Three separations, picked by role: a tonal cell
-(a stop of the sky at tint-alpha), a hairline, or a step up in surface level. A
-screen picks one per object type. A page where some things are tonal and others
-are lifted, for the same kind of content, is a mistake.
+**Not everything is a plate.** Three separations, picked by role: a hairline,
+a sunken band (`--hub-color-surface-sunken`), or a standalone sheet with
+corners. A screen picks one per object type. A page where some things are
+sunken and others are sheets, for the same kind of content, is a mistake.
 
 ## Motion
 

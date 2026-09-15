@@ -1,6 +1,6 @@
 ---
 name: hub-design-system
-description: Apply the hub house style ("Skumring" — a dusk sky of pastel glazes under tonal glass, one seed per app) — colours, typography, spacing, layout, components, node canvases and UI copy. Use when starting a new UI, or working in a project that has no design system of its own. In a project that already has one, this skill DEFERS to it and only supplies the parts it lacks — see the precedence rule first. Also use for its portable half: layout archetypes, accessibility floor, UI copy rules, and the generated-design tells to avoid.
+description: Apply the hub house style ("Kridt" — one white sheet on a flat ground, divided by hairlines, colour only where it means something) — colours, typography, spacing, layout, components, icons, node canvases and UI copy. Use when starting a new UI, or working in a project that has no design system of its own. In a project that already has one, this skill DEFERS to it and only supplies the parts it lacks — see the precedence rule first. Also use for its portable half: layout archetypes, accessibility floor, UI copy rules, library recommendations, and the generated-design tells to avoid.
 ---
 
 # hub design system
@@ -28,9 +28,8 @@ any of these are:
 
 If one exists, **it wins.** Do not introduce `--hub-*` tokens, do not
 re-palette, do not change its radius or its typeface. A project that has
-thought about its own look has usually thought about it *for that app* — a dark
-instrument-panel palette for a pipeline tool beats a pale one, and that is a
-better decision than consistency with a sibling app.
+thought about its own look has usually thought about it *for that app*, and
+that is a better decision than consistency with a sibling app.
 
 Adopt this identity wholesale only when the project has no system, or when the
 user asks for it by name.
@@ -40,11 +39,13 @@ user asks for it by name.
 The visual half does not travel. The rest does, because none of it names a
 colour:
 
-- **Layout** — the three page archetypes, one scroll container, the sticky
-  budget, two densities, placement. Shapes, not colours.
+- **Layout** — the sheet, the four page archetypes, one scroll container, the
+  sticky budget, two densities, placement. Shapes, not colours.
 - **Writing** — `references/writing.md`, all of it.
 - **Accessibility floor** — visible focus, native elements over rebuilt ones,
   state readable without colour, reduced motion honoured.
+- **Libraries** — React Flow for graphs, PixiJS for GPU-drawn visuals, and
+  when not to reach for either.
 - **Tells to avoid** — the table near the end of this file.
 - **Behaviour** — one primary action per view, dismissible overlays, warnings
   that do not time out, motion only in answer to an action.
@@ -53,240 +54,209 @@ Express these through *that project's* tokens, never ours.
 
 ## Applying the identity
 
-When this skill does own the look: **load `references/tokens.css` and style
-from those custom properties. Never hard-code a hex.** If a value you need has
-no token, that is a design decision: add the token, don't inline the value.
+When this skill does own the look: **load `references/tokens.css` and
+`references/layout.css`, and style from those custom properties. Never
+hard-code a hex.** If a value you need has no token, that is a design decision:
+add the token, don't inline the value.
 
-Three things `tokens.css` does for you, so do not redo them:
-
-- **The sky.** `body` gets the dusk field. Do not paint another background on
-  the page, and do not put a gradient on anything else.
-- **The seed.** Set `data-seed` on `<html>` — `glacier` (default), `rye`,
-  `dusk`, `lichen` or `rhubarb`. One per app, chosen once. It reorders the sky
-  and touches nothing else.
-- **Glass.** Every surface token is translucent. A surface needs
-  `backdrop-filter: var(--hub-glass)` to read as glass; the component recipes
-  include it.
+Icons come from Boxicons (the free set, `boxicons` on npm): import
+`boxicons/css/boxicons.min.css` once and write `<i class="bx bx-name">`. Rules
+below.
 
 ## The argument
 
 Danish design runs an argument with itself. Kaare Klint measured furniture
-against the human body and built systems from it — proportion, modules,
+against the human body and built systems out of it — proportion, modules,
 restraint. Verner Panton answered with saturated orange rooms and moulded
 plastic. Both are Nordic; only one is the postcard.
 
-**Klint by default, Panton on purpose.** Rigour holds the structure; voltage is
-rationed to the places where it changes what someone does.
-
-**Skumring** — Danish for dusk — is where the Panton went. The page ground is a
-Nordic dusk sky built from the glazes: cold glacier leading, lilac, rhubarb, a
-warm rye horizon; at night it goes aurora-green, not violet. Everything on it is
-tonal glass that takes the sky's hue. Saturation lives in the ground and quiet
-lives in the surfaces, so the pastels do the work instead of sitting in a
-swatch table.
+**Kridt** — Danish for chalk — is Klint's side of the argument, all the way.
+One flat ground. White sheets that touch and are divided by hairlines rather
+than gaps. Spruce as the black. No shadows, no gradients, no glass. Colour
+appears only where it means something: status, and the one action colour. The
+pop comes from contrast and figure, not from atmosphere.
 
 ## Six rules
 
-1. **Colour lives in the sky; voltage on surfaces stays under five percent.**
-   The ground carries the atmosphere. On top of it, Skagen and flare are
-   current, not paint: primary buttons, one live edge, a focus ring, the single
-   number that matters. If a surface feels loud, measure its coloured area —
-   the sky does not count.
-2. **Elevation is tone, not shadow.** Five surface levels, each a step more
-   opaque. A raised thing is a higher level; a dialog is the highest. There
-   are no drop shadows anywhere, and the only gradient on the page is the sky.
+1. **Colour only where it means something.** Status pills and the action
+   colour. Everything else is ink on paper. If a screen has a third colour,
+   something is decorated.
+2. **Lines, not gaps, and never shadows.** Regions of a sheet touch and share a
+   1px hairline. Depth does not exist; hierarchy is size, weight and position.
 3. **Lines mean connection.** A rule, border or edge asserts that two things
    relate. Nothing is drawn to fill space.
-4. **One family, weight does the work.** Schibsted Grotesk carries everything.
-   No second display face. A heading needing presence gets more weight or
-   tighter tracking, never a different typeface.
-5. **Radius is a role, not a habit.** 10px controls, 20px plates, 28px for
-   the one tile that leads a page, pills for status only. One radius on
-   everything flattens hierarchy. Radius also sets
-   register: a full stadium pill reads as a consumer tag, so in an instrument
-   or pipeline UI where every status is a machine state, square the status
-   marker to `--hub-radius-control` instead.
-6. **Semantic colour is separate.** Success, warning and danger own their
-   tokens. The accent never stands in for state, and state never borrows the
-   accent.
+4. **One family, weight does the work — quietly.** Schibsted Grotesk alone, at
+   500–600 for headings and figures, never 800. Chalk is written, not shouted.
+5. **Radius is a role, not a habit.** 0 for a cell inside a sheet, 8px for
+   controls and nav items, 14px for a sheet that stands alone, pills for
+   buttons and status, circles for icon buttons and discs.
+6. **Semantic colour is separate.** Success, info, warning and danger own their
+   tokens. The action colour never stands in for state.
 
 ## Colour
 
-The ground is the **sky**: five radial stops of glaze over porcelain by day
-(`#F2F5F1`) and over spruce-black by night (`#0C1614`). `--hub-sky-1` leads at
-top-left, `-2` right, `-3` low-right, `-4` is the horizon, `-5` a centre haze.
-Never cream. Ink is spruce, a green-black rather than a tinted grey.
-
-Surfaces are **tonal glass** — white at five opacities by day, frost at five by
-night — and they need `backdrop-filter: var(--hub-glass)`:
-
-| Level | Token | Day | Night | For |
-|---|---|---|---|---|
-| lowest | `--hub-color-surface-lowest` | white 22% | white 3% | nav, sunken fields |
-| low | `--hub-color-surface-low` | 40% | 6% | the app bar, flat lists |
-| surface | `--hub-color-surface` | 58% | 9% | plates — the default |
-| high | `--hub-color-surface-high` | 78% | 14% | inputs, chips, nodes, ghost buttons |
-| highest | `--hub-color-surface-highest` | 94% | spruce 92% | dialogs, toasts, overlays |
+Ground is porcelain, flat: `#F2F4F1` by day, `#0E1B18` by night. The sheet is
+paper. Ink is spruce, a green-black rather than a tinted grey.
 
 | Role | Token | Day | Night |
 |---|---|---|---|
-| lit edge of glass | `--hub-edge` | white 55% | white 12% |
-| hairline | `--hub-color-line` | spruce 10% | frost 10% |
+| ground | `--hub-color-ground` | `#F2F4F1` | `#0E1B18` |
+| sheet | `--hub-color-surface` | `#FFFFFF` | `#16221E` |
+| sunken (inputs, discs, thumbs) | `--hub-color-surface-sunken` | `#F5F7F4` | `#1B2823` |
+| band (chart columns, gauge track) | `--hub-color-band` | `#EDF0EC` | `#1F2D28` |
+| hairline | `--hub-color-line` | `#E3E7E1` | `#26332E` |
 | ink | `--hub-color-ink` | `#132420` | `#EAF0EA` |
-| action (Skagen) — fills, indicators, edges | `--hub-color-action` | `#0F6C86` | `#5FD0DC` |
+| action (Skagen) — links as fills, focus, selection, chart accent | `--hub-color-action` | `#0F6C86` | `#5FD0DC` |
 | action as text — links, quiet buttons | `--hub-color-action-text` | `#0A5062` | `#A9ECF1` |
-| voltage (flare) | `--hub-color-voltage` | `#E8358C` | `#FF77B9` |
 
-**Small type takes the text step, never the fill colour.** The fill value is
-tuned for buttons and bars, where 3:1 is the bar. Measured as 14px text on
-glass over the densest stop of every seed's sky: by day it clears AA (4.9
-floor) but not AAA; at night it **fails AA** over glacier and lichen (4.2).
-`--hub-color-action-text` is deeper by day — 7.3 floor, AAA on every seed at
-both plate levels — and paler by night — 5.8 floor, AAA on dusk, rhubarb and
-rye. AAA at night over the two cool seeds is not reachable in-hue; it would
-need near-white, which stops being Skagen. Links also keep an underline —
-colour alone is not an affordance.
+**The primary button is the ink block, not the action colour.** The one
+action a screen exists for is the darkest thing on it — the same black as the
+current nav item. Skagen is for links, focus rings, selection, and the one
+chart mark that carries the point.
 
-**Glazes** — flat ceramic fields for large surfaces, empty states and node
-categories. `--hub-color-glaze-1` … `-6`:
+**Small type takes the text step, never the fill colour.** Measured on paper
+over the darkest sunken surface: the fill value clears AA but not AAA as 14px
+text by day and is marginal by night; the text step clears AAA by day and AA
+with margin by night. Links also keep an underline.
 
-| | glacier | lichen | dusk | rhubarb | rye | clay |
-|---|---|---|---|---|---|---|
-| light | `#C6DEE4` | `#D6E1C8` | `#D9D5EC` | `#F3D4DC` | `#EFE4C6` | `#E2DCD4` |
-| night | `#1E4A50` | `#2E4030` | `#33304F` | `#4A2C3A` | `#3F3A22` | `#3B3630` |
+**Status** is its own set, soft fill with tone-coloured text, never the accent:
 
-Text on a glaze is always `--hub-color-ink-on-glaze`.
+| | Token | Soft fill |
+|---|---|---|
+| success | `--hub-color-success` | `--hub-color-success-soft` |
+| info | `--hub-color-info` | `--hub-color-info-soft` |
+| warning | `--hub-color-warning` | `--hub-color-warning-soft` |
+| danger | `--hub-color-danger` | `--hub-color-danger-soft` |
 
-**Flare appears once on a screen, or not at all.** It marks the one thing that
-matters most on that page. Two flares on a screen means neither is the one.
-
-**A tonal cell** keeps a stop of the sky at `--hub-tint-alpha` over the glass
-(`color-mix(in srgb, var(--hub-sky-1) var(--hub-tint-alpha), var(--hub-color-surface))`).
-That is how a stat row or an empty state gets a pastel without a solid field.
-
-### Seeds
-
-One structure, one hue family per app. `data-seed` on `<html>` reorders the
-sky — `glacier` (default), `rye`, `dusk`, `lichen`, `rhubarb`, named for the
-glaze that leads. A seed never touches ink, action, status or surfaces, which
-is what keeps five apps recognisably one studio's work without being one app.
-Choose it once per app. Do not invent a sixth colour; add a seed block.
+**Glazes** (`--hub-color-glaze-1` … `-6`) survive only as category colours for
+canvas nodes. They are not a ground and not a tint any more.
 
 ## Type
 
-**Schibsted Grotesk** alone, drawn for a Norwegian newsroom, so it holds at 12px
-in a dense table and at 96px in an opener, with properly drawn ÆØÅ.
-**JetBrains Mono** only where characters must line up: code, hex values, IDs,
-token names. Never set a label in mono to make it look technical.
+**Schibsted Grotesk** alone; **JetBrains Mono** only where characters must
+line up. Weights come down in Kridt: display and figures at 600, titles and
+labels at 500, body at 400. Nothing is 800.
 
-| Step | Size / leading | Weight | Tracking | For |
-|---|---|---|---|---|
-| `display-1` | 61 / 1.03 | 800 | -0.035em | Page opener, one per screen |
-| `display-2` | 39 / 1.10 | 700 | -0.028em | Section heads |
-| `title` | 25 / 1.20 | 700 | -0.020em | Card and dialog titles |
-| `subtitle` | 20 / 1.30 | 600 | -0.012em | Group headings |
-| `body` | 16 / 1.55 | 400 | 0 | Running text, 66ch max |
-| `body-sm` | 14 / 1.50 | 400 | 0 | Dense UI, table cells |
-| `label` | 14 / 1.00 | 600 | -0.005em | Buttons, tabs, form labels |
-| `caption` | 12 / 1.45 | 400 | 0 | Helper and meta text |
-| `code` | 13 / 1.50 | 400 | 0 | JetBrains Mono only |
+| Step | Size / leading | Weight | For |
+|---|---|---|---|
+| `display-1` | 61 / 1.03 | 600 | Page opener, one per screen |
+| `display-2` | 39 / 1.10 | 600 | Page titles |
+| `title` | 25 / 1.20 | 500 | Card and dialog titles |
+| `subtitle` | 20 / 1.30 | 500 | Region headings, KPI labels |
+| `figure` | 28 / 1 | 500 | The number under a gauge |
+| `body` | 16 / 1.55 | 400 | Running text, 66ch max |
+| `body-sm` | 14 / 1.50 | 400 | Dense UI, table cells |
+| `label` | 14 / 1.00 | 500 | Buttons, tabs, form labels |
+| `caption` | 12 / 1.45 | 400 | Deltas, helper and meta text |
+| `code` | 13 / 1.50 | 400 | JetBrains Mono only |
 
-Load: `https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap`
+Load: `https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap`
 
-Give headings `text-wrap: balance`. Use `font-variant-numeric: tabular-nums`
-wherever digits stack in a column.
+Headings get `text-wrap: balance`; stacked digits get
+`font-variant-numeric: tabular-nums`.
 
 ## Space and shape
 
-Everything is a multiple of **8**. Four exists only for optical nudges inside a
-control. Scale: `4 8 12 16 24 32 48 64 96` (`--hub-space-1` … `-9`).
-The dot grid is engineer's paper for canvases (`.hub-paper`, and React Flow
-draws its own at 24px); it is no longer on the page ground.
+Everything is a multiple of **8**. Scale `4 8 12 16 24 32 48 64 96`
+(`--hub-space-1` … `-9`). Regions inside a sheet take `--hub-space-5` padding.
 
-Radius: `--hub-radius-control` 10px, `--hub-radius-plate` 20px,
-`--hub-radius-hero` 28px for the one tile that leads a page,
-`--hub-radius-pill` for status only.
+Radius is a role: `--hub-radius-cell` 0, `--hub-radius-control` 8px,
+`--hub-radius-sheet` 14px, `--hub-radius-pill` for buttons and status, 50%
+for icon buttons and discs.
 
-**Elevation is tone, not shadow.** Lift something by moving it up a surface
-level, not by drawing under it. `--hub-shadow-plate` and `-overlay` now resolve
-to the lit top edge of the glass (`inset 0 1px 0 var(--hub-edge)`) — keep
-using them, but nothing casts.
-
-**Not everything is a plate.** Three separations, picked by role: a tonal cell
-(a stop of the sky at tint-alpha), a hairline, or a step up in surface level.
-Using all three on the same screen for the same kind of object is a mistake.
+**There are no shadows.** `--hub-shadow-*` resolve to `none` and exist only so
+older CSS keeps working. Separation is a hairline or a step to the sunken
+surface. Three separations, picked by role: a hairline, a sunken band, or a
+standalone sheet with corners. One per object type on a screen.
 
 ## Layout
 
-Start from one of **four page archetypes** rather than composing from scratch.
-Full skeletons, with working CSS, are in `references/layout.md`. If a screen is
-genuinely none of them, say so and build from the rules — do not bend an
-archetype to fit.
+**An app is one white sheet.** Sidebar, bar and page are regions of it,
+divided by hairlines. Start from one of **four page archetypes** rather than
+composing from scratch; skeletons with working CSS are in
+`references/layout.md` and `references/layout.css`.
 
-- **Canvas** — a graph filling the viewport with a 320px inspector on the
-  right. The page itself never scrolls; the inspector owns the only scrollbar.
-  The panel goes right because graphs flow left to right, so a left panel
-  covers the upstream nodes you are tracing back from.
-- **Table** — dense and scanned. `--hub-width-wide`, a page header with the
-  primary action on the right, filters directly above the rows, and a sticky
-  `thead` (the page header does not also stick).
-- **Dashboard** — summary first, then detail. The stat row is **one plate
-  divided by hairlines, not N cards** — identical lifted cards is the tell.
-  `.hub-page__split` below it is deliberately unequal, so the reader is not
-  asked to choose where to start.
-- **Reading** — docs, settings, forms. `--hub-width-page` container with text
-  held at `--hub-width-prose`, sections opening on a hairline and a heading row.
+- **Canvas** — a graph filling the viewport, inspector docked right, an
+  optional footer band. The page never scrolls; the inspector does.
+- **Table** — dense and scanned; sticky `thead`, filters directly above.
+- **Dashboard** — a region for the title and actions, a stat row of cells
+  that touch, an unequal split divided by a line, a table region. Rows of the
+  sheet, not cards on a page.
+- **Reading** — docs, settings, forms; text held at `--hub-width-prose`.
+
+If a screen is none of them, say so and build from the rules.
+
+**The bar** holds a breadcrumb on the left ("Dashboards › Overview", the
+current page in ink) and, on the right, a search pill, round icon buttons and
+the avatar. **The sidebar** holds the brand, grouped nav with small group
+labels, and the signed-in person at the foot. The current nav item is a solid
+ink block.
 
 **Breakpoints are constants, not tokens** — a media query cannot read a custom
-property. There are two, named for what the layout does: **720px** (one column,
-nav becomes a drawer) and **1100px** (a side panel becomes an overlay). Above
-1440px content stops growing. Break where the content stops fitting, never at a
-device name.
+property: **720px** (one column, nav becomes a drawer) and **1100px** (a side
+panel becomes an overlay). Break where the content stops fitting.
 
-**One scroll container per page.** Decide which element owns the scroll before
-writing any CSS. Two nested scrollbars is a bug, not a layout. Sticky is spent
-on exactly two things: the app bar and a table's `thead`.
+**One scroll container per page.** Sticky is spent on the bar and a table's
+`thead`. **Two densities**: comfortable for reading and forms, compact for
+tables, canvases and dashboards.
 
-**Two densities, chosen by what the screen is for.** Comfortable (`body`,
-`--hub-space-4` padding) for reading, forms and dialogs. Compact (`body-sm`,
-`--hub-space-3`) for tables, canvases, inspectors and toolbars. There is no
-third density. A screen that feels cramped at compact is holding too many
-columns.
+## Icons
 
-Layout widths are tokens: `--hub-width-prose | -page | -wide | -nav | -panel`
-and `--hub-height-bar`, which every sticky offset is measured from.
+Boxicons, the free set (`boxicons` npm, CC-BY-4.0 / OFL / MIT). Regular,
+outlined icons by default; `bxs-` solid only for a filled state.
+
+- An icon **next to text** is decoration: `aria-hidden="true"`, and the text is
+  the label.
+- An icon **alone** is a control and gets a real name: `aria-label` on the
+  button, never a `title` tooltip as the only name.
+- Icons sit in a **disc** (`--hub-icon-disc-bg`, 36px, hairline) on KPI cells
+  and list rows; bare in buttons and nav.
+- One vocabulary per app. The set the archetypes use: `grid-alt`, `data`,
+  `time-five`, `sitemap`, `bar-chart-alt-2`, `trending-up`, `file`, `cog`,
+  `search`, `bell`, `message-rounded`, `dots-horizontal-rounded`, `list-ul`,
+  `plus-circle`, `error`, `upload`, `link`, `refresh`, `check`, `x`,
+  `chevron-right`, `filter`, `calendar`, `user`. Add to it; do not fork it.
+
+## Libraries
+
+**React Flow** (`@xyflow/react`) for any node graph, pipeline or flow editor.
+It is the canvas archetype's foundation; `references/react-flow.md` maps every
+`--xy-*` variable onto a token so a graph follows the theme for free. Do not
+draw a graph by hand and do not reach for a charting library to fake one.
+
+**PixiJS** (`pixi.js`) when the DOM cannot keep up: thousands of animated
+marks, a large zoomable canvas beyond what React Flow handles, a genuine
+visual effect. It renders to WebGL and knows nothing about tokens, so read the
+colours from `getComputedStyle` at mount and re-read on theme change. Do not
+use it for anything a CSS transition, an SVG or React Flow can do — Kridt is a
+quiet system, and an effect answers an action or it does not happen.
 
 ## Motion
 
 Motion answers an action: expanding, confirming, connecting. 160–240ms on
-`--hub-ease`. One orchestrated moment per page is allowed — a page-load
-sequence, a reveal. **Banned:** fade-and-slide-up on every section as it scrolls
-into view, and hover-lift on every card. Always honour
-`prefers-reduced-motion`; the token file already does globally.
+`--hub-ease`. One orchestrated moment per page is allowed. **Banned:**
+fade-and-slide-up on every section as it scrolls into view, and a hover-lift
+on every card. `prefers-reduced-motion` is honoured globally in `tokens.css`.
 
-## Charts
+## Charts and figures
+
+**A figure gets a gauge.** A thin ink arc over a light track, end dots, a
+needle ring, the value beneath at `figure` size and medium weight. The delta
+("+6 vs yesterday") sits under the label, not the number.
+
+**Charts are monochrome.** Bars are light columns with an ink dash at the
+value; the one mark that carries the point takes the action colour and its
+column is lifted a step. Lines are ink over a grey trend; a target range is a
+hatched band; a reference is a dashed line; the point that matters gets one
+ink pill.
 
 **Axis and value labels go in HTML, not in SVG `<text>`.** A `viewBox` scales
-everything inside it, text included: a chart drawn on a 336-unit viewBox and
-rendered 1047px wide multiplies every font-size by 3.12, so `font-size: 10px`
-arrives on screen at 31px and the type scale means nothing. Put the marks in
-the SVG and lay the labels over or under it in HTML, on a grid with one column
-per mark. Always check one rendered label at real size.
+everything inside it, text included. Lay labels in an HTML grid with one
+column per mark, and check one rendered label at real size.
 
-**Marks are neutral by default.** A chart of fourteen bars in Skagen spends the
-whole voltage budget on decoration. Draw them in `--hub-color-surface-sunken`
-and give the accent to the one mark that carries the point — today, the
-selected series, the outlier. Everything else recedes.
-
-Semantic colour keeps its meaning in a chart: a failing series takes
-`--hub-color-danger`, never the accent.
-
-Every chart says where its numbers come from, in a caption, and explains a
-visible anomaly rather than leaving the reader to invent one.
-
+Every chart says where its numbers come from and explains a visible anomaly.
 For anything past a simple bar or line — categorical palettes, sequential and
-diverging scales, dense dashboards — **use the `dataviz` skill**. This section
-is the floor, not a visualisation system.
+diverging scales — **use the `dataviz` skill**.
 
 ## Tells to avoid
 
@@ -294,21 +264,23 @@ These read as generated. If a review turns one up, it is a defect.
 
 | Tell | Instead |
 |---|---|
-| Cream ground, serif display, terracotta accent | A dusk sky, one grotesque, Skagen |
+| Cream ground, serif display, terracotta accent | Flat porcelain, one grotesque, spruce |
 | Tracked-out capitals as an eyebrow above headings | Let the heading start the section |
-| Identical rounded cards under the same grey shadow | Separate by tone: a surface level, a hairline, or a tonal cell. Nothing casts |
+| Identical rounded cards under the same grey shadow | One sheet, regions divided by hairlines |
+| A gradient behind a headline, a glass or blur effect | Flat. Colour comes from the marks, not the ground |
 | `01 / 02 / 03` markers on non-sequential content | Number only real sequences and timelines |
 | `→` glued to every button and link | The verb already says what happens |
-| A gradient on a component, a hero band, or a purple-to-blue wallpaper | The sky is the only gradient, it is made of our glazes, and everything on it is flat glass |
 | Meta strung together with middle dots | Give each fact its own slot |
 | Near-black `#111` standing in for black | Spruce `#132420`, a dark that has hue |
 | Mono for small labels to look technical | Mono only where digits must align |
+| A coloured button for every action | One ink primary; the rest paper or quiet |
 
 ## Reference files
 
 - `references/tokens.css` — the token file itself. Copy or import; source of truth.
-- `references/layout.md` — page archetypes with working skeletons, the shell, scroll and placement rules.
-- `references/components.md` — recipes for button, field, select, checkbox, tabs, plate, dialog, toast, chip, table, empty and error states.
+- `references/layout.css` — the sheet, bar, sidebar and the four archetypes as CSS.
+- `references/layout.md` — why the layout is shaped that way, scroll and placement rules.
+- `references/components.md` — recipes for button, icon, field, select, checkbox, tabs, plate, dialog, toast, chip, stat cell, table, empty and error states.
 - `references/react-flow.md` — canvas rules and the full `--xy-*` variable map.
 - `references/writing.md` — how UI copy is written in this system.
 
@@ -317,13 +289,14 @@ These read as generated. If a review turns one up, it is a defect.
 - Every colour comes from a token; no literal hex in component CSS.
 - The page is one of the four archetypes — or you have said why it is not —
   with exactly one scroll container.
+- Regions touch and share hairlines; nothing casts a shadow; nothing is a
+  gradient or glass.
+- Colour appears only in status and the action colour; the primary button is
+  the ink block.
+- Both themes checked: light, night, and the un-stamped system default.
+- Keyboard focus is visible on every interactive element; every icon-only
+  control has a name.
+- Running text is at most 66ch; headings balance; figures are 500–600 weight.
 - Any chart's labels are HTML, not SVG text. Check one rendered size.
-- Both themes checked — light, night, and the un-stamped system default.
-- Coloured (Skagen + flare) area on surfaces is under a twentieth; the sky
-  does not count.
-- No drop shadows anywhere. Anything raised is a higher surface level.
-- `data-seed` is set on `<html>` — chosen once for the app, glacier if unsure.
-- Keyboard focus is visible on every interactive element.
-- Running text is at most 66ch; headings balance.
 - Nothing depends on hover alone to be discoverable.
 - No item from the tells table is present.

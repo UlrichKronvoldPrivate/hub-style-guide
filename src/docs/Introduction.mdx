@@ -2,74 +2,62 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Introduction" />
 
-# Skumring
+# Kridt
 
 The house style shared by every hub app. Its job is consistency across projects,
 and a look that reads as one studio's work rather than one model's default.
 
-*Skumring* is Danish for dusk. The page ground is a Nordic dusk sky built from
-five pastel glazes; everything on it is tonal glass that takes the sky's hue.
-Saturation lives in the ground and quiet lives in the surfaces. Use the **Seed**
-control in the toolbar to reorder the sky, and **Theme** to see it at night.
+*Kridt* is Danish for chalk. One flat ground. White sheets that touch and are
+divided by hairlines rather than gaps. Spruce as the black. No shadows, no
+gradients, no glass. Colour appears only where it means something — status,
+and the one action colour. Use **Theme** in the toolbar to see it at night.
 
 ## The argument
 
 Danish design runs an argument with itself. Kaare Klint measured furniture
 against the human body and built systems out of it — proportion, modules,
 restraint. Verner Panton answered with saturated orange rooms and moulded
-plastic. Both are Nordic; only one is the postcard.
-
-**Klint by default, Panton on purpose.** Rigour holds the structure. The Panton
-is in the atmosphere.
+plastic. Both are Nordic; only one is the postcard. Kridt is Klint's side, all
+the way: the pop comes from contrast and figure, not from atmosphere.
 
 ## Six rules
 
-**Colour lives in the sky; voltage on surfaces stays under five percent.** The
-ground carries the atmosphere. On top of it, Skagen and flare are current, not
-paint — primary buttons, one live edge, a focus ring, the single number that
-matters.
+**Colour only where it means something.** Status pills and the action colour.
+Everything else is ink on paper. A third colour on a screen is decoration.
 
-**Elevation is tone, not shadow.** Five surface levels, each a step more
-opaque. A dialog is the highest. There are no drop shadows anywhere, and the
-only gradient on the page is the sky.
+**Lines, not gaps, and never shadows.** Regions of a sheet touch and share a
+1px hairline. Depth does not exist; hierarchy is size, weight and position.
 
 **Lines mean connection.** A rule, border or edge asserts that two things
 relate. Nothing is drawn to fill space.
 
-**One family, weight does the work.** Schibsted Grotesk carries everything. A
-heading needing presence gets more weight or tighter tracking, never a second
-typeface.
+**One family, weight does the work — quietly.** Schibsted Grotesk alone, at
+500–600 for headings and figures, never 800.
 
-**Radius is a role, not a habit.** 10px controls, 20px plates, 28px for the one
-tile that leads a page, pills for status only.
+**Radius is a role, not a habit.** 0 for a cell inside a sheet, 8px for
+controls, 14px for a standalone sheet, pills for buttons and status, circles
+for icon buttons.
 
-**Semantic colour is separate.** Success, warning and danger own their tokens.
-The accent never stands in for state, and state never borrows the accent.
-
-## One structure, a seed per app
-
-Material 3's dynamic colour, turned into a house rule. `data-seed` on `<html>`
-picks which glaze leads the sky — `glacier`, `rye`, `dusk`, `lichen` or
-`rhubarb`. A seed never touches ink, action, status or surfaces. That is what
-keeps five apps recognisably one studio's work without being one app.
+**Semantic colour is separate.** Success, info, warning and danger own their
+tokens. The action colour never stands in for state.
 
 ## Using it in an app
 
-Load the fonts and the token file, set the seed, then style from custom
-properties. Never a literal hex.
+Load the fonts, the token file and the layout file, then style from custom
+properties. Never a literal hex — if a value you need has no token, add the
+token.
 
 ```html
-<html data-seed="rye">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="layout.css">
+<link rel="stylesheet" href="node_modules/boxicons/css/boxicons.min.css">
 ```
 
 ```css
 .thing {
   background: var(--hub-color-surface);
-  border: 1px solid var(--hub-edge);
-  border-radius: var(--hub-radius-plate);
-  backdrop-filter: var(--hub-glass);
+  border-top: 1px solid var(--hub-color-line);   /* regions share lines, not gaps */
   color: var(--hub-color-ink);
 }
 ```
@@ -78,19 +66,19 @@ Tokens layer in three tiers, the way Material 3 layers reference, system and
 component tokens:
 
 ```
---hub-skagen-40   →   --hub-color-action   →   --hub-button-primary-bg
+--hub-skagen-40   →   --hub-color-action   →   --hub-tab-indicator
    primitive              semantic                  component
 ```
 
-A component never names a primitive. That indirection is what makes the theme
-and seed controls re-skin every story here without any component knowing.
+A component never names a primitive. That indirection is what makes a theme
+swap possible — and it is why the **Theme** control re-themes every story here,
+canvases included, without a single component knowing about it.
 
 ## Where things live
 
-`skills/hub-design-system/references/tokens.css` is the source of truth, and it
-lives with the skill rather than in `src/`, so the guidance Claude loads and the
-components rendered here can never drift apart. The same directory is linked
-into `~/.claude/skills/`, so any project on this machine builds on-identity.
+`skills/hub-design-system/references/tokens.css` and `layout.css` are the
+source of truth, and they live with the skill rather than under `src/`, so the
+guidance Claude loads and the components rendered here can never drift apart.
 
 ## Tells to avoid
 
@@ -98,11 +86,12 @@ These read as generated. If a review turns one up, it is a defect.
 
 | Tell | Instead |
 |---|---|
-| Cream ground, serif display, terracotta accent | A dusk sky, one grotesque, Skagen |
+| Cream ground, serif display, terracotta accent | Flat porcelain, one grotesque, spruce |
 | Tracked-out capitals as an eyebrow above headings | Let the heading start the section |
-| Identical rounded cards under the same grey shadow | Separate by tone. Nothing casts |
-| `01 / 02 / 03` markers on non-sequential content | Number only real sequences |
+| Identical rounded cards under the same grey shadow | One sheet, regions divided by hairlines |
+| A gradient behind a headline, a glass or blur effect | Flat; colour comes from the marks |
+| `01 / 02 / 03` markers on non-sequential content | Number only real sequences and timelines |
 | An arrow glued to every button and link | The verb already says what happens |
-| A gradient on a component, or a purple-to-blue wallpaper | The sky is the only gradient, and it is made of our glazes |
 | Near-black `#111` standing in for black | Spruce `#132420`, a dark that has hue |
 | Mono for small labels, to look technical | Mono only where characters must align |
+| A coloured button for every action | One ink primary; the rest paper or quiet |

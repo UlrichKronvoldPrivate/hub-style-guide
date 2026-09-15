@@ -26,8 +26,8 @@ never onto primitives.
   --xy-connectionline-stroke-default:      var(--hub-color-action);
   --xy-connectionline-stroke-width-default: 1.5;
 
-  /* nodes are glass a level above the canvas, so they read over the sky */
-  --xy-node-background-color-default: var(--hub-color-surface-high);
+  /* nodes are paper on the dot grid: no blur, no shadow */
+  --xy-node-background-color-default: var(--hub-color-surface);
   --xy-node-border-default:  1px solid var(--hub-color-line-strong);
   --xy-node-color-default:   var(--hub-color-ink);
   --xy-node-group-background-color-default: var(--hub-color-surface-sunken);
@@ -72,8 +72,7 @@ Every node is a **header** and a **body**.
 
 ```css
 .hub-node {
-  background: var(--hub-color-surface-high);
-  backdrop-filter: var(--hub-glass);
+  background: var(--hub-color-surface);
   border: 1px solid var(--hub-color-line-strong);
   border-radius: var(--hub-radius-plate);
   box-shadow: var(--hub-shadow-plate);

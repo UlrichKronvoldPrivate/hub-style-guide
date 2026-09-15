@@ -1,31 +1,23 @@
-/* Marks are neutral by default. Fourteen bars in the action colour would spend the whole
-   voltage budget on decoration, so the accent goes to the one mark that
-   carries the point and everything else recedes. */
+/* Kridt's bar: a light column for the range, a dark dash at the value.
+   Monochrome by default; the one mark that carries the point takes the
+   action colour and its column is lifted a step. */
 
 .hub-chart { display: flex; flex-direction: column; }
 
 .hub-chart__plot { width: 100%; height: auto; display: block; overflow: visible; }
 
-/* Neutral marks are ink at hairline strength, so they read on glass over any
-   sky in either theme. A surface token would vanish into the plate. */
-.hub-chart__bar { fill: var(--hub-color-line-strong); }
-.hub-chart__bar--accent { fill: var(--hub-color-action); }
+.hub-chart__band { fill: var(--hub-color-band); }
+.hub-chart__band--accent { fill: var(--hub-color-surface-sunken); stroke: var(--hub-color-line); stroke-width: 1; }
+.hub-chart__dash { fill: var(--hub-color-ink); }
+.hub-chart__dash--accent { fill: var(--hub-color-action); }
+/* a zero is a dash on the floor; missing data draws no dash at all */
+.hub-chart__dash--zero { fill: var(--hub-color-line-strong); }
 
-/* A zero is drawn as a stub so "nothing happened" is visibly different from
-   "no data", which is drawn as nothing at all. */
-.hub-chart__bar--zero { fill: var(--hub-color-line); }
-
-.hub-chart__axis { stroke: var(--hub-color-line); stroke-width: 1; }
-
-/* Labels are HTML, never SVG <text>. A viewBox scales its own text: a chart
-   on a 336-unit viewBox rendered 1047px wide multiplies every font-size by
-   3.12, so `font-size: 10px` arrives on screen at 31px and the type scale
-   means nothing. One grid column per bar keeps them under the right marks. */
+/* Labels are HTML, never SVG <text>: a viewBox scales its own text. */
 .hub-chart__labels {
   display: grid;
   font: var(--hub-text-caption);
   color: var(--hub-color-ink-subtle);
   margin-top: var(--hub-space-2);
 }
-.hub-chart__labels span { grid-row: 1; white-space: nowrap; }
-.hub-chart__labels span:last-child { text-align: right; }
+.hub-chart__labels span { grid-row: 1; white-space: nowrap; text-align: center; }

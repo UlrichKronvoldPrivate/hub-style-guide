@@ -9,11 +9,10 @@ UI copy — so a handful of separate projects read as one studio's work.
 > paths will not resolve there — see *Where the system lives* in
 > [ADOPTING.md](ADOPTING.md) for how to bring the system in.
 
-The identity is called **Skumring** — Danish for dusk. The page ground is a
-dusk sky built from five pastel glazes; everything on it is tonal glass that
-takes the sky's hue, elevation is a step in tone rather than a shadow, and each
-app sets a `data-seed` that reorders the sky. Klint holds the structure; the
-Panton is in the atmosphere.
+The identity is called **Kridt** — Danish for chalk. One flat ground; white
+sheets that touch and are divided by hairlines; spruce as the black; no shadows,
+no gradients, no glass. Colour appears only where it means something: status,
+and the one action colour. Icons are Boxicons, the free set.
 
 ## Run it (in this repository)
 
@@ -44,8 +43,8 @@ Requires Node 22.12+ (Storybook 10 is ESM-only).
 | [`skills/hub-design-system/references/tokens.css`](skills/hub-design-system/references/tokens.css) | **Source of truth.** Every colour, size and shape in the system. |
 | [`src/components/`](src/components/) | Button, Field, Plate, Chip, DataTable, EmptyState, and the React Flow canvas node. |
 | [`src/docs/`](src/docs/) | Storybook docs pages — colour, typography, space and shape, writing. |
-| [`docs/skumring.html`](docs/skumring.html) | The identity as a standalone page — day/night and the seeds side by side, plus a Material 3 scorecard. |
-| [`docs/identity.html`](docs/identity.html) | The earlier identity, Porcelain & Voltage. Kept for the reasoning; superseded by Skumring. |
+| [`docs/kridt.html`](docs/kridt.html) | The identity as a standalone page — the dashboard archetype in Kridt, day and night. |
+| [`docs/skumring.html`](docs/skumring.html), [`docs/identity.html`](docs/identity.html) | Earlier identities (Skumring, Porcelain & Voltage). Kept for the reasoning; superseded. |
 
 The token file lives with the skill rather than under `src/`, and the Storybook
 imports it from there. One copy, so the guidance Claude loads and the components
@@ -54,11 +53,11 @@ rendered here cannot drift apart.
 ## Adopting it in a project
 
 **If you copy one file into your project, copy [QUICKREF.md](QUICKREF.md).**
-It is the one-page substance — seeds, tokens, the two rules people break
+It is the one-page substance — tokens, icons, the rules people break
 first, archetypes, the six rules, the done-checklist — and it is written to
 be read away from this repository.
 
-The full instructions — skill vs. hand-wired, seeds, themes, archetypes,
+The full instructions — skill vs. hand-wired, icons, themes, archetypes,
 components, and the definition of done — are in [ADOPTING.md](ADOPTING.md).
 The short version follows.
 
@@ -114,10 +113,10 @@ New-Item -ItemType Junction -Path "$HOME\.claude\skills\hub-design-system" -Targ
 
 ## Six rules
 
-1. Voltage stays under five percent.
-2. Glazes stay flat.
+1. Colour only where it means something.
+2. Lines, not gaps, and never shadows.
 3. Lines mean connection.
-4. One family, weight does the work.
+4. One family, weight does the work — quietly.
 5. Radius is a role, not a habit.
 6. Semantic colour is separate.
 

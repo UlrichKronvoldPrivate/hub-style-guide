@@ -1,15 +1,11 @@
-/* The one container: tonal glass over the sky. Elevation is a step in
-   tone (surface → high → highest), never a drop shadow. The lit top edge
-   is what reads as an object; the sky showing through is what reads as
-   material. */
+/* The one container. In Kridt a plate is a sheet: paper, a hairline, corners
+   only when it stands alone. Inside a sheet, regions touch and share lines —
+   use .hub-region from layout.css for that; a plate is for the standalone case. */
 
 .hub-plate {
   background: var(--hub-plate-bg);
   border: 1px solid var(--hub-plate-border);
   border-radius: var(--hub-plate-radius);
-  box-shadow: var(--hub-plate-shadow);
-  backdrop-filter: var(--hub-glass);
-  -webkit-backdrop-filter: var(--hub-glass);
   padding: var(--hub-space-5);
   display: flex;
   flex-direction: column;
@@ -17,21 +13,21 @@
   align-items: flex-start;
 }
 
-/* a step lower in tone — for dense lists where every row is a plate */
+/* sunken: the band colour, no line — for empty states, list thumbs, wells */
 .hub-plate--flat {
-  background: var(--hub-color-surface-low);
-  box-shadow: none;
+  background: var(--hub-color-surface-sunken);
+  border-color: transparent;
 }
 
-/* a tonal cell: the sky's own glaze, kept at tint-alpha over the glass */
+/* a category field: the only place a glaze appears outside a canvas */
 .hub-plate--glaze {
-  background: color-mix(in srgb, var(--hub-glaze, var(--hub-color-glaze-1)) var(--hub-tint-alpha), var(--hub-color-surface));
+  background: var(--hub-glaze, var(--hub-color-glaze-1));
+  border-color: transparent;
   color: var(--hub-color-ink-on-glaze);
 }
 
-/* the one tile that leads a page */
 .hub-plate--hero { border-radius: var(--hub-radius-hero); }
 
-.hub-plate[data-tone="danger"]  { border-left: 2px solid var(--hub-color-danger); }
-.hub-plate[data-tone="warning"] { border-left: 2px solid var(--hub-color-warning); }
-.hub-plate[data-tone="success"] { border-left: 2px solid var(--hub-color-success); }
+.hub-plate[data-tone="danger"]  { border-left: 3px solid var(--hub-color-danger); }
+.hub-plate[data-tone="warning"] { border-left: 3px solid var(--hub-color-warning); }
+.hub-plate[data-tone="success"] { border-left: 3px solid var(--hub-color-success); }

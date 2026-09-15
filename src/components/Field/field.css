@@ -11,6 +11,8 @@
   color: var(--hub-color-ink);
 }
 
+/* Sunken paper with a hairline. Focus is the action colour, the only place
+   it appears on a form. */
 .hub-input {
   font: var(--hub-text-body-sm);
   color: var(--hub-color-ink);

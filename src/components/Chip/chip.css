@@ -1,15 +1,16 @@
-/* Pills are for status only, never for buttons or toggling filters. */
+/* Status pills — the only colour on a Kridt screen besides the action colour.
+   Soft fill, tone-coloured text, no border. Pills are for status only, never
+   for buttons or toggling filters. */
 
 .hub-chip {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   font: var(--hub-text-caption);
-  font-weight: 600;
-  padding: 3px 10px;
+  font-weight: 500;
+  padding: 4px 10px;
   border-radius: var(--hub-chip-radius);
-  background: var(--hub-chip-bg);
-  border: 1px solid var(--hub-edge);
+  background: var(--hub-color-surface-sunken);
   color: var(--hub-color-ink-muted);
   white-space: nowrap;
 }
@@ -19,9 +20,11 @@
 .hub-chip__dot { width: 6px; height: 6px; flex: none; background: currentColor; }
 .hub-chip--neutral .hub-chip__dot { border-radius: 50%; }
 .hub-chip--ok      .hub-chip__dot { border-radius: 50%; }
+.hub-chip--info    .hub-chip__dot { border-radius: 50%; }
 .hub-chip--warn    .hub-chip__dot { border-radius: 1px; transform: rotate(45deg); }
 .hub-chip--fail    .hub-chip__dot { border-radius: 1px; }
 
 .hub-chip--ok   { background: var(--hub-color-success-soft); color: var(--hub-color-success); }
+.hub-chip--info { background: var(--hub-color-info-soft);    color: var(--hub-color-info); }
 .hub-chip--warn { background: var(--hub-color-warning-soft); color: var(--hub-color-warning); }
 .hub-chip--fail { background: var(--hub-color-danger-soft);  color: var(--hub-color-danger); }

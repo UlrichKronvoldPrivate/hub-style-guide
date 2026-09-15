@@ -16,19 +16,19 @@ Do not copy `package.json` alongside this file. It is the repository's own
 manifest, and its `exports` map only resolves inside `node_modules` after a
 git install. As a loose file it describes things that are not there.
 
-**If you only want the substance on hand — seeds, tokens, rules, checklist —
+**If you only want the substance on hand — tokens, rules, icons, checklist —
 copy `QUICKREF.md` instead of this file.** It is one page and it is written to
 be read anywhere.
 
 ## What it is
 
-The system is called **Skumring**. It ships as three things, and a project can
+The system is called **Kridt**. It ships as three things, and a project can
 take any of them independently:
 
 | Thing | What it is | Where, in the repository |
 |---|---|---|
 | **The skill** | Guidance Claude Code loads automatically when it touches UI, so it builds on-identity without being told | `skills/hub-design-system/` — one folder, self-contained |
-| **The CSS** | `tokens.css` (every colour, size, shape, theme and seed) and `layout.css` (shell and page archetypes) | `skills/hub-design-system/references/` |
+| **The CSS** | `tokens.css` (every colour, size, shape and theme) and `layout.css` (the sheet, bar, sidebar and page archetypes) | `skills/hub-design-system/references/` |
 | **The components** | Twelve React components, each a `.tsx` plus a `.css` that reads only tokens | `src/components/` |
 
 The Storybook (`npm run storybook` in the repository) is the reference for all
@@ -75,16 +75,16 @@ layout, colour, type or copy. You can also invoke it by name:
 
 **What to tell Claude on the first screen** (it will not know these):
 
-- which **seed** the app uses (see *Seeds* below) — pick one, once
 - which **archetype** the screen is — canvas, table, dashboard or reading
+- which **nav groups and destinations** the sidebar holds
 - anything the project's own `CLAUDE.md` should carry forward
 
-Put the seed and any app-specific decisions in the project's `CLAUDE.md` so
+Put the nav structure and any app-specific decisions in the project's `CLAUDE.md` so
 later sessions inherit them:
 
 ```markdown
 ## Design
-This app uses the hub design system (Skumring). Seed: `rye`.
+This app uses the hub design system (Kridt).
 Tokens come from `src/styles/tokens.css`; never hard-code a hex.
 ```
 
@@ -153,26 +153,27 @@ Both faces come from Google Fonts. Declare them before the tokens.
 If the font host is blocked, the stacks fall back to Helvetica Neue and the
 system monospace. Nothing breaks; it just looks less like itself.
 
-### 3. Set the seed
+### 3. Icons
 
-One line, once per app, on the root element. It reorders the sky and touches
-nothing else — ink, action, status and surfaces are identical across seeds,
-which is what keeps five apps recognisably one studio's work.
+Boxicons, the free set. It is on npm and ships a webfont, so nothing is
+fetched at runtime.
 
-```html
-<html data-seed="rye">
+```bash
+npm install boxicons
 ```
 
-| Seed | Leads with | Feels |
-|---|---|---|
-| `glacier` (default — omit the attribute) | cold cyan-green | winter daylight |
-| `rye` | warm straw | late afternoon |
-| `dusk` | lilac | evening |
-| `lichen` | grey-green | overcast |
-| `rhubarb` | pink | dawn |
+```css
+@import "boxicons/css/boxicons.min.css";
+```
 
-Do not invent a sixth colour. If an app genuinely needs its own seed, add a
-block to `tokens.css` here and pull it.
+```html
+<i class="bx bx-bell" aria-hidden="true"></i>
+```
+
+An icon beside text is decoration and gets `aria-hidden`; an icon-only button
+gets `aria-label`. Regular (outlined) icons by default; `bxs-` solid only for
+a filled state. The vocabulary the archetypes use is listed in `SKILL.md` —
+add to it, do not fork it.
 
 ### 4. Theme
 
@@ -192,10 +193,8 @@ document.documentElement.setAttribute('data-theme', 'dark'); // or 'light'
 ```css
 .thing {
   background: var(--hub-color-surface);
-  border: 1px solid var(--hub-edge);
-  border-radius: var(--hub-radius-plate);
+  border-top: 1px solid var(--hub-color-line);   /* regions share lines, not gaps */
   color: var(--hub-color-ink);
-  backdrop-filter: var(--hub-glass);   /* every surface is glass; this makes it read as glass */
 }
 ```
 
@@ -206,13 +205,12 @@ inline the value.**
 
 The two rules people break first:
 
-- **The action colour has two values.** `--hub-color-action` is for fills,
-  indicators and edges. `--hub-color-action-text` is for links and quiet
-  buttons — small type needs it to pass contrast on glass, and at night the
-  fill value fails AA as text.
-- **No drop shadows.** Elevation is a step in surface level (`-lowest`, `-low`,
-  `surface`, `-high`, `-highest`). The `--hub-shadow-*` tokens are the lit top
-  edge of glass, not a shadow.
+- **The primary button is the ink block, not the action colour.** Skagen
+  (`--hub-color-action`) is for focus, selection, links and the one chart mark
+  that matters; small type takes `--hub-color-action-text`.
+- **No shadows, no gaps.** Regions of a sheet touch and share a 1px hairline.
+  `--hub-shadow-*` resolve to `none` and exist only so older CSS keeps
+  working.
 
 ### 6. Pick an archetype for each screen
 
@@ -241,7 +239,7 @@ plain CSS recipes in `skills/hub-design-system/references/components.md`.
 
 For a React Flow canvas, apply the `--xy-*` map in `src/components/Canvas/canvas.css`
 — it points every React Flow variable at a semantic token, so the graph
-follows the theme and the seed for free.
+follows the theme for free.
 
 ---
 
@@ -253,9 +251,10 @@ This is the checklist the skill applies to its own work. Apply it to yours.
 - The page is one of the four archetypes — or you have said why it is not —
   with exactly one scroll container.
 - Both themes checked: light, night, and the un-stamped system default.
-- Coloured (Skagen + flare) area on surfaces is under a twentieth; the sky
-  does not count.
-- No drop shadows; anything raised is a higher surface level.
+- Colour appears only in status and the action colour; the primary button is
+  the ink block.
+- Regions touch and share hairlines; nothing casts a shadow; nothing is a
+  gradient or glass.
 - Keyboard focus is visible on every interactive element.
 - Running text is at most 66ch; headings balance.
 - Any chart's labels are HTML, not SVG text.

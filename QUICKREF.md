@@ -7,80 +7,82 @@ repository: https://github.com/UlrichKronvoldPrivate/hub-style-guide
 to be useful, and nothing in it will resolve next to this file — that is
 expected.
 
-The system is called **Skumring** (Danish for dusk). The ground is a dusk sky
-built from five pastel glazes; everything on it is tonal glass. Type is
+The system is called **Kridt** (Danish for chalk). One flat ground; white
+sheets that touch and are divided by hairlines; spruce as the black; no
+shadows, no gradients, no glass. Colour only where it means something. Type is
 Schibsted Grotesk alone, JetBrains Mono only where characters must align.
-
-## Seeds
-
-One line, once per app, on the root element:
-
-```html
-<html data-seed="rye">
-```
-
-`glacier` (default — omit the attribute), `rye`, `dusk`, `lichen`, `rhubarb`.
-A seed reorders the sky and **nothing else** — ink, action, status and
-surfaces are identical across all five. That invariance is what makes separate
-apps read as one studio's work. Do not invent a sixth colour.
+Icons are Boxicons, the free set.
 
 ## Three-tier tokens
 
 ```
---hub-skagen-40   →   --hub-color-action   →   --hub-button-primary-bg
+--hub-skagen-40   →   --hub-color-action   →   --hub-tab-indicator
    primitive              semantic                  component
 ```
 
-A component names a semantic or component token, never a primitive. That
-indirection is what lets one toolbar control re-theme everything. Never
+A component names a semantic or component token, never a primitive. Never
 hard-code a hex; if a value has no token, add the token in the repository.
 
-## The two rules people break first
+## The rules people break first
 
-**The action colour has two values.** Skagen, sea petrol:
+**The primary button is the ink block, not the action colour.** The one action
+a screen exists for is the darkest thing on it — the same black as the current
+nav item. Skagen, sea petrol, is for links, focus, selection and the one chart
+mark that carries the point:
 
 | | Day | Night | For |
 |---|---|---|---|
-| `--hub-color-action` | `#0F6C86` | `#5FD0DC` | fills, indicators, edges, focus |
+| `--hub-color-action` | `#0F6C86` | `#5FD0DC` | focus ring, selection, chart accent |
 | `--hub-color-action-text` | `#0A5062` | `#A9ECF1` | links, quiet buttons — small type |
 
-The fill value fails AA as text at night over two of the five skies; the text
-step clears it everywhere. Links also keep an underline.
+**No shadows, no gaps.** Regions of a sheet touch and share a 1px hairline.
+`--hub-shadow-*` resolve to `none`. Separation is a line, a sunken band, or a
+standalone sheet with 14px corners.
 
-**No drop shadows.** Elevation is a step in surface level — `lowest`, `low`,
-`surface`, `high`, `highest`, each a step more opaque. `--hub-shadow-plate`
-and `--hub-shadow-overlay` are the lit top edge of glass, not a shadow. Every
-surface needs `backdrop-filter: var(--hub-glass)` to read as glass.
+**Colour only where it means something.** Status pills (soft fill, tone text)
+and the action colour. A third colour on a screen is decoration.
 
 ## Four archetypes, one scroll container
 
 `.hub-page--canvas`, `.hub-page--table`, `.hub-page--dashboard`,
-`.hub-page--reading`. Start from one; if a screen is none of them, say so and
-build from the rules. Decide which element owns the scroll before writing CSS —
-two nested scrollbars is a bug. Sticky is spent on the app bar and a table's
-`thead`, nothing else.
+`.hub-page--reading`, inside `.hub-shell` (sidebar with grouped nav and an ink
+block for the current item; a bar with breadcrumb, search pill, round icon
+buttons). Decide which element owns the scroll before writing CSS. Sticky is
+spent on the bar and a table's `thead`.
 
-Breakpoints are literal constants, because a media query cannot read a custom
+Breakpoints are literal constants — a media query cannot read a custom
 property: **720px** (one column, nav becomes a drawer) and **1100px** (a side
 panel becomes an overlay).
 
 ## Six rules
 
-1. **Colour lives in the sky; voltage on surfaces stays under five percent.**
-2. **Elevation is tone, not shadow.**
+1. **Colour only where it means something.**
+2. **Lines, not gaps, and never shadows.**
 3. **Lines mean connection.** Nothing is drawn to fill space.
-4. **One family, weight does the work.** No second display face.
-5. **Radius is a role, not a habit.** 10px controls, 20px plates, 28px for the
-   one tile that leads a page, pills for status only.
-6. **Semantic colour is separate.** Success, warning and danger own their
-   tokens; the accent never stands in for state.
+4. **One family, weight does the work — quietly.** 500–600, never 800.
+5. **Radius is a role, not a habit.** 0 cell, 8px control, 14px sheet, pill
+   buttons and status, circle icon buttons.
+6. **Semantic colour is separate.** Status never borrows the accent.
 
-## Charts
+## Icons
 
-Marks neutral by default; the accent goes to the one mark that carries the
-point. Labels are HTML in a grid with one column per mark — never SVG text,
-which a viewBox scales along with everything else. Anything past a simple bar
-or line: use the `dataviz` skill.
+`<i class="bx bx-name" aria-hidden="true">` beside text; an icon-only button
+gets `aria-label`. Regular (outlined) by default, `bxs-` solid only for a
+filled state. Icons sit in a 36px hairline disc on KPI cells and list rows.
+
+## Charts and figures
+
+A figure gets a gauge: thin ink arc over a light track, value beneath at
+medium weight, delta under the label. Bars are light columns with an ink dash
+at the value; the one mark that matters takes the action colour. Labels are
+HTML in a grid, never SVG text. Anything past a simple bar or line: the
+`dataviz` skill.
+
+## Libraries
+
+React Flow for any node graph or flow editor. PixiJS only when the DOM cannot
+keep up — thousands of animated marks, a large zoomable canvas, a real effect —
+and never for what a CSS transition can do.
 
 ## Writing
 
@@ -94,15 +96,15 @@ trailing arrows, no eyebrow labels in tracked capitals.
 - Every colour comes from a token; no literal hex in component CSS.
 - The page is one of the four archetypes — or you have said why not — with
   exactly one scroll container.
+- Regions touch and share hairlines; nothing casts a shadow; nothing is a
+  gradient or glass.
+- Colour only in status and the action colour; the primary button is ink.
 - Both themes checked: light, night, **and the un-stamped system default**.
-- Coloured (Skagen + flare) area on surfaces is under a twentieth; the sky
-  does not count.
-- No drop shadows; anything raised is a higher surface level.
-- Keyboard focus visible on every interactive element.
-- Running text at most 66ch; headings balance.
+- Keyboard focus visible everywhere; every icon-only control has a name.
+- Running text at most 66ch; headings balance; figures at 500–600.
 - Chart labels are HTML, not SVG text.
 - Nothing depends on hover alone to be discoverable.
-- No tell from the list in the skill: cream ground, serif display,
-  tracked-caps eyebrows, identical cards under identical shadows, numbered
-  markers on non-sequences, arrows glued to buttons, gradient behind a
-  headline, `#111` for black, mono for labels.
+- No tell from the skill's list: cream ground, serif display, tracked-caps
+  eyebrows, identical shadowed cards, gradients or glass, numbered
+  non-sequences, arrows on buttons, `#111` for black, mono for labels, a
+  coloured button for every action.

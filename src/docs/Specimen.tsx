@@ -167,10 +167,10 @@ export function Shapes() {
     border: '1px solid var(--hub-color-line-strong)',
   };
   const items: [ReactNode, string][] = [
-    [<span key="c" style={{ ...box, borderRadius: 'var(--hub-radius-control)' }} />, '10px control'],
-    [<span key="p" style={{ ...box, borderRadius: 'var(--hub-radius-plate)' }} />, '20px plate'],
-    [<span key="h" style={{ ...box, width: 96, height: 64, borderRadius: 'var(--hub-radius-hero)' }} />, '28px hero'],
-    [<span key="s" style={{ ...box, width: 88, height: 28, borderRadius: 'var(--hub-radius-pill)' }} />, 'pill status'],
+    [<span key="cell" style={{ ...box, borderRadius: 'var(--hub-radius-cell)' }} />, '0 cell in a sheet'],
+    [<span key="c" style={{ ...box, borderRadius: 'var(--hub-radius-control)' }} />, '8px control'],
+    [<span key="p" style={{ ...box, borderRadius: 'var(--hub-radius-sheet)' }} />, '14px sheet'],
+    [<span key="s" style={{ ...box, width: 88, height: 28, borderRadius: 'var(--hub-radius-pill)' }} />, 'pill button, status'],
   ];
   return (
     <div className="hub-row" style={{ gap: 'var(--hub-space-5)', alignItems: 'flex-end' }}>

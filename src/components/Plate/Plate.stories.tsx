@@ -10,8 +10,9 @@ const meta = {
     docs: {
       description: {
         component:
-          'Elevation is material, not fog. A lifted plate gets a hairline plus a tight ' +
-          'spruce-tinted shadow — never a soft grey blur stamped under every block. Glazes ' +
+          'A plate is a sheet: paper with a hairline, corners only when it stands alone. ' +
+          'Inside a sheet, regions share lines instead. There are no shadows. Glazes are ' +
+          'category fields for canvas nodes and ' +
           'do not lift at all. Choose one separation per object type on a screen.',
       },
     },

@@ -12,9 +12,10 @@ export interface EmptyStateProps {
   glaze?: Glaze;
 }
 
-export function EmptyState({ title, body, action, glaze = 2 }: EmptyStateProps) {
+export function EmptyState({ title, body, action, glaze }: EmptyStateProps) {
+  // Sunken paper by default; a glaze only when the caller names one.
   return (
-    <Plate variant="glaze" glaze={glaze} style={{ maxWidth: '52ch' }}>
+    <Plate variant={glaze ? 'glaze' : 'flat'} glaze={glaze ?? 1} style={{ maxWidth: '52ch' }}>
       <p className="hub-subtitle">{title}</p>
       <p className="hub-body-sm">{body}</p>
       {action}

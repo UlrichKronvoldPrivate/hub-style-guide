@@ -1,65 +1,77 @@
-/* The summary at the top of a dashboard: one instrument, N tonal cells.
-   Each cell keeps a stop of the sky at tint-alpha over the glass, so the
-   pastels live in the UI instead of on an 8px square. Still not "N cards":
-   same height, same padding, same radius, one row. */
+/* The summary at the top of a dashboard: one instrument, N cells that touch
+   and are divided by hairlines. Each cell: what is measured, how it moved,
+   an icon in a disc, a gauge, and the figure beneath the gauge at medium
+   weight. No gaps, no shadows, no colour except on the figure that asks. */
 
 .hub-stats {
   display: grid;
   grid-template-columns: repeat(var(--hub-stats-count, 4), minmax(0, 1fr));
-  gap: var(--hub-space-3);
 }
 
 .hub-stat {
-  padding: var(--hub-space-5) var(--hub-space-5) 18px;
+  padding: var(--hub-space-4) var(--hub-space-5) var(--hub-space-4);
+  border-right: 1px solid var(--hub-color-line);
   display: flex;
   flex-direction: column;
-  gap: var(--hub-space-1);
+  gap: var(--hub-space-2);
   min-width: 0;
-  border-radius: var(--hub-radius-plate);
-  border: 1px solid var(--hub-edge);
-  box-shadow: var(--hub-shadow-plate);
-  backdrop-filter: var(--hub-glass);
-  -webkit-backdrop-filter: var(--hub-glass);
-  background: color-mix(in srgb, var(--hub-tint) var(--hub-tint-alpha), var(--hub-color-surface));
 }
+.hub-stat:last-child { border-right: 0; }
 
-/* cells take the sky in order, so a seed re-tints the row with the page */
-.hub-stat:nth-child(1) { --hub-tint: var(--hub-sky-1); }
-.hub-stat:nth-child(2) { --hub-tint: var(--hub-sky-5); }
-.hub-stat:nth-child(3) { --hub-tint: var(--hub-sky-2); }
-.hub-stat:nth-child(4) { --hub-tint: var(--hub-sky-3); }
-.hub-stat:nth-child(5) { --hub-tint: var(--hub-sky-4); }
-.hub-stat:nth-child(n + 6) { --hub-tint: var(--hub-color-surface-high); }
-
+.hub-stat__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--hub-space-3);
+}
 .hub-stat__label {
-  font: var(--hub-text-body-sm);
-  color: var(--hub-color-ink-muted);
+  font: var(--hub-text-subtitle);
+  font-size: 1rem;
+  letter-spacing: var(--hub-tracking-subtitle);
+  color: var(--hub-color-ink);
 }
+.hub-stat__note {
+  display: block;
+  font: var(--hub-text-caption);
+  color: var(--hub-color-ink-muted);
+  margin-top: 2px;
+}
+.hub-stat__icon {
+  flex: none;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--hub-icon-disc-bg);
+  border: 1px solid var(--hub-icon-disc-border);
+  display: grid; place-content: center;
+  color: var(--hub-color-ink);
+  font-size: 1rem;
+}
+
+/* the gauge: a thin arc over a light track, end dots, a needle ring */
+.hub-stat__gauge { position: relative; width: min(100%, 190px); margin: var(--hub-space-2) auto 0; }
+.hub-stat__gauge svg { display: block; width: 100%; height: auto; overflow: visible; }
+.hub-stat__track  { fill: none; stroke: var(--hub-gauge-track); stroke-width: 10; }
+.hub-stat__arc    { fill: none; stroke: var(--hub-gauge-arc); stroke-width: 2; }
+.hub-stat__cap    { fill: var(--hub-gauge-arc); }
+.hub-stat__needle { fill: var(--hub-color-surface); stroke: var(--hub-gauge-arc); stroke-width: 2.5; }
 
 .hub-stat__value {
-  font: var(--hub-text-display-2);
-  /* a seven-digit figure with thousands separators must fit a quarter-width
-     cell on a laptop, so the size is fluid and the string may never clip */
-  font-size: clamp(1.5rem, 1rem + 1.6vw, 2.4375rem);
-  letter-spacing: var(--hub-tracking-display-2);
+  font: var(--hub-text-figure);
+  letter-spacing: var(--hub-tracking-figure);
   font-variant-numeric: tabular-nums;
   color: var(--hub-color-ink);
-  overflow-wrap: anywhere;
 }
-
-/* the one figure the page leads with */
-.hub-stat--hero { border-radius: var(--hub-radius-hero); }
-.hub-stat--hero .hub-stat__value { font: var(--hub-text-display-1); letter-spacing: var(--hub-tracking-display-1); }
-
-/* At most one per row, and only when that figure asks for an action.
-   This is the screen's single use of flare. */
-.hub-stat--attention .hub-stat__value { color: var(--hub-color-voltage); }
-
-.hub-stat__note {
-  font: var(--hub-text-caption);
-  color: var(--hub-color-ink-subtle);
+.hub-stat__gauge .hub-stat__value {
+  position: absolute; left: 0; right: 0; bottom: -2px;
+  text-align: center;
 }
+.hub-stat--hero .hub-stat__value { font-size: 2.25rem; }
+
+/* At most one per row, and only when that figure asks for an action. */
+.hub-stat--attention .hub-stat__value { color: var(--hub-color-danger); }
 
 @media (max-width: 720px) {
   .hub-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hub-stat:nth-child(even) { border-right: 0; }
+  .hub-stat:nth-child(n + 3) { border-top: 1px solid var(--hub-color-line); }
 }
