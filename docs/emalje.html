@@ -24,10 +24,6 @@
   --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
   color-scheme:light dark;
 }
-:root[data-seed="rye"]{--s1:var(--sy);--s2:var(--sr);--s3:var(--sg);--s4:var(--sl);--s5:var(--sd)}
-:root[data-seed="dusk"]{--s1:var(--sd);--s2:var(--sg);--s3:var(--sl);--s4:var(--sr);--s5:var(--sy)}
-:root[data-seed="lichen"]{--s1:var(--sl);--s2:var(--sg);--s3:var(--sy);--s4:var(--sd);--s5:var(--sr)}
-:root[data-seed="rhubarb"]{--s1:var(--sr);--s2:var(--sd);--s3:var(--sy);--s4:var(--sg);--s5:var(--sl)}
 :root[data-theme="dark"]{
   --ground:#0C1614; --sg:#1E4A50; --sl:#1F4A3A; --sd:#33304F; --sr:#4A2C3A; --sy:#3F3A22;
   --ink:#EAF0EA; --ink-2:#A9B6AE; --ink-3:#778780;
@@ -162,8 +158,6 @@ tr:last-child td{border:0}
     <div class="knobs">
       <span class="klabel">Sky</span>
       <div class="seg" role="group" aria-label="Theme"><button type="button" data-theme="light" aria-pressed="true">Day</button><button type="button" data-theme="dark" aria-pressed="false">Night</button></div>
-      <span class="klabel">Seed</span>
-      <div class="seg" role="group" aria-label="Seed"><button type="button" data-seed="glacier" aria-pressed="true">Glacier</button><button type="button" data-seed="rye" aria-pressed="false">Rye</button><button type="button" data-seed="dusk" aria-pressed="false">Dusk</button><button type="button" data-seed="lichen" aria-pressed="false">Lichen</button><button type="button" data-seed="rhubarb" aria-pressed="false">Rhubarb</button></div>
       <span class="klabel">Long shadow</span>
       <div class="seg" role="group" aria-label="Long shadow"><button type="button" data-ls="off" aria-pressed="true">Off</button><button type="button" data-ls="on" aria-pressed="false">On</button></div>
     </div>
@@ -251,7 +245,7 @@ tr:last-child td{border:0}
     <div class="card note"><h3>Opaque, hard, one flat offset</h3><p>Cards are paper white by day and spruce by night, with a 2px flat edge beneath — the enamel-sign edge. No blur, no glow, no soft grey shadow. Solid tiles get the same edge in their own colour.</p></div>
     <div class="card note"><h3>Colour is a fill, not a tint</h3><p>The reference's whole energy is saturated solids. Skagen, coral and mustard become fills for tiles, buttons and status; the glazes stay in the sky. The hero stat and the one that needs action are solid tiles; the rest are paper.</p></div>
     <div class="card note"><h3>Objects, not decoration</h3><p>The reference draws its data as things — a stopwatch, a pie, a line with dots. The glyph discs and the dotted line chart do the same job. They are flat geometry in a solid disc, one per idea.</p></div>
-    <div class="card note"><h3>What stayed</h3><p>Schibsted Grotesk alone. The seeds. Skagen for action. The archetypes, the writing rules, the a11y floor. The chart's axis labels are still HTML.</p></div>
+    <div class="card note"><h3>What stayed</h3><p>Schibsted Grotesk alone. One sky, glacier-led, no seed switching. Skagen for action. The archetypes, the writing rules, the a11y floor. The chart's axis labels are still HTML.</p></div>
     <div class="card note"><h3>The long shadow</h3><p>It is the reference's one depth cue and it is optional here — turn it on above. My view: it works on the solid tiles and fights the paper cards. If it stays, it stays on solids only.</p></div>
   </div>
 </div>
@@ -260,6 +254,6 @@ tr:last-child td{border:0}
 (function(){
   var root=document.documentElement;
   function wire(attr){var btns=document.querySelectorAll('button[data-'+attr+']');btns.forEach(function(b){b.addEventListener('click',function(){root.setAttribute('data-'+attr,b.getAttribute('data-'+attr));btns.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});});});}
-  wire('theme');wire('seed');wire('ls');root.setAttribute('data-theme','light');root.setAttribute('data-seed','glacier');root.setAttribute('data-ls','off');
+  wire('theme');wire('ls');root.setAttribute('data-theme','light');root.setAttribute('data-ls','off');
 })();
 </script>
