@@ -108,7 +108,9 @@ main{padding:22px 0 0 22px;display:flex;flex-direction:column;gap:16px;min-width
 .meta{display:flex;gap:14px;font-size:.75rem;color:var(--ink-3)}
 
 /* the reference's chart: a line with dots, drawn flat */
-.chart{position:relative;height:170px}
+/* both layers share one viewBox and one aspect ratio, so dots sit on the line
+   and stay round — never stretch one layer and not the other */
+.chart{position:relative;width:100%;aspect-ratio:1300/170}
 .chart svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .chart .grid line{stroke:var(--line);stroke-width:1}
 .chart .area{fill:var(--teal);opacity:.10}
@@ -195,7 +197,7 @@ tr:last-child td{border:0}
         <div class="card plate">
           <div class="ph"><h2>Runs per day</h2><span class="meta"><span>last 14 days</span><span>peak 36</span></span></div>
           <div class="chart" role="img" aria-label="Runs per day for fourteen days: between 24 and 36 on weekdays, none at weekends, a dip to 4 on 30 August, and 34 today.">
-            <svg viewBox="0 0 1300 170" preserveAspectRatio="none">
+            <svg viewBox="0 0 1300 170">
               <g class="grid"><line x1="0" y1="42" x2="1300" y2="42"/><line x1="0" y1="85" x2="1300" y2="85"/><line x1="0" y1="128" x2="1300" y2="128"/><line x1="0" y1="169" x2="1300" y2="169"/></g>
               <path class="area" d="M50 39 L150 25 L250 58 L350 169 L450 169 L550 16 L650 2 L750 34 L850 7 L950 44 L1050 151 L1150 169 L1250 30 L1250 169 L50 169 Z"/>
               <polyline class="line" points="50,39 150,25 250,58 350,169 450,169 550,16 650,2 750,34 850,7 950,44 1050,151 1150,169 1250,30"/>
