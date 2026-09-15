@@ -17,14 +17,15 @@ const meta = {
     },
   },
   args: { status: 'neutral', children: 'Draft' },
-  argTypes: { status: { control: 'inline-radio', options: ['neutral', 'ok', 'warn', 'fail'] } },
+  argTypes: { status: { control: 'inline-radio', options: ['neutral', 'ok', 'info', 'warn', 'fail'] } },
 } satisfies Meta<typeof Chip>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Neutral: Story = {};
-export const Ok: Story = { args: { status: 'ok', children: 'Running' } };
+export const Ok: Story = { args: { status: 'ok', children: 'Finished' } };
+export const Info: Story = { args: { status: 'info', children: 'Running' } };
 export const Warning: Story = { args: { status: 'warn', children: 'Stale data' } };
 export const Failed: Story = { args: { status: 'fail', children: 'Timed out' } };
 
@@ -33,7 +34,8 @@ export const EveryStatus: Story = {
   render: () => (
     <div className="hub-row">
       <Chip>Draft</Chip>
-      <Chip status="ok">Running</Chip>
+      <Chip status="ok">Finished</Chip>
+      <Chip status="info">Running</Chip>
       <Chip status="warn">Stale data</Chip>
       <Chip status="fail">Timed out</Chip>
     </div>

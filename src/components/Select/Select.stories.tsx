@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Select } from './Select';
+import { Field } from '../Field/Field';
 
 const regions = [
   { value: '1084', label: 'Hovedstaden' },
@@ -68,6 +69,7 @@ export const NextToAField: Story = {
         ]}
         defaultValue="2026"
       />
+      <Field label="Search" placeholder="Name or table ID" />
     </div>
   ),
 };

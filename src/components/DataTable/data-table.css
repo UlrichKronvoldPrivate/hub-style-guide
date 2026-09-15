@@ -13,7 +13,7 @@
 .hub-table th {
   text-align: left;
   font: var(--hub-text-caption);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--hub-color-ink-muted);
   padding: 12px var(--hub-space-4);
   border-bottom: 1px solid var(--hub-color-line);
