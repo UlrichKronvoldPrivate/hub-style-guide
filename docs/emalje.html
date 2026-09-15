@@ -1,256 +1,255 @@
-<title>Emalje</title>
+<title>Kridt</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* ── Emalje: the sky stays, everything on it goes flat ─────────────
-   Emalje is Danish for enamel. The dusk sky is the ground, exactly as
-   in Skumring. On top of it, nothing is glass any more: surfaces are
-   opaque, colour is solid and saturated, edges are hard, and depth is a
-   single flat offset — the enamel-sign edge — never a blur. */
+/* ── Kridt: white sheet, hairline grid, colour only where it means something ──
+   Kridt is Danish for chalk. One flat ground, white surfaces that touch and
+   are divided by 1px lines rather than gaps, spruce as the black, no shadows,
+   no gradients. Colour appears in status pills and in the single action
+   colour, nowhere else. */
 :root{
-  --ground:#EEF2EC;   /* flat. no gradient anywhere. */
-  --ink:#132420; --ink-2:#4A5852; --ink-3:#73807A;
-  --paper:#FFFFFF; --paper-2:#F4F6F2;
-  --line:rgba(19,36,32,.12);
-  --edge:rgba(19,36,32,.14);          /* the flat 2px enamel edge */
-  --teal:#0F6C86; --teal-deep:#0A5062; --coral:#E8358C; --coral-deep:#B8266D;
-  --mustard:#E9B44C; --mustard-deep:#B98A2A; --slate:#132420;
-  --moss:#23684A; --rust:#B33A2B;
-  --on-solid:#FFFFFF; --on-mustard:#132420;
-  --r:12px; --r-disc:50%;
-  --sans:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;
-  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --ground:#F2F4F1; --paper:#FFFFFF; --paper-2:#F5F7F4; --band:#EDF0EC;
+  --line:#E3E7E1; --line-2:#CFD5CD;
+  --ink:#132420; --ink-2:#5B675F; --ink-3:#8A948C;
+  --action:#0F6C86; --action-text:#0A5062;
+  --ok:#23684A; --ok-soft:#E3F1E9; --info:#0F6C86; --info-soft:#E1EEF2; --warn:#8A5D07; --warn-soft:#F7ECD3; --bad:#B33A2B; --bad-soft:#F8E3DF;
+  --r:12px; --r-sm:8px;
+  --sans:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif; --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
   color-scheme:light dark;
 }
 :root[data-theme="dark"]{
-  --ground:#0E1B18;
+  --ground:#0E1B18; --paper:#16221E; --paper-2:#1B2823; --band:#1F2D28;
+  --line:#26332E; --line-2:#3A4842;
   --ink:#EAF0EA; --ink-2:#A9B6AE; --ink-3:#778780;
-  --paper:#16221E; --paper-2:#1C2A25;
-  --line:rgba(234,240,234,.12); --edge:rgba(0,0,0,.55);
-  --teal:#2A9DB8; --teal-deep:#0F6C86; --coral:#F04B9C; --coral-deep:#C42F79;
-  --mustard:#E9B44C; --mustard-deep:#B98A2A; --slate:#EAF0EA;
-  --moss:#6FCB9F; --rust:#FF8F7A; --on-solid:#0C1614; --on-mustard:#132420;
+  --action:#5FD0DC; --action-text:#A9ECF1;
+  --ok:#6FCB9F; --ok-soft:#173A2B; --info:#5FD0DC; --info-soft:#12343B; --warn:#E9B44C; --warn-soft:#3B2D0D; --bad:#FF8F7A; --bad-soft:#3E1C17;
 }
 *{box-sizing:border-box}
 html{background:var(--ground)}
-body{margin:0;font-family:var(--sans);color:var(--ink);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100dvh;
-  background:var(--ground)}
-a{color:var(--teal-deep);text-underline-offset:3px}
-:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:6px}
+body{margin:0;font-family:var(--sans);color:var(--ink);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased;background:var(--ground);min-height:100dvh}
+a{color:var(--action-text);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--action);outline-offset:3px;border-radius:6px}
 .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
 
-.wrap{max-width:1180px;margin:0 auto;padding:28px 24px 72px}
-.pro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:22px}
-.pro h1{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;letter-spacing:-.04em;line-height:1;margin:0}
-.pro p{margin:8px 0 0;max-width:62ch;color:var(--ink-2);font-size:1.02rem}
-.knobs{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.seg{display:inline-flex;padding:3px;border-radius:999px;background:var(--paper);box-shadow:0 2px 0 var(--edge)}
-.seg button{font:600 .8125rem/1 var(--sans);padding:8px 14px;border:0;border-radius:999px;background:transparent;color:var(--ink-2);cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--slate);color:var(--paper)}
-.klabel{font-size:.75rem;color:var(--ink-3)}
+.wrap{max-width:1240px;margin:0 auto;padding:24px 24px 64px}
+.pro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:18px}
+.pro h1{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:600;letter-spacing:-.03em;line-height:1;margin:0}
+.pro p{margin:8px 0 0;max-width:64ch;color:var(--ink-2);font-size:.95rem}
+.seg{display:inline-flex;padding:3px;border-radius:999px;background:var(--paper);border:1px solid var(--line)}
+.seg button{font:500 .8rem/1 var(--sans);padding:7px 13px;border:0;border-radius:999px;background:transparent;color:var(--ink-2);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 
-/* ── Enamel: opaque, hard-edged, one flat offset ──────────────────── */
-.card{background:var(--paper);border-radius:var(--r);box-shadow:0 2px 0 var(--edge);position:relative;min-width:0}
-.solid{border-radius:var(--r);position:relative;color:var(--on-solid);box-shadow:0 2px 0 rgba(0,0,0,.18)}
-.solid--teal{background:var(--teal)} .solid--coral{background:var(--coral)} .solid--mustard{background:var(--mustard);color:var(--on-mustard)} .solid--slate{background:var(--slate);color:var(--paper)}
-/* the long shadow from the reference — a 45° flat run-off, optional */
-:root[data-ls="on"] .solid::after{content:"";position:absolute;inset:0;border-radius:inherit;transform:translate(12px,12px);z-index:-1;background:linear-gradient(135deg,rgba(19,36,32,.22) 0%,rgba(19,36,32,.10) 40%,rgba(19,36,32,0) 75%)}
-:root[data-theme="dark"][data-ls="on"] .solid::after{background:linear-gradient(135deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.25) 40%,rgba(0,0,0,0) 75%)}
+/* ── the sheet: one white surface, subdivided by hairlines ────────────── */
+.sheet{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:grid;grid-template-columns:232px minmax(0,1fr)}
+.side{border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:760px}
+.brand{height:64px;display:flex;align-items:center;padding:0 22px;font-weight:700;letter-spacing:-.02em;font-size:1.05rem;border-bottom:1px solid var(--line)}
+.side nav{padding:14px 12px;display:flex;flex-direction:column;gap:2px;flex:1}
+.side h6{margin:12px 10px 6px;font-size:.7rem;font-weight:500;color:var(--ink-3)}
+.side a{display:flex;align-items:center;gap:10px;font-size:.875rem;font-weight:500;color:var(--ink-2);text-decoration:none;padding:9px 10px;border-radius:var(--r-sm)}
+.side a svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.side a[aria-current]{background:var(--ink);color:var(--paper)}
+.me{border-top:1px solid var(--line);padding:14px 16px;display:flex;align-items:center;gap:10px}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--band);display:grid;place-content:center;font-size:.7rem;font-weight:600;color:var(--ink-2)}
+.me b{display:block;font-size:.85rem;font-weight:600}.me small{color:var(--ink-3);font-size:.72rem}
 
-/* flat geometric glyphs in discs, the way the reference draws its objects */
-.disc{width:44px;height:44px;border-radius:var(--r-disc);display:grid;place-content:center;flex:none}
-.disc svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.disc--teal{background:var(--teal);color:#fff} .disc--coral{background:var(--coral);color:#fff} .disc--mustard{background:var(--mustard);color:#132420} .disc--slate{background:var(--slate);color:var(--paper)} .disc--paper{background:var(--paper-2);color:var(--ink)}
+.top{height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 20px;border-bottom:1px solid var(--line)}
+.crumb{display:flex;align-items:center;gap:10px;font-size:.9rem;color:var(--ink-2)}
+.crumb b{font-weight:500;color:var(--ink)}
+.crumb i{width:6px;height:6px;border-right:1.5px solid var(--ink-3);border-top:1.5px solid var(--ink-3);transform:rotate(45deg);display:inline-block}
+.tools{display:flex;align-items:center;gap:10px}
+.search{display:flex;align-items:center;gap:8px;height:38px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--ink-3);font-size:.85rem;min-width:220px}
+.round{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--paper);display:grid;place-content:center;color:var(--ink);cursor:pointer}
+.round svg,.search svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 
-/* ── App scene ────────────────────────────────────────────────────── */
-.scene{border-radius:16px;overflow:hidden;background:transparent}
-.bar{display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 22px;background:var(--slate);color:var(--paper);border-radius:var(--r) var(--r) 0 0}
-.mark{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.03em;font-size:1.05rem}
-.mark i{width:12px;height:12px;border-radius:3px;background:var(--coral);display:block}
-.app{display:grid;grid-template-columns:212px minmax(0,1fr);gap:0}
-nav{padding:16px 12px;display:flex;flex-direction:column;gap:4px;background:var(--paper);border-radius:0 0 0 var(--r);box-shadow:0 2px 0 var(--edge)}
-nav a{font-size:.875rem;font-weight:600;color:var(--ink-2);text-decoration:none;padding:9px 12px;border-radius:8px}
-nav a[aria-current]{background:var(--teal);color:#fff}
-main{padding:22px 0 0 22px;display:flex;flex-direction:column;gap:16px;min-width:0}
-.head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.title{font-size:2.2rem;font-weight:800;letter-spacing:-.04em;line-height:1;margin:0}
-.sub{margin:6px 0 0;color:var(--ink-2);font-size:.9rem}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+/* KPI row: four cells that touch */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid var(--line)}
+.kpi{padding:18px 20px 16px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:6px;min-width:0}
+.kpi:last-child{border-right:0}
+.kpi .h{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.kpi .t{font-size:1.02rem;font-weight:500;letter-spacing:-.01em}
+.kpi .d{font-size:.78rem;color:var(--ink-2);margin-top:2px}
+.kpi .d.up::before{content:"+"}
+.kpi .ic{width:36px;height:36px;border-radius:50%;background:var(--paper-2);border:1px solid var(--line);display:grid;place-content:center;color:var(--ink)}
+.kpi .ic svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.gauge{position:relative;margin-top:6px}
+.gauge svg{width:100%;height:auto;display:block;overflow:visible}
+.gauge .track{fill:none;stroke:var(--band);stroke-width:14}
+.gauge .arc{fill:none;stroke:var(--ink);stroke-width:2}
+.gauge .cap{fill:var(--ink)}
+.gauge .pin{fill:var(--paper);stroke:var(--ink);stroke-width:2.5}
+.gauge .v{position:absolute;left:0;right:0;bottom:-4px;text-align:center;font-size:1.9rem;font-weight:500;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 
-/* flat buttons: solid fill with the enamel edge; no border, no blur */
-.btn{font:700 .875rem/1 var(--sans);padding:12px 18px;border-radius:8px;border:0;cursor:pointer;background:var(--paper);color:var(--ink);box-shadow:0 2px 0 var(--edge)}
-.btn--primary{background:var(--teal);color:#fff;box-shadow:0 2px 0 var(--teal-deep)}
-.btn--coral{background:var(--coral);color:#fff;box-shadow:0 2px 0 var(--coral-deep)}
-.btn--quiet{background:transparent;box-shadow:none;color:var(--teal-deep);padding-inline:8px}
+/* charts row */
+.charts{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);border-bottom:1px solid var(--line)}
+.panel{padding:20px;min-width:0}
+.panel + .panel{border-left:1px solid var(--line)}
+.ph{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}
+.ph h2{font-size:1.15rem;font-weight:500;letter-spacing:-.015em;margin:0}
+.ph p{margin:3px 0 0;font-size:.82rem;color:var(--ink-2)}
+.ph .round{width:34px;height:34px}
 
-.chip{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;padding:5px 10px;border-radius:6px;color:#fff;white-space:nowrap}
-.chip--ok{background:var(--moss)} .chip--warn{background:var(--mustard);color:#132420} .chip--bad{background:var(--rust)} .chip--neutral{background:var(--paper-2);color:var(--ink-2)}
+/* line chart: monochrome, hatched target band, dashed reference, one pin */
+.lc{display:grid;grid-template-columns:44px minmax(0,1fr);gap:8px}
+.ylabels{display:flex;flex-direction:column;justify-content:space-between;font-size:.75rem;color:var(--ink-3);text-align:right;padding-bottom:22px}
+.plot{position:relative;aspect-ratio:700/220}
+.plot svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.plot .gridl{stroke:var(--line);stroke-width:1}
+.plot .hatch{fill:url(#hatch)}
+.plot .ref{stroke:var(--line-2);stroke-width:1.5;stroke-dasharray:6 6;fill:none}
+.plot .soft{fill:none;stroke:var(--line-2);stroke-width:2}
+.plot .hard{fill:none;stroke:var(--ink);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.plot .pt{fill:var(--paper);stroke:var(--ink);stroke-width:2}
+.pin{position:absolute;transform:translate(-50%,-100%);background:var(--ink);color:var(--paper);font-size:.72rem;font-weight:500;padding:5px 9px;border-radius:999px;white-space:nowrap}
+.xlabels{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));font-size:.75rem;color:var(--ink-3);margin-top:8px}
+.xlabels span:last-child{text-align:right}
 
-/* ── stat row: solid tiles, one instrument ────────────────────────── */
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-.stat{padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px;min-height:140px}
-.stat .top{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.stat b{font-size:.85rem;font-weight:600;opacity:.85}
-.stat strong{font-size:2.8rem;font-weight:800;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
-.stat small{font-size:.75rem;opacity:.75}
-.stat.card b{color:var(--ink-2);opacity:1} .stat.card small{color:var(--ink-3);opacity:1}
+/* bar chart: light bands with a black dash at the value */
+.bc{display:grid;grid-template-columns:44px minmax(0,1fr);gap:8px}
+.bars{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;height:220px;align-items:stretch}
+.col{position:relative;background:var(--band);border-radius:6px}
+.col i{position:absolute;left:14%;right:14%;height:3px;background:var(--ink);border-radius:2px;bottom:var(--v)}
+.col .tip{position:absolute;left:50%;bottom:calc(var(--v) + 12px);transform:translateX(-50%);background:var(--ink);color:var(--paper);font-size:.72rem;font-weight:500;padding:5px 9px;border-radius:999px;white-space:nowrap}
+.col.hi{background:var(--paper-2);outline:1px solid var(--line)}
+.dlabels{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;font-size:.75rem;color:var(--ink-3);text-align:center;margin-top:8px}
 
-.plate{padding:20px 22px}
-.ph{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px}
-.ph h2{font-size:1.15rem;font-weight:800;letter-spacing:-.02em;margin:0}
-.meta{display:flex;gap:14px;font-size:.75rem;color:var(--ink-3)}
-
-/* the reference's chart: a line with dots, drawn flat */
-/* both layers share one viewBox and one aspect ratio, so dots sit on the line
-   and stay round — never stretch one layer and not the other */
-.chart{position:relative;width:100%;aspect-ratio:1300/170}
-.chart svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.chart .grid line{stroke:var(--line);stroke-width:1}
-.chart .area{fill:var(--teal);opacity:.10}
-.chart .line{fill:none;stroke:var(--teal);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
-.chart .pt{fill:var(--paper);stroke:var(--teal);stroke-width:3}
-.chart .pt--today{fill:var(--coral);stroke:var(--coral)}
-.xl{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));margin-top:10px;font-size:.75rem;color:var(--ink-3)}
-.xl span:last-child{text-align:right}
-
-.split{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:14px;align-items:start}
+/* bottom row */
+.lists{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr)}
+.item{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.item .thumb{width:44px;height:44px;border-radius:10px;background:var(--band);flex:none;display:grid;place-content:center;color:var(--ink-2)}
+.item .thumb svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
+.item b{display:block;font-weight:500;font-size:.9rem}.item small{color:var(--ink-3);font-size:.75rem}
+.item .amt{margin-left:auto;font-weight:600;font-variant-numeric:tabular-nums}
 table{width:100%;border-collapse:collapse;font-size:.875rem}
-th{text-align:left;font-size:.72rem;font-weight:700;color:var(--ink-2);padding:8px 8px;border-bottom:2px solid var(--line)}
-td{padding:10px 8px;border-bottom:1px solid var(--line)}
-tr:last-child td{border:0}
-.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
-.list{list-style:none;margin:0;padding:0}
-.list li{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:.875rem}
-.list li:last-child{border:0}
-.list .disc{width:32px;height:32px}.list .disc svg{width:14px;height:14px}
-.list em{font-style:normal;font-size:.75rem;color:var(--ink-2);display:block}
+th{text-align:left;font-size:.78rem;font-weight:500;color:var(--ink-3);padding:8px 8px 10px;border-bottom:1px solid var(--line)}
+td{padding:14px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+.num{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.who{display:flex;align-items:center;gap:10px}.who .avatar{width:28px;height:28px;font-size:.62rem}
+.pill{display:inline-block;font-size:.72rem;font-weight:500;padding:4px 10px;border-radius:999px}
+.pill--ok{background:var(--ok-soft);color:var(--ok)} .pill--info{background:var(--info-soft);color:var(--info)} .pill--warn{background:var(--warn-soft);color:var(--warn)} .pill--bad{background:var(--bad-soft);color:var(--bad)}
+.btn{font:500 .85rem/1 var(--sans);padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.btn--primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 
-.strip{margin-top:14px;padding:20px 22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
-.strip h3{margin:0 0 10px;font-size:.8rem;font-weight:700;color:var(--ink-2)}
-.field{display:flex;flex-direction:column;gap:6px}
-.field label{font-size:.8125rem;font-weight:700}
-.input{font:400 .875rem/1.4 var(--sans);color:var(--ink);background:var(--paper-2);border:0;border-bottom:2px solid var(--line);border-radius:8px 8px 0 0;padding:10px 12px}
-.tabs{display:flex;gap:0;background:var(--paper-2);border-radius:8px;padding:3px;width:max-content}
-.tab{font:700 .8rem/1 var(--sans);padding:8px 14px;border-radius:6px;color:var(--ink-2)}
-.tab.on{background:var(--teal);color:#fff}
-.cb{display:flex;align-items:center;gap:10px;font-size:.875rem}
-.cb i{width:22px;height:22px;border-radius:6px;background:var(--paper-2);box-shadow:inset 0 0 0 2px var(--line);display:grid;place-content:center}
-.cb i.on{background:var(--teal);box-shadow:none}
-.cb i.on::before{content:"";width:10px;height:10px;background:#fff;clip-path:polygon(14% 44%,0 65%,50% 100%,100% 16%,80% 0%,43% 62%)}
-.toast{padding:12px 14px;font-size:.85rem;display:flex;justify-content:space-between;gap:10px;align-items:center;border-left:6px solid var(--moss)}
-
-.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:22px}
-.note{padding:20px 22px}
-.note h3{margin:0 0 6px;font-size:1rem;font-weight:800;letter-spacing:-.012em}
-.note p{margin:0;font-size:.9rem;color:var(--ink-2)}
-@media (max-width:1000px){.app{grid-template-columns:1fr}nav{display:none}main{padding-left:0}.stats{grid-template-columns:repeat(2,1fr)}.split{grid-template-columns:1fr}}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:18px}
+.note{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.note h3{margin:0 0 4px;font-size:.95rem;font-weight:600}
+.note p{margin:0;font-size:.85rem;color:var(--ink-2)}
+@media (max-width:1000px){.sheet{grid-template-columns:1fr}.side{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.kpi:nth-child(2){border-right:0}.kpi:nth-child(-n+2){border-bottom:1px solid var(--line)}.charts,.lists{grid-template-columns:1fr}.panel + .panel{border-left:0;border-top:1px solid var(--line)}.search{display:none}}
 </style>
 
 <div class="wrap">
   <div class="pro">
-    <div>
-      <h1>Emalje</h1>
-      <p>No sky, no gradient. The ground is one flat colour. Everything on it is opaque, colour is solid and saturated, edges are hard, and depth is one flat offset like the edge of an enamel sign. Emalje is Danish for enamel. Toggle the long shadow to see the reference's one depth cue on and off.</p>
-    </div>
-    <div class="knobs">
-      <span class="klabel">Sky</span>
-      <div class="seg" role="group" aria-label="Theme"><button type="button" data-theme="light" aria-pressed="true">Day</button><button type="button" data-theme="dark" aria-pressed="false">Night</button></div>
-      <span class="klabel">Long shadow</span>
-      <div class="seg" role="group" aria-label="Long shadow"><button type="button" data-ls="off" aria-pressed="true">Off</button><button type="button" data-ls="on" aria-pressed="false">On</button></div>
-    </div>
+    <div><h1>Kridt</h1><p>Chalk: one flat ground, white sheets divided by hairlines instead of gaps, spruce as the black, no shadows, no gradients. Colour appears only where it means something — status pills and the one action colour. Gauges on the figures, monochrome charts, a black block for where you are.</p></div>
+    <div class="seg" role="group" aria-label="Theme"><button type="button" data-theme="light" aria-pressed="true">Day</button><button type="button" data-theme="dark" aria-pressed="false">Night</button></div>
   </div>
 
-  <div class="scene">
-    <div class="bar">
-      <span class="mark"><i></i>hub</span>
-      <span class="chip chip--ok">Statbank reachable</span>
-    </div>
-    <div class="app">
+  <div class="sheet">
+    <aside class="side">
+      <div class="brand">hub</div>
       <nav aria-label="Sections">
-        <a href="#s" aria-current="page">Overview</a><a href="#s">Sources</a><a href="#s">Runs</a><a href="#s">Hierarchies</a><a href="#s">Settings</a>
+        <h6>Main</h6>
+        <a href="#m" aria-current="page"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>Overview</a>
+        <a href="#m"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Sources</a>
+        <a href="#m"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>Runs</a>
+        <a href="#m"><svg viewBox="0 0 24 24"><path d="M12 4v6M6 20v-6h12v6M6 10h12"/></svg>Hierarchies</a>
+        <h6>Insight</h6>
+        <a href="#m"><svg viewBox="0 0 24 24"><path d="M5 19V9M10 19V5M15 19v-8M20 19v-4"/></svg>Dashboards</a>
+        <a href="#m"><svg viewBox="0 0 24 24"><path d="M4 18l6-6 4 4 6-8"/></svg>Trends</a>
+        <h6>Admin</h6>
+        <a href="#m"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M9 9h6M9 13h6"/></svg>Reports</a>
+        <a href="#m"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>Settings</a>
       </nav>
-      <main id="s">
-        <div class="head">
-          <div><h2 class="title">Overview</h2><p class="sub">Thursday 4 September, the 06:00 sweep finished</p></div>
-          <div class="row">
-            <button class="btn btn--primary" type="button">New upload</button>
-            <button class="btn" type="button">Connect a source</button>
+      <div class="me"><span class="avatar">UK</span><span><b>Ulrich K.</b><small>Owner</small></span></div>
+    </aside>
+
+    <main id="m">
+      <div class="top">
+        <div class="crumb"><span>Dashboards</span><i></i><b>Overview</b></div>
+        <div class="tools">
+          <span class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4-4"/></svg>Search</span>
+          <button class="round" type="button" aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></svg></button>
+          <button class="round" type="button" aria-label="Messages"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg></button>
+          <span class="avatar" style="width:38px;height:38px">UK</span>
+        </div>
+      </div>
+
+      <div class="kpis">
+        <div class="kpi"><div class="h"><div><div class="t">Runs today</div><div class="d up">6 vs yesterday</div></div><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 9v4l3 2M9 3h6"/></svg></span></div>
+          <div class="gauge"><svg viewBox="0 0 120 68"><path class="track" d="M12 60A48 48 0 0 1 108 60"/><path class="arc" d="M12 60A48 48 0 0 1 102.8 38.2"/><circle class="cap" cx="12" cy="60" r="3"/><circle class="cap" cx="108" cy="60" r="3"/><circle class="pin" cx="102.8" cy="38.2" r="4"/></svg><div class="v">34</div></div></div>
+        <div class="kpi"><div class="h"><div><div class="t">Rows ingested</div><div class="d up">18.2% vs last week</div></div><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span></div>
+          <div class="gauge"><svg viewBox="0 0 120 68"><path class="track" d="M12 60A48 48 0 0 1 108 60"/><path class="arc" d="M12 60A48 48 0 0 1 80.4 16.6"/><circle class="cap" cx="12" cy="60" r="3"/><circle class="cap" cx="108" cy="60" r="3"/><circle class="pin" cx="80.4" cy="16.6" r="4"/></svg><div class="v">1.28M</div></div></div>
+        <div class="kpi"><div class="h"><div><div class="t">Sources connected</div><div class="d up">2 this week</div></div><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg></span></div>
+          <div class="gauge"><svg viewBox="0 0 120 68"><path class="track" d="M12 60A48 48 0 0 1 108 60"/><path class="arc" d="M12 60A48 48 0 0 1 98.8 31.8"/><circle class="cap" cx="12" cy="60" r="3"/><circle class="cap" cx="108" cy="60" r="3"/><circle class="pin" cx="98.8" cy="31.8" r="4"/></svg><div class="v">12</div></div></div>
+        <div class="kpi"><div class="h"><div><div class="t">Failure rate</div><div class="d">−0.8% vs last month</div></div><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 4l9 16H3zM12 10v4M12 17v.5"/></svg></span></div>
+          <div class="gauge"><svg viewBox="0 0 120 68"><path class="track" d="M12 60A48 48 0 0 1 108 60"/><path class="arc" d="M12 60A48 48 0 0 1 12.9 51"/><circle class="cap" cx="12" cy="60" r="3"/><circle class="cap" cx="108" cy="60" r="3"/><circle class="pin" cx="12.9" cy="51" r="4"/></svg><div class="v">5.9%</div></div></div>
+      </div>
+
+      <div class="charts">
+        <div class="panel">
+          <div class="ph"><div><h2>Rows per day</h2><p>Last fourteen days against the target band</p></div><button class="round" type="button" aria-label="More"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="18" cy="12" r="1.2"/></svg></button></div>
+          <div class="lc">
+            <div class="ylabels"><span>1.6M</span><span>1.2M</span><span>800k</span><span>400k</span><span>0</span></div>
+            <div>
+              <div class="plot" role="img" aria-label="Rows ingested per day over fourteen days, rising from about 400 thousand to 1.28 million, with a target band between 1.2 and 1.6 million and a dip at the weekend.">
+                <svg viewBox="0 0 700 220" preserveAspectRatio="none">
+                  <defs><pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="currentColor" stroke-opacity=".14" stroke-width="3"/></pattern></defs>
+                  <g class="gridl"><line x1="0" y1="0" x2="700" y2="0"/><line x1="0" y1="55" x2="700" y2="55"/><line x1="0" y1="110" x2="700" y2="110"/><line x1="0" y1="165" x2="700" y2="165"/><line x1="0" y1="220" x2="700" y2="220"/></g>
+                  <rect class="hatch" x="0" y="0" width="700" height="55" style="color:var(--ink)"/>
+                  <line class="ref" x1="0" y1="110" x2="700" y2="110"/>
+                  <path class="soft" d="M0 190 C 100 188, 180 186, 250 180 S 400 150, 470 120 S 600 60, 700 40"/>
+                  <path class="hard" d="M0 200 L54 196 L108 195 L162 210 L216 210 L270 170 L324 150 L378 160 L432 130 L486 140 L540 200 L594 210 L648 90 L700 44"/>
+                </svg>
+                <svg viewBox="0 0 700 220"><circle class="pt" cx="700" cy="44" r="5"/><circle class="pt" cx="432" cy="130" r="5"/></svg>
+                <span class="pin" style="left:61.7%;top:59%">432k</span>
+              </div>
+              <div class="xlabels" aria-hidden="true"><span style="grid-column:1">21 Aug</span><span style="grid-column:7">27 Aug</span><span style="grid-column:11">30 Aug</span><span style="grid-column:14">Today</span></div>
+            </div>
           </div>
         </div>
-
-        <div class="stats">
-          <div class="solid solid--teal stat"><div class="top"><b>Runs today</b><span class="disc disc--paper" style="color:var(--teal)"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 9v4l3 2M9 3h6"/></svg></span></div><strong>34</strong><small>4 still running</small></div>
-          <div class="card stat"><div class="top"><b>Rows ingested</b><span class="disc disc--slate"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span></div><strong>1.284.902</strong><small>since midnight</small></div>
-          <div class="card stat"><div class="top"><b>Sources connected</b><span class="disc disc--mustard"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg></span></div><strong>12</strong><small>2 added this week</small></div>
-          <div class="solid solid--coral stat"><div class="top"><b>Runs failed</b><span class="disc disc--paper" style="color:var(--coral)"><svg viewBox="0 0 24 24"><path d="M12 4l9 16H3zM12 10v4M12 17v.5"/></svg></span></div><strong>2</strong><small>both on Statbank BYGV80</small></div>
-        </div>
-
-        <div class="card plate">
-          <div class="ph"><h2>Runs per day</h2><span class="meta"><span>last 14 days</span><span>peak 36</span></span></div>
-          <div class="chart" role="img" aria-label="Runs per day for fourteen days: between 24 and 36 on weekdays, none at weekends, a dip to 4 on 30 August, and 34 today.">
-            <svg viewBox="0 0 1300 170">
-              <g class="grid"><line x1="0" y1="42" x2="1300" y2="42"/><line x1="0" y1="85" x2="1300" y2="85"/><line x1="0" y1="128" x2="1300" y2="128"/><line x1="0" y1="169" x2="1300" y2="169"/></g>
-              <path class="area" d="M50 39 L150 25 L250 58 L350 169 L450 169 L550 16 L650 2 L750 34 L850 7 L950 44 L1050 151 L1150 169 L1250 30 L1250 169 L50 169 Z"/>
-              <polyline class="line" points="50,39 150,25 250,58 350,169 450,169 550,16 650,2 750,34 850,7 950,44 1050,151 1150,169 1250,30"/>
-            </svg>
-            <svg viewBox="0 0 1300 170">
-              <circle class="pt" cx="50" cy="39" r="6"/><circle class="pt" cx="150" cy="25" r="6"/><circle class="pt" cx="250" cy="58" r="6"/><circle class="pt" cx="350" cy="169" r="6"/><circle class="pt" cx="450" cy="169" r="6"/><circle class="pt" cx="550" cy="16" r="6"/><circle class="pt" cx="650" cy="2" r="6"/><circle class="pt" cx="750" cy="34" r="6"/><circle class="pt" cx="850" cy="7" r="6"/><circle class="pt" cx="950" cy="44" r="6"/><circle class="pt" cx="1050" cy="151" r="6"/><circle class="pt" cx="1150" cy="169" r="6"/><circle class="pt pt--today" cx="1250" cy="30" r="8"/>
-            </svg>
-          </div>
-          <div class="xl" aria-hidden="true"><span style="grid-column:1">21 Aug</span><span style="grid-column:7">27 Aug</span><span style="grid-column:11">30 Aug</span><span style="grid-column:14">Today</span></div>
-        </div>
-
-        <div class="split">
-          <div class="card plate">
-            <div class="ph"><h2>Recent runs</h2><button class="btn btn--quiet" type="button">All runs</button></div>
-            <table>
-              <thead><tr><th>Source</th><th>Run</th><th class="num">Rows</th><th>Status</th></tr></thead>
-              <tbody>
-                <tr><td>Befolkning, region</td><td class="mono">r_9f21c4</td><td class="num">5.940.000</td><td><span class="chip chip--ok">Finished</span></td></tr>
-                <tr><td>Boligbyggeri</td><td class="mono">r_3a17bd</td><td class="num">18.422</td><td><span class="chip chip--bad">Timed out</span></td></tr>
-                <tr><td>Pendling</td><td class="mono">r_c48e02</td><td class="num">902.311</td><td><span class="chip chip--ok">Finished</span></td></tr>
-                <tr><td>Energimix</td><td class="mono">r_7b1d55</td><td class="num">4.410</td><td><span class="chip chip--warn">Stale data</span></td></tr>
-                <tr><td>Befolkning, kommune</td><td class="mono">r_e02a91</td><td class="num">1.284.902</td><td><span class="chip chip--neutral">Running</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="solid solid--slate plate">
-            <div class="ph"><h2>Needs attention</h2><span class="meta" style="color:inherit;opacity:.7"><span>3 sources</span></span></div>
-            <ul class="list">
-              <li><span class="disc disc--coral"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 9v4l3 2"/></svg></span><span>Boligbyggeri<em style="color:inherit;opacity:.7">Timed out twice. Try a narrower region filter.</em></span></li>
-              <li><span class="disc disc--mustard"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span><span>Energimix<em style="color:inherit;opacity:.7">Statbank last answered 28 August.</em></span></li>
-              <li><span class="disc disc--teal"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><span>Ledige stillinger<em style="color:inherit;opacity:.7">Credentials expire in 6 days.</em></span></li>
-            </ul>
-            <div style="margin-top:12px"><button class="btn btn--coral" type="button">Review sources</button></div>
+        <div class="panel">
+          <div class="ph"><div><h2>Runs per day</h2><p>This week</p></div><button class="round" type="button" aria-label="More"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="18" cy="12" r="1.2"/></svg></button></div>
+          <div class="bc">
+            <div class="ylabels"><span>40</span><span>30</span><span>20</span><span>10</span><span>0</span></div>
+            <div>
+              <div class="bars" role="img" aria-label="Runs per day this week: 28, 31, 24, 33, 36 on Thursday, 34 today, none on Saturday.">
+                <div class="col" style="--v:70%"><i></i></div><div class="col" style="--v:77%"><i></i></div><div class="col" style="--v:60%"><i></i></div><div class="col" style="--v:82%"><i></i></div><div class="col hi" style="--v:90%"><i></i><span class="tip">36</span></div><div class="col" style="--v:85%"><i></i></div><div class="col" style="--v:2%"><i></i></div>
+              </div>
+              <div class="dlabels" aria-hidden="true"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+            </div>
           </div>
         </div>
-      </main>
-    </div>
-  </div>
+      </div>
 
-  <div class="card strip">
-    <div><h3>Buttons</h3><div class="row"><button class="btn btn--primary">Save changes</button><button class="btn">Discard</button><button class="btn btn--coral">Delete graph</button><button class="btn btn--quiet">Preview</button></div></div>
-    <div><h3>Field</h3><div class="field"><label>Region</label><span class="input">Hovedstaden</span></div></div>
-    <div><h3>Tabs</h3><div class="tabs"><span class="tab on">Rows</span><span class="tab">Runs</span><span class="tab">Schedule</span></div></div>
-    <div><h3>Choice and status</h3><div class="row"><span class="cb"><i class="on"></i>Cache</span><span class="cb"><i></i>Notify</span><span class="chip chip--warn">Stale data</span><span class="chip chip--bad">Timed out</span></div></div>
-    <div><h3>Toast</h3><div class="card toast">Published. The dashboard is live. <button class="btn btn--quiet" type="button">Undo</button></div></div>
-    <div><h3>Glyph discs</h3><div class="row"><span class="disc disc--teal"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 9v4l3 2"/></svg></span><span class="disc disc--coral"><svg viewBox="0 0 24 24"><path d="M12 4l9 16H3z"/></svg></span><span class="disc disc--mustard"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4v8h8"/></svg></span><span class="disc disc--slate"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg></span></div></div>
+      <div class="lists">
+        <div class="panel">
+          <div class="ph"><div><h2>Top sources</h2><p>By rows this month</p></div><button class="round" type="button" aria-label="More"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="18" cy="12" r="1.2"/></svg></button></div>
+          <div class="item"><span class="thumb"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span><span><b>Befolkning, region</b><small>FOLK1A · 31 runs</small></span><span class="amt">5.940.000</span></div>
+          <div class="item"><span class="thumb"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span><span><b>Pendling</b><small>PEND100 · 28 runs</small></span><span class="amt">902.311</span></div>
+          <div class="item"><span class="thumb"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span><span><b>Boligbyggeri</b><small>BYGV80 · 12 runs</small></span><span class="amt">18.422</span></div>
+        </div>
+        <div class="panel">
+          <div class="ph"><div><h2>Recent runs</h2><p>Latest five</p></div><button class="btn" type="button">View all</button></div>
+          <table>
+            <thead><tr><th>Source</th><th>Run</th><th>Table</th><th>Status</th><th class="num">Rows</th></tr></thead>
+            <tbody>
+              <tr><td><span class="who"><span class="avatar">BR</span>Befolkning, region</span></td><td class="mono">r_9f21c4</td><td>FOLK1A</td><td><span class="pill pill--ok">Finished</span></td><td class="num">5.940.000</td></tr>
+              <tr><td><span class="who"><span class="avatar">PE</span>Pendling</span></td><td class="mono">r_c48e02</td><td>PEND100</td><td><span class="pill pill--info">Running</span></td><td class="num">902.311</td></tr>
+              <tr><td><span class="who"><span class="avatar">EN</span>Energimix</span></td><td class="mono">r_7b1d55</td><td>ENE2HA</td><td><span class="pill pill--warn">Stale data</span></td><td class="num">4.410</td></tr>
+              <tr><td><span class="who"><span class="avatar">BO</span>Boligbyggeri</span></td><td class="mono">r_3a17bd</td><td>BYGV80</td><td><span class="pill pill--bad">Timed out</span></td><td class="num">18.422</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
   </div>
 
   <div class="notes">
-    <div class="card note"><h3>No gradient</h3><p>The ground is one flat colour, porcelain by day and spruce by night. Nothing is translucent, nothing blends. Colour comes from the solid shapes, not from what is behind them.</p></div>
-    <div class="card note"><h3>Opaque, hard, one flat offset</h3><p>Cards are paper white by day and spruce by night, with a 2px flat edge beneath — the enamel-sign edge. No blur, no glow, no soft grey shadow. Solid tiles get the same edge in their own colour.</p></div>
-    <div class="card note"><h3>Colour is a fill, not a tint</h3><p>The reference's whole energy is saturated solids. Skagen, coral and mustard become fills for tiles, buttons and status. The hero stat and the one that needs action are solid tiles; the rest are paper.</p></div>
-    <div class="card note"><h3>Objects, not decoration</h3><p>The reference draws its data as things — a stopwatch, a pie, a line with dots. The glyph discs and the dotted line chart do the same job. They are flat geometry in a solid disc, one per idea.</p></div>
-    <div class="card note"><h3>What stayed</h3><p>Schibsted Grotesk alone. Skagen for action. The archetypes, the writing rules, the a11y floor. The chart's axis labels are still HTML.</p></div>
-    <div class="card note"><h3>The long shadow</h3><p>It is the reference's one depth cue and it is optional here — turn it on above. My view: it works on the solid tiles and fights the paper cards. If it stays, it stays on solids only.</p></div>
+    <div class="note"><h3>Lines, not gaps</h3><p>Cells touch and are divided by 1px hairlines, so a screen is one sheet rather than a tray of cards. No shadows, no radius between cells, no gradient anywhere.</p></div>
+    <div class="note"><h3>Colour only where it means something</h3><p>Status pills and the single action colour. Everything else is spruce on white. The black block in the nav is where you are.</p></div>
+    <div class="note"><h3>Figures get a gauge</h3><p>A thin arc against a light track, with the value beneath at medium weight rather than bold. Charts are monochrome: a hatched band for the target, a dashed line for the reference, one black pill for the point that matters.</p></div>
   </div>
 </div>
 
 <script>
-(function(){
-  var root=document.documentElement;
-  function wire(attr){var btns=document.querySelectorAll('button[data-'+attr+']');btns.forEach(function(b){b.addEventListener('click',function(){root.setAttribute('data-'+attr,b.getAttribute('data-'+attr));btns.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});});});}
-  wire('theme');wire('ls');root.setAttribute('data-theme','light');root.setAttribute('data-ls','off');
-})();
+(function(){var root=document.documentElement;var btns=document.querySelectorAll('button[data-theme]');btns.forEach(function(b){b.addEventListener('click',function(){root.setAttribute('data-theme',b.getAttribute('data-theme'));btns.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});});});root.setAttribute('data-theme','light');})();
 </script>
